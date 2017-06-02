@@ -1,0 +1,20 @@
+{
+  "name": "toth3-overlay",
+  "dependencies": {
+    "autosize": "~3.0.6",
+    "gsap": "^1.19.0",
+    "iron-image": "PolymerElements/iron-image#~1.0.2",
+    "paper-button": "PolymerElements/paper-button#^1.0.12",
+    "paper-input": "PolymerElements/paper-input#^1.1.11",
+    "nodecg-toast": "NodeCGElements/nodecg-toast#^0.1.2",
+    "nodecg-toggle": "NodeCGElements/nodecg-toggle#^0.2.0",
+    "moment": "^2.13.0",
+    "vaadin-combo-box": "^1.1.2",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.0",
+    "iron-input": "PolymerElements/iron-input#^1.0.10",
+    "iron-validatable-behavior": "PolymerElements/iron-validatable-behavior#^1.1.1",
+    "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^1.0.1",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
+    "paper-item": "PolymerElements/paper-item#^1.2.1"
+  }
+}

@@ -1,0 +1,85 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"useMockData": {
+			"type": "boolean",
+			"description": "Whether or not to use mock data instead of the real tracker API. If true, pulls from Lange's Dropbox.",
+			"default": false
+		},
+		"twitter": {
+			"type": "object",
+			"properties": {
+				"consumerKey": {
+					"type": "string"
+				},
+				"consumerSecret": {
+					"type": "string"
+				},
+				"accessTokenKey": {
+					"type": "string"
+				},
+				"accessTokenSecret": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"consumerKey",
+				"consumerSecret",
+				"accessTokenKey",
+				"accessTokenSecret"
+			]
+		},
+		"lastfm": {
+			"type": "object",
+			"properties": {
+				"apiKey": {
+					"type": "string"
+				},
+				"secret": {
+					"type": "string"
+				},
+				"targetAccount": {
+					"type": "string"
+				}
+			},
+			"description": "Configuration object for Last.fm API, used by nowplaying graphic.",
+			"required": [
+				"apiKey",
+				"secret",
+				"targetAccount"
+			]
+		},
+		"scraptf": {
+			"type": "object",
+			"properties": {
+				"apiKey": {
+					"type": "string"
+				},
+				"fundraiserId": {
+					"type": "string"
+				}
+			},
+			"description": "Configuration object for Scrap.tf API, used to poll for new item donatins and update the item fundraising total.",
+			"required": [
+				"apiKey",
+				"fundraiserId"
+			]
+		},
+		"x32": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string",
+					"description": "The IP address or hostname of a Behringer X32 digital mixer."
+				}
+			},
+			"required": [
+				"address"
+			]
+		},
+  		"donationSocketUrl": {
+			"type": "string"
+		}
+	}
+}

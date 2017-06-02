@@ -1,0 +1,17 @@
+{
+	"extends": "xo/esnext",
+	"rules": {
+		"new-cap": [
+			2,
+			{
+				"capIsNewExceptions": [
+					"Polymer",
+					"nodecg.Replicant",
+					"e.apis.extension.Replicant",
+					"window.dashboardApi.Replicant"
+				]
+			}
+		],
+		"capitalized-comments": [0]
+	}
+}
