@@ -1,4 +1,4 @@
-# toth5-overlay
+# toth5-overlay [![CircleCI](https://circleci.com/gh/TipoftheHats/toth5-overlay.svg?style=svg&circle-token=dac175649e102641f7aaed825ebabcaae330f7e2)](https://circleci.com/gh/TipoftheHats/toth5-overlay)
 The main broadcast assets for [Tip of the Hats 2016](http://tipofthehats.org/).
 
 This is a [NodeCG](http://github.com/nodecg/nodecg) bundle. It cannot be run on its own, it has to be run as part of an existing NodeCG installation. Please see NodeCG's documentation for installation and setup instructions before continuing with toth5-overlay setup.
