@@ -7,7 +7,9 @@
 	Polymer({
 		is: 'toth-brb',
 
-		properties: {},
+		properties: {
+			importPath: String // https://github.com/Polymer/polymer-linter/issues/71
+		},
 
 		ready() {
 			const self = this;

@@ -8,6 +8,7 @@
 		is: 'toth-tweet',
 
 		properties: {
+			importPath: String, // https://github.com/Polymer/polymer-linter/issues/71
 			tl: {
 				type: Object,
 				value: new TimelineLite({autoRemoveChildren: true}),
@@ -25,6 +26,9 @@
 				},
 				observer: 'imagesChanged'
 			},
+			name: String,
+			screenName: String,
+			avatarUrl: String,
 			_showing: {
 				type: Boolean,
 				value: false

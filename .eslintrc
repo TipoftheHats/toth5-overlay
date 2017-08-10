@@ -1,5 +1,8 @@
 {
 	"extends": "xo/esnext",
+	"plugins": [
+		"html"
+	],
 	"rules": {
 		"new-cap": [
 			2,

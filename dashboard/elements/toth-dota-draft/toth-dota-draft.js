@@ -2,6 +2,10 @@
 	'use strict';
 
 	Polymer({
-		is: 'toth-dota-draft'
+		is: 'toth-dota-draft',
+
+		properties: {
+			availablePlayers: Array
+		}
 	});
 })();

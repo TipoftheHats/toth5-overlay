@@ -1,11 +1,14 @@
-(function() {
+(function () {
 	'use strict';
 
 	const texts = nodecg.Replicant('texts');
 	const lowerthirdShowing = nodecg.Replicant('lowerthirdShowing');
 
+	/**
+	 * @customElement
+	 * @polymer
+	 */
 	class TothLowerThird extends Polymer.Element {
-
 		static get is() {
 			return 'toth-lowerthird';
 		}
@@ -28,7 +31,7 @@
 					type: Boolean,
 					value: false
 				}
-			}
+			};
 		}
 
 		ready() {
@@ -52,13 +55,11 @@
 				TweenLite.set(title, {
 					scaleX: maxWidth / titleWidth
 				});
-			} else {
+			} else if (title.showing) {
 				// Ok... this fixes that weird bug that shows the title when it shouldn't be showing. Reminder to tell lange about it.
-				if (title.showing) {
-					TweenLite.set(title, {
-						scaleX: 1
-					});
-				}
+				TweenLite.set(title, {
+					scaleX: 1
+				});
 			}
 		}
 
@@ -192,5 +193,6 @@
 			});
 		}
 	}
+
 	customElements.define(TothLowerThird.is, TothLowerThird);
 })();

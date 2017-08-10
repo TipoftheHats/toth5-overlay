@@ -5,6 +5,7 @@
 		is: 'toth-nowplaying',
 
 		properties: {
+			importPath: String, // https://github.com/Polymer/polymer-linter/issues/71
 			artUrl: {
 				type: String
 			},

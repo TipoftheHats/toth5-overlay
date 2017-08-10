@@ -1,0 +1,8 @@
+{
+	"lint": {
+		"rules": ["polymer-2"],
+		"ignoreWarnings": [
+			"unknown-superclass"
+		]
+	}
+}

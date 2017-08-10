@@ -1,5 +1,5 @@
-<link rel="import" href="/bundles/toth5-overlay/bower_components/paper-input/paper-input-container.html">
-<link rel="import" href="/bundles/toth5-overlay/bower_components/paper-input/paper-input-error.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input-error.html">
 <link rel="import" href="time-input-base.html">
 
 <dom-module id="time-input">
@@ -20,16 +20,18 @@
 			}
 		</style>
 
-		<paper-input-container id="container"
-		                       no-label-float="{{noLabelFloat}}"
-		                       always-float-label
-		                       auto-validate
-		                       attr-for-value="value">
+		<paper-input-container
+			id="container"
+		    no-label-float="{{noLabelFloat}}"
+		    always-float-label
+		    auto-validate
+		    attr-for-value="value">
 			<label>{{label}}</label>
-			<time-input-base id="input"
-			                 class="paper-input-input"
-			                 value="{{value}}"
-			                 no-hours="{{noHours}}"></time-input-base>
+			<time-input-base
+				id="input"
+				class="paper-input-input"
+			    value="{{value}}"
+			    no-hours="{{noHours}}"></time-input-base>
 			<paper-input-error>Invalid time</paper-input-error>
 		</paper-input-container>
 	</template>
@@ -61,6 +63,6 @@
 				const s = Math.floor(seconds % 3600 % 60);
 				this.setHMS(h, m, s);
 			}
-		})
+		});
 	</script>
 </dom-module>

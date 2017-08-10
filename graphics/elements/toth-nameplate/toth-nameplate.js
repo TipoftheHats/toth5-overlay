@@ -22,6 +22,12 @@
 	Polymer({
 		is: 'toth-nameplate',
 
+		properties: {
+			couch1: Object,
+			couch2: Object,
+			couch3: Object
+		},
+
 		ready() {
 			this.tl = new TimelineLite({autoRemoveChildren: true});
 
