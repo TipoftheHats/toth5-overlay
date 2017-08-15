@@ -2,9 +2,16 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+	<title>toth5-overlay Main</title>
     <script src="//use.typekit.net/ofl6oue.js"></script>
-    <script>try {Typekit.load();} catch (e) {}</script>
-	<script src="components/gsap/src/minified/TweenMax.min.js"></script>
+    <script>
+		try {
+			Typekit.load();
+		} catch (e) {}
+	</script>
+	<script src="../bower_components/gsap/src/minified/TweenMax.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+
 	<script src="app/main.js"></script>
 	<link href="elements/toth-donation/toth-donation.html" rel="import">
 	<link href="elements/toth-ticker/toth-ticker.html" rel="import">
@@ -81,7 +88,7 @@
 <body>
     <div id="container">
         <toth-brb id="brb"></toth-brb>
-		<div id="hashtag">#TotH2016</div>
+		<div id="hashtag">#TotH2017</div>
         <toth-scoreboard id="scoreboard"></toth-scoreboard>
         <toth-lowerthird id="lowerthird"></toth-lowerthird>
         <toth-sponsors id="sponsors"></toth-sponsors>

@@ -4,30 +4,40 @@
 	const talkbackIntent = nodecg.Replicant('talkback_intent');
 	const talkbackStatus = nodecg.Replicant('talkback_status');
 
-	Polymer({
-		is: 'toth-talkback',
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothTalkback extends Polymer.Element {
+		static get is() {
+			return 'toth-talkback';
+		}
 
-		properties: {
-			station: {
-				type: String,
-				reflectToAttribute: true
-			},
-			targets: {
-				type: Array,
-				/* eslint-disable object-property-newline */
-				value() {
-					return [
-						{name: 'couch', intent: false, status: false, latch: false},
-						{name: 'host', intent: false, status: false, latch: false},
-						{name: 'players', intent: false, status: false, latch: false},
-						{name: 'all', intent: false, status: false, latch: false}
-					];
+		static get properties() {
+			return {
+				station: {
+					type: String,
+					reflectToAttribute: true
+				},
+				targets: {
+					type: Array,
+					/* eslint-disable object-property-newline */
+					value() {
+						return [
+							{name: 'couch', intent: false, status: false, latch: false},
+							{name: 'host', intent: false, status: false, latch: false},
+							{name: 'players', intent: false, status: false, latch: false},
+							{name: 'all', intent: false, status: false, latch: false}
+						];
+					}
+					/* eslint-enable object-property-newline */
 				}
-				/* eslint-enable object-property-newline */
-			}
-		},
+			};
+		}
 
 		ready() {
+			super.ready();
+
 			talkbackIntent.on('change', newVal => {
 				this.set('targets.0.intent', newVal[this.station].couch);
 				this.set('targets.1.intent', newVal[this.station].host);
@@ -43,7 +53,7 @@
 					newVal[this.station].player2 || newVal[this.station].player3 || newVal[this.station].player4);
 				this.set('targets.3.status', this.targets[0].status && this.targets[1].status && this.targets[2].status);
 			});
-		},
+		}
 
 		checkLatches() {
 			if (!this.station) {
@@ -70,7 +80,7 @@
 					}
 				}
 			});
-		},
+		}
 
 		talkback(e) {
 			const target = this.getTarget(e.target.getAttribute('data-target'));
@@ -94,7 +104,7 @@
 			} else {
 				talkbackIntent.value[this.station][target.name] = true;
 			}
-		},
+		}
 
 		mute(e) {
 			const target = this.getTarget(e.target.getAttribute('data-target'));
@@ -118,7 +128,7 @@
 			} else {
 				talkbackIntent.value[this.station][target.name] = false;
 			}
-		},
+		}
 
 		toggle(e) {
 			const target = this.getTarget(e.target.getAttribute('data-target'));
@@ -142,10 +152,12 @@
 			} else {
 				talkbackIntent.value[this.station][target.name] = !talkbackIntent.value[this.station][target.name];
 			}
-		},
+		}
 
 		getTarget(name) {
 			return this.targets.find(target => target.name === name);
 		}
-	});
+	}
+
+	customElements.define(TothTalkback.is, TothTalkback);
 })();

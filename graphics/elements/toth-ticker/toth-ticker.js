@@ -8,18 +8,26 @@
 	const upNext = nodecg.Replicant('upNext');
 	const total = nodecg.Replicant('total');
 
-	Polymer({
-		is: 'toth-ticker',
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothTicker extends Polymer.Element {
+		static get is() {
+			return 'toth-ticker';
+		}
 
 		ready() {
+			super.ready();
 			this.tl = new TimelineLite({autoRemoveChildren: true});
 			this.$['total-amount'].rawValue = 0;
 			this.tl.set(this.$.content, {y: '100%'});
 			this.challengeAccepted = this.challengeAccepted.bind(this);
 			nodecg.listenFor('challengeAccepted', this.challengeAccepted);
-		},
+		}
 
-		attached() {
+		connectedCallback() {
+			super.connectedCallback();
 			setTimeout(() => {
 				// Start the rotation
 				this.showSchedule();
@@ -27,7 +35,7 @@
 				// Do this on a delay, otherwise it sometimes freaks out and makes #content have zero width.
 				total.on('change', this.totalChanged.bind(this));
 			}, 1500);
-		},
+		}
 
 		totalChanged(newVal) {
 			const TIME_PER_DOLLAR = 0.03;
@@ -49,7 +57,7 @@
 					}
 				}.bind(this)
 			});
-		},
+		}
 
 		fitContent() {
 			const maxWidth = this.$.body.clientWidth - 32;
@@ -60,7 +68,7 @@
 			} else {
 				TweenLite.set(this.$.content, {scaleX: 1});
 			}
-		},
+		}
 
 		enter() {
 			this.tl.to(this.$.label, 0.8, {
@@ -77,7 +85,7 @@
 				y: '0%',
 				ease: Power3.easeOut
 			}, '-=0.18');
-		},
+		}
 
 		exit() {
 			this.tl.call(() => {
@@ -102,13 +110,14 @@
 			}, '-=0.08');
 
 			this.tl.set(this.$.label, {x: 0});
-		},
+		}
 
 		showSchedule() {
 			this.tl.call(() => {
 				this.$.content.style.width = 'auto';
-				this.customStyle['--toth-ticker-content-color'] = '#f47425';
-				this.updateStyles();
+				this.updateStyles({
+					'--toth-ticker-content-color': '#f47425'
+				});
 				this.$.label.innerText = 'ON NOW';
 				this.$.content.innerHTML = onNow.value;
 				this.fitContent();
@@ -129,7 +138,7 @@
 			}
 
 			this.tl.call(this.showChallenges, null, this);
-		},
+		}
 
 		showChallenges() {
 			if (challenges.value.length <= 0) {
@@ -177,7 +186,7 @@
 			this.exit();
 
 			this.tl.call(this.showWars, null, this);
-		},
+		}
 
 		showWars() {
 			if (wars.value.length <= 0) {
@@ -234,7 +243,7 @@
 			this.exit();
 
 			this.tl.call(this.showCTA, null, this);
-		},
+		}
 
 		showCTA() {
 			this.tl.to(this.$.cta, 0.66, {
@@ -255,7 +264,7 @@
 			this.tl.set(this.$.cta, {y: '100%'});
 
 			this.tl.call(this.showSchedule, null, this);
-		},
+		}
 
 		challengeAccepted({name, total}) {
 			const tl = new TimelineLite();
@@ -307,7 +316,7 @@
 
 			// Reset
 			tl.set(this.$['challengeAccepted-text'], {y: '50%'});
-		},
+		}
 
 		_optionAnim(option, index) {
 			index++;
@@ -331,20 +340,22 @@
 			});
 
 			this.tl.to({}, 1.32, {});
-		},
+		}
 
 		_setChallengeContent({description, total, goal}) {
 			this.$.content.innerHTML = `${description} - <b><span style="color:#f47425">${total}</span> / ${goal}</b>`;
 			this.fitContent();
-		},
+		}
 
 		_setWarContent({description}) {
 			this.$.content.innerHTML = `${description}&nbsp;&nbsp;&nbsp;&nbsp;<b style="display: inline-block"></b>`;
-		},
+		}
 
 		_setWarOption({description, total}, index) {
 			this.$.content.querySelector('b').innerText = `${index + 1}. ${description} - ${total}`;
 			this.fitContent();
 		}
-	});
+	}
+
+	customElements.define(TothTicker.is, TothTicker);
 })();

@@ -4,41 +4,69 @@
 	const texts = nodecg.Replicant('texts');
 	const lowerthirdShowing = nodecg.Replicant('lowerthirdShowing');
 
-	Polymer({
-		is: 'toth-lowerthird',
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothLowerThird extends Polymer.Element {
+		static get is() {
+			return 'toth-lowerthird';
+		}
 
-		properties: {
-			titleMsg: {
-				type: String,
-				observer: 'titleMsgChanged'
-			},
-			bodyMsg: {
-				type: String,
-				observer: 'bodyMsgChanged'
-			},
-			absoluteMaxWidth: {
-				type: Number,
-				value: 1240
-			},
-			_showing: {
-				type: Boolean,
-				value: false
-			}
-		},
+		static get properties() {
+			return {
+				titleMsg: {
+					type: String,
+					observer: '_titleMsgChanged'
+				},
+				bodyMsg: {
+					type: String,
+					observer: '_bodyMsgChanged'
+				},
+				absoluteMaxWidth: {
+					type: Number,
+					value: 1240
+				},
+				_showing: {
+					type: Boolean,
+					value: false
+				}
+			};
+		}
 
-		titleMsgChanged() {
+		ready() {
+			super.ready();
+
+			Polymer.RenderStatus.beforeNextRender(this, () => {
+				TweenLite.set(this.$.title, {y: '100%'});
+				texts.on('change', newVal => {
+					this.titleMsg = newVal.title;
+					this.bodyMsg = newVal.body;
+					if (!this._textsReady) {
+						this._textsReady = true;
+						this._onTextsReady();
+					}
+				});
+			});
+		}
+
+		_titleMsgChanged() {
 			// Limit width of title to 800 px
 			const title = this.$.title;
 			const maxWidth = 800;
 			const titleWidth = title.scrollWidth;
 			if (titleWidth > maxWidth) {
-				TweenLite.set(title, {scaleX: maxWidth / titleWidth});
+				TweenLite.set(title, {
+					scaleX: maxWidth / titleWidth
+				});
 			} else {
-				TweenLite.set(title, {scaleX: 1});
+				TweenLite.set(title, {
+					scaleX: 1
+				});
 			}
-		},
+		}
 
-		bodyMsgChanged() {
+		_bodyMsgChanged() {
 			const bodyEl = this.$.body;
 			bodyEl.style.maxWidth = '';
 			const width = bodyEl.offsetWidth;
@@ -62,19 +90,7 @@
 						bodyEl.offsetWidth)
 				});
 			}
-		},
-
-		attached() {
-			texts.on('change', newVal => {
-				this.titleMsg = newVal.title;
-				this.bodyMsg = newVal.body;
-
-				if (!this._textsReady) {
-					this._textsReady = true;
-					this._onTextsReady();
-				}
-			});
-		},
+		}
 
 		// Only declare the "showing" replicant once all the "texts" replicant is ready.
 		_onTextsReady() {
@@ -85,15 +101,13 @@
 					this.hide();
 				}
 			});
-		},
+		}
 
 		show() {
 			if (this._showing) {
 				return;
 			}
-
 			this._showing = true;
-
 			const line = this.$.line;
 			const logo = this.$.logo;
 			const title = this.$.title;
@@ -107,7 +121,6 @@
 				ease: Power3.easeInOut,
 				onUpdate() {
 					const currLineWidth = line.offsetWidth;
-
 					if (!logo.showing && currLineWidth >= logo.offsetWidth) {
 						logo.showing = true;
 						TweenLite.to(logo, 0.5, {
@@ -137,15 +150,13 @@
 					self.showing = true;
 				}
 			});
-		},
+		}
 
 		hide() {
 			if (!this._showing) {
 				return;
 			}
-
 			this._showing = false;
-
 			const line = this.$.line;
 			const logo = this.$.logo;
 			const title = this.$.title;
@@ -172,7 +183,9 @@
 				scaleY: '0',
 				ease: Linear.easeNone
 			});
-			tl.set(body, {clearProps: 'transform'});
+			tl.set(body, {
+				clearProps: 'transform'
+			});
 			tl.set([logo, line], {
 				clearProps: 'all',
 				onComplete() {
@@ -183,5 +196,7 @@
 				}
 			});
 		}
-	});
+	}
+
+	customElements.define(TothLowerThird.is, TothLowerThird);
 })();

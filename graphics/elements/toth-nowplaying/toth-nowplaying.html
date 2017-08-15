@@ -1,4 +1,4 @@
-<link rel="import" href="../../components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
 
 <dom-module id="toth-nowplaying">
     <template>
@@ -67,8 +67,14 @@
 		</style>
 
         <div class="cull fullHeight">
-            <iron-image id="art" class="fullHeight" sizing="contain" preload fade src="[[artUrl]]"
-                        placeholder="elements/toth-nowplaying/img/default_album_cover.jpg"></iron-image>
+            <iron-image
+				id="art"
+				class="fullHeight"
+				sizing="contain"
+				src="[[artUrl]]"
+                placeholder="[[importPath]]img/default_album_cover.jpg"
+				preload
+				fade></iron-image>
         </div>
         <div class="cull fullHeight centerFlex">
             <div id="line"></div>
@@ -85,4 +91,3 @@
 
 	<script src="toth-nowplaying.js"></script>
 </dom-module>
-

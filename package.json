@@ -1,11 +1,15 @@
 {
   "name": "toth5-overlay",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:TipoftheHats/toth5-overlay.git"
+  },
   "homepage": "http://tipofthehats.org/",
   "authors": [
     "Alex Van Camp <email@alexvan.camp>"
   ],
   "scripts": {
-    "static": "eslint **/*.js",
+    "static": "eslint **/*.js **/*.html && polymer lint",
     "test": "npm run static"
   },
   "description": "The main broadcast assets for Tip of the Hats 2016.",
@@ -18,15 +22,16 @@
     "osc": "^2.1.0",
     "q": "^1.4.1",
     "request-promise": "^3.0.0",
-    "twemoji": "^2.0.5",
-    "twitter": "^1.2.5"
+    "twemoji": "^2.5.0",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
-    "eslint-config-xo": "^0.18.2"
+    "eslint-config-xo": "^0.18.2",
+    "eslint-plugin-html": "^3.1.1"
   },
   "nodecg": {
-    "compatibleRange": "~0.8.0",
+    "compatibleRange": "^0.9.0-beta",
     "graphics": [
       {
         "file": "index.html",

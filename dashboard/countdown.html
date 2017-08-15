@@ -2,33 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<link rel="import" href="components/iron-flex-layout/iron-flex-layout-classes.html">
-	<link rel="import" href="components/iron-icons/av-icons.html">
-	<link rel="import" href="components/paper-button/paper-button.html">
+	<link rel="import" href="../bower_components/font-roboto/roboto.html">
+	<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+	<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+	<link rel="import" href="../bower_components/iron-icons/av-icons.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
 	<link rel="import" href="elements/time-input/time-input.html">
-	<style is="custom-style" include="iron-flex iron-flex-alignment">
-		#countdownTime {
-			margin-top: -16px;
-			--time-input-input-width: 40px;
-			--time-input-font: {
-				font-size: 26px;
-			};
-		}
+	<custom-style>
+		<style include="iron-flex iron-flex-alignment">
+			body {
+				font-family: Roboto, sans-serif;
+			}
 
-		paper-button {
-			min-width: 0;
-		}
-	</style>
+			#countdownTime {
+				margin-top: -16px;
+				--time-input-input-width: 40px;
+				--time-input-font: {
+					font-size: 26px;
+				};
+			}
+
+			#start {
+				--paper-button: {
+					color: white;
+					background-color: #5BA664;
+				};
+			}
+
+			#stop {
+				--paper-button: {
+					color: white;
+					background-color: #C9513E;
+				};
+			}
+
+			paper-button {
+				min-width: 0;
+			}
+		</style>
+	</custom-style>
 </head>
 <body class="layout vertical center">
 	<time-input id="countdownTime" label="Time" always-float-label no-hours></time-input>
 
 	<div class="layout horizontal">
-		<paper-button id="start" class="nodecg-success flex" raised disabled style="margin-left: 0;">
+		<paper-button id="start" class="flex" raised disabled style="margin-left: 0;">
 			<iron-icon icon="av:play-arrow"></iron-icon>
 		</paper-button>
 
-		<paper-button id="stop" class="nodecg-danger flex" raised disabled style="margin-right: 0;">
+		<paper-button id="stop" class="flex" raised disabled style="margin-right: 0;">
 			<iron-icon icon="av:stop"></iron-icon>
 		</paper-button>
 	</div>

@@ -1,6 +1,7 @@
 {
 	"env": {
-		"browser": true
+		"browser": true,
+		"node": false
 	},
 	"globals": {
 		"nodecg": true,
@@ -13,6 +14,7 @@
 		"Power3": true,
 		"Power4": true,
 		"Linear": true,
-		"Back": true
+		"Back": true,
+		"Typekit": true
 	}
 }

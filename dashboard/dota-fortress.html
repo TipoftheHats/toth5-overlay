@@ -2,68 +2,82 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="import" href="components/paper-button/paper-button.html">
-	<style>
-		.draft {
-			display: flex;
-		}
+	<link rel="import" href="../bower_components/font-roboto/roboto.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<custom-style>
+		<style>
+			body {
+				font-family: Roboto, sans-serif;
+			}
 
-		.draft > .input-group {
-			flex-grow: 1;
-		}
+			.draft {
+				display: flex;
+			}
 
-		.column {
-			width: 100%;
-			margin-right: 4px;
-			margin-left: 4px;
-		}
+			.draft > .input-group {
+				flex-grow: 1;
+			}
 
-		.column:first-of-type {
-			margin-right: 4px;
-			margin-left: 0;
-		}
+			.column {
+				width: 100%;
+				margin-right: 4px;
+				margin-left: 4px;
+			}
 
-		.column:last-of-type {
-			margin-right: 0;
-			margin-left: 4px;
-		}
+			.column:first-of-type {
+				margin-right: 4px;
+				margin-left: 0;
+			}
 
-		.label,
-		h3 {
-			margin-top: 0;
-		}
+			.column:last-of-type {
+				margin-right: 0;
+				margin-left: 4px;
+			}
 
-		.label {
-			font-weight: bold;
-		}
+			.label,
+			h3 {
+				margin-top: 0;
+			}
 
-		select[multiple] {
-			height: 150px;
-			margin-bottom: 0;
-		}
+			.label {
+				font-weight: bold;
+			}
 
-		h3[title] {
-			display: inline-block;
-			border-bottom: 1px dashed black;
-			cursor: help;
-		}
+			select[multiple] {
+				height: 150px;
+				margin-bottom: 0;
+			}
 
-		select {
-			width: 100%;
-		}
+			h3[title] {
+				display: inline-block;
+				border-bottom: 1px dashed black;
+				cursor: help;
+			}
 
-		select {
-			margin-bottom: 4px;
-		}
+			select {
+				width: 100%;
+			}
 
-		.color-red {
-			color: #F53641;
-		}
+			select {
+				margin-bottom: 4px;
+			}
 
-		.color-blu {
-			color: #127FDC;
-		}
-	</style>
+			.color-red {
+				color: #F53641;
+			}
+
+			.color-blu {
+				color: #127FDC;
+			}
+
+			#lock {
+				--paper-button: {
+					color: white;
+					background-color: #C9513E;
+				};
+			}
+		</style>
+	</custom-style>
 </head>
 <body>
 	<h3>Draft Players</h3>
@@ -89,7 +103,7 @@
 	</div>
 
 	<div style="display: flex; justify-content: center; margin-top: 8px;">
-		<paper-button command="lock" raised class="nodecg-danger">Lock-in Draft</paper-button>
+		<paper-button id="lock" command="lock" raised>Lock-in Draft</paper-button>
 	</div>
 
 	<hr/>

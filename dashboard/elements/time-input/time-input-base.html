@@ -1,97 +1,134 @@
-<link rel="import" href="../../components/iron-input/iron-input.html">
-<link rel="import" href="../../components/iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="time-validator.html">
 
 <dom-module id="time-input-base">
-	<template>
+	<template strip-whitespace>
 		<style>
 			:host {
 				display: inline;
 			}
 
-			input[is="iron-input"] {
+			input {
 				font: inherit;
 				outline: none;
 				box-shadow: none;
 				border: none;
+				@apply --time-input-base-input;
+			}
+
+			.colon {
+				display: inline;
+				position: relative;
+				top: -1px;
+				@apply --time-input-base-colon;
 			}
 		</style>
 
 		<time-validator></time-validator>
 
 		<template is="dom-if" if="{{!noHours}}">
-			<input is="iron-input"
-			       disabled="{{disabled}}"
-			       maxlength="2"
-			       bind-value="{{_hours}}"
-			       size="2"
-			       aria-label="Hours">:
+			<iron-input bind-value="{{_hours}}" allowed-pattern="[0-9]">
+				<input
+					on-change="_onChange"
+					disabled="[[disabled]]"
+					maxlength="2"
+					size="2"
+					aria-label="Hours">
+			</iron-input>
+			<div class="colon">:</div>
 		</template>
 
-		<!-- The weird indentation here is intentional! It avoids extra spaces being added around the colon. -->
-		<input is="iron-input"
-		       disabled="{{disabled}}"
-		       maxlength="2"
-		       bind-value="{{_minutes}}"
-		       size="2"
-		       aria-label="Minutes">:<input is="iron-input"
-		                                    disabled="{{disabled}}"
-		                                    maxlength="2"
-		                                    bind-value="{{_seconds}}"
-		                                    size="2"
-		                                    aria-label="Seconds">
+		<iron-input bind-value="{{_minutes}}" allowed-pattern="[0-9]">
+			<input
+				on-change="_onChange"
+				disabled="[[disabled]]"
+				maxlength="2"
+				size="2"
+				aria-label="Minutes">
+		</iron-input>
+		<div class="colon">:</div>
+		<iron-input bind-value="{{_seconds}}" allowed-pattern="[0-9]">
+			<input
+				on-change="_onChange"
+				disabled="[[disabled]]"
+				maxlength="2"
+				size="2"
+				aria-label="Seconds">
+		</iron-input>
 	</template>
 
 	<script>
-		Polymer({
-			is: 'time-input-base',
+		/**
+		 * @customElement
+		 * @polymer
+		 */
+		class TimeInputBase extends Polymer.mixinBehaviors([Polymer.IronValidatableBehavior], Polymer.Element) {
+			static get is() {
+				return 'time-input-base';
+			}
 
-			behaviors: [
-				Polymer.IronValidatableBehavior
-			],
+			static get properties() {
+				return {
+					value: {
+						notify: true,
+						type: String
+					},
 
-			properties: {
-				value: {
-					notify: true,
-					type: String
-				},
+					_hours: {
+						type: Number
+					},
 
-				_hours: {
-					type: Number
-				},
+					_minutes: {
+						type: Number
+					},
 
-				_minutes: {
-					type: Number
-				},
+					_seconds: {
+						type: Number
+					},
 
-				_seconds: {
-					type: Number
-				},
+					validator: {
+						type: String,
+						value: 'time-validator'
+					},
 
-				validator: {
-					type: String,
-					value: 'time-validator'
-				},
+					noHours: {
+						type: Boolean,
+						value: false
+					},
 
-				noHours: {
-					type: Boolean,
-					value: false
-				},
+					disabled: {
+						type: Boolean,
+						reflectToAttribute: true,
+						value: false
+					}
+				};
+			}
 
-				disabled: {
-					type: Boolean,
-					reflectToAttribute: true,
-					value: false
-				}
-			},
+			static get observers() {
+				return [
+					'_computeValue(_hours, _minutes, _seconds)'
+				];
+			}
 
-			observers: [
-				'_computeValue(_hours,_minutes,_seconds)'
-			],
-
-			_computeValue: function(hours, minutes, seconds) {
+			_computeValue(hours, minutes, seconds) {
 				this.value = hours + ':' + minutes + ':' + seconds;
 			}
-		});
+
+			_onChange(event) {
+				// In the Shadow DOM, the `change` event is not leaked into the
+				// ancestor tree, so we must do this manually.
+				// See https://w3c.github.io/webcomponents/spec/shadow/#events-that-are-not-leaked-into-ancestor-trees.
+				if (this.shadowRoot) {
+					this.fire(event.type, {sourceEvent: event}, {
+						node: this,
+						bubbles: event.bubbles,
+						cancelable: event.cancelable
+					});
+				}
+			}
+		}
+
+		customElements.define(TimeInputBase.is, TimeInputBase);
 	</script>
 </dom-module>

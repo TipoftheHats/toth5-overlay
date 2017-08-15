@@ -1,11 +1,15 @@
 {
 	"extends": "xo/esnext",
+	"plugins": [
+		"html"
+	],
 	"rules": {
 		"new-cap": [
 			2,
 			{
 				"capIsNewExceptions": [
 					"Polymer",
+					"Polymer.MutableData",
 					"nodecg.Replicant",
 					"e.apis.extension.Replicant",
 					"window.dashboardApi.Replicant"

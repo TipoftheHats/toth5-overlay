@@ -1,5 +1,5 @@
-<link rel="import" href="../../components/paper-input/paper-input-container.html">
-<link rel="import" href="../../components/paper-input/paper-input-error.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input-error.html">
 <link rel="import" href="time-input-base.html">
 
 <dom-module id="time-input">
@@ -10,50 +10,69 @@
 			}
 
 			#container {
-				margin-bottom: 12px;
-				--paper-input-container-input: {
-					@apply(--time-input-font);
+				--time-input-base-input: {
 					width: var(--time-input-input-width, 22px);
 					text-align: center;
 					background-color: var(--time-input-bg-color, transparent);
+					@apply --time-input-font;
 				};
+			}
+
+			label {
+				margin-top: 2px;
 			}
 		</style>
 
-		<paper-input-container id="container"
-		                       no-label-float="{{noLabelFloat}}"
-		                       always-float-label
-		                       auto-validate
-		                       attr-for-value="value">
-			<label>{{label}}</label>
-			<time-input-base id="input"
-			                 class="paper-input-input"
-			                 value="{{value}}"
-			                 no-hours="{{noHours}}"></time-input-base>
-			<paper-input-error>Invalid time</paper-input-error>
+		<paper-input-container
+			id="container"
+			no-label-float="{{noLabelFloat}}"
+			always-float-label
+			auto-validate
+			attr-for-value="value">
+			<label slot="label">{{label}}</label>
+			<time-input-base
+				id="input"
+				slot="input"
+				class="paper-input-input"
+				value="{{value}}"
+				no-hours="{{noHours}}"
+				disabled="[[disabled]]"></time-input-base>
+			<paper-input-error slot="add-on">Invalid time</paper-input-error>
 		</paper-input-container>
 	</template>
 
 	<script>
-		Polymer({
-			is: 'time-input',
+		/**
+		 * @customElement
+		 * @polymer
+		 */
+		class TimeInput extends Polymer.Element {
+			static get is() {
+				return 'time-input';
+			}
 
-			properties: {
-				value: String,
-				noHours: {
-					type: Boolean,
-					reflectToAttribute: true,
-					value: false
-				},
-				label: String,
-				noLabelFloat: Boolean
-			},
+			static get properties() {
+				return {
+					value: {
+						type: String,
+						notify: true
+					},
+					noHours: {
+						type: Boolean,
+						reflectToAttribute: true,
+						value: false
+					},
+					label: String,
+					noLabelFloat: Boolean,
+					disabled: Boolean
+				};
+			}
 
 			setHMS(h, m, s) {
 				this.$.input._hours = h;
 				this.$.input._minutes = m < 10 ? '0' + m : m;
 				this.$.input._seconds = s < 10 ? '0' + s : s;
-			},
+			}
 
 			setSeconds(seconds) {
 				const h = Math.floor(seconds / 3600);
@@ -61,6 +80,8 @@
 				const s = Math.floor(seconds % 3600 % 60);
 				this.setHMS(h, m, s);
 			}
-		})
+		}
+
+		customElements.define(TimeInput.is, TimeInput);
 	</script>
 </dom-module>

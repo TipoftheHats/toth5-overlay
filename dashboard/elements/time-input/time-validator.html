@@ -1,16 +1,19 @@
-<link rel="import" href="../../components/iron-validator-behavior/iron-validator-behavior.html">
+<link rel="import" href="../../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
 
 <script>
-	Polymer({
-		is: 'time-validator',
+	(function () {
+		const regex = /^[0-9]{0,2}:[0-9]{0,2}:[0-9]{0,2}$/;
+		Polymer({
+			is: 'time-validator',
 
-		behaviors: [
-			Polymer.IronValidatorBehavior
-		],
+			behaviors: [
+				Polymer.IronValidatorBehavior
+			],
 
-		validate: function(value) {
-			// this regex validates incomplete times (by design)
-			return !value || value.match(/^[0-9]{0,2}:[0-9]{0,2}:[0-9]{0,2}$/);
-		}
-	});
+			validate(value) {
+				// This regex validates incomplete times (by design).
+				return !value || regex.test(value);
+			}
+		});
+	})();
 </script>

@@ -4,79 +4,90 @@
 	const scoreboardShowing = nodecg.Replicant('scoreboardShowing');
 	const scores = nodecg.Replicant('scores');
 
-	Polymer({
-		is: 'toth-scoreboard',
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothScoreboard extends Polymer.Element {
+		static get is() {
+			return 'toth-scoreboard';
+		}
 
-		properties: {
-			redScore: {
-				type: Number,
-				value: 0,
-				observer: 'redScoreChanged'
-			},
-			bluScore: {
-				type: Number,
-				value: 0,
-				observer: 'bluScoreChanged'
-			},
-			redTag: {
-				type: String,
-				value: 'RED',
-				observer: 'redTagChanged'
-			},
-			bluTag: {
-				type: String,
-				value: 'BLU',
-				observer: 'bluTagChanged'
-			},
-			_initialized: {
-				type: Boolean,
-				value: false
-			},
-			_showing: {
-				type: Boolean,
-				value: false
-			}
-		},
+		static get properties() {
+			return {
+				importPath: String, // https://github.com/Polymer/polymer-linter/issues/71
+				redScore: {
+					type: Number,
+					value: 0,
+					observer: 'redScoreChanged'
+				},
+				bluScore: {
+					type: Number,
+					value: 0,
+					observer: 'bluScoreChanged'
+				},
+				redTag: {
+					type: String,
+					value: 'RED',
+					observer: 'redTagChanged'
+				},
+				bluTag: {
+					type: String,
+					value: 'BLU',
+					observer: 'bluTagChanged'
+				},
+				_initialized: {
+					type: Boolean,
+					value: false
+				},
+				_showing: {
+					type: Boolean,
+					value: false
+				}
+			};
+		}
 
 		redScoreChanged(newVal) {
-			this.changeScore(this.$$('div[team="red"] .score'), newVal);
-		},
+			this.changeScore(this.shadowRoot.querySelector('div[team="red"] .score'), newVal);
+		}
 
 		bluScoreChanged(newVal) {
-			this.changeScore(this.$$('div[team="blu"] .score'), newVal);
-		},
+			this.changeScore(this.shadowRoot.querySelector('div[team="blu"] .score'), newVal);
+		}
 
 		redTagChanged(newVal) {
-			this.changeTag(this.$$('div[team="red"] .tag'), newVal);
-		},
+			this.changeTag(this.shadowRoot.querySelector('div[team="red"] .tag'), newVal);
+		}
 
 		bluTagChanged(newVal) {
-			this.changeTag(this.$$('div[team="blu"] .tag'), newVal);
-		},
+			this.changeTag(this.shadowRoot.querySelector('div[team="blu"] .tag'), newVal);
+		}
 
 		ready() {
+			super.ready();
 			TweenLite.set(this.$.logo, {
 				scale: '0',
-				y: '21px'
-			});
-		},
-
-		attached() {
-			scores.on('change', newVal => {
-				this.redScore = newVal.red.score;
-				this.bluScore = newVal.blu.score;
-				this.redTag = newVal.red.tag;
-				this.bluTag = newVal.blu.tag;
+				y: '21px',
+				x: '-50%'
 			});
 
-			scoreboardShowing.on('change', newVal => {
-				if (newVal) {
-					this.show();
-				} else {
-					this.hide();
-				}
+			Polymer.RenderStatus.beforeNextRender(this, () => {
+				scores.on('change', newVal => {
+					this.redScore = newVal.red.score;
+					this.bluScore = newVal.blu.score;
+					this.redTag = newVal.red.tag;
+					this.bluTag = newVal.blu.tag;
+				});
+
+				scoreboardShowing.on('change', newVal => {
+					if (newVal) {
+						this.show();
+					} else {
+						this.hide();
+					}
+				});
 			});
-		},
+		}
 
 		show() {
 			if (this._showing) {
@@ -85,11 +96,10 @@
 
 			this._showing = true;
 
-			const lines = this.getElementsByClassName('line');
-			const tagWrappers = this.getElementsByClassName('tagWrapper');
-			const scores = this.getElementsByClassName('score');
+			const lines = this.shadowRoot.querySelectorAll('.line');
+			const tagWrappers = this.shadowRoot.querySelectorAll('.tagWrapper');
+			const scores = this.shadowRoot.querySelectorAll('.score');
 			const logo = this.$.logo;
-			const self = this;
 			const tl = new TimelineLite();
 
 			nodecg.playSound('scoreboard_in');
@@ -106,11 +116,12 @@
 			tl.to(lines, 0.8, {
 				width: '100%',
 				ease: Power3.easeInOut,
+				callbackScope: this,
 				onUpdate() {
 					const currLineWidth = lines.item(0).offsetWidth;
 
-					if (!self.tagsShowing && currLineWidth >= tagWrappers.item(0).offsetWidth) {
-						self.tagsShowing = true;
+					if (!this.tagsShowing && currLineWidth >= tagWrappers.item(0).offsetWidth) {
+						this.tagsShowing = true;
 						TweenLite.to(tagWrappers, 0.5, {
 							y: '0%',
 							ease: Power3.easeOut
@@ -121,8 +132,8 @@
 						});
 					}
 
-					if (!self.scoresShowing && currLineWidth >= tagWrappers.item(0).offsetWidth + scores.item(0).offsetWidth) {
-						self.scoresShowing = true;
+					if (!this.scoresShowing && currLineWidth >= tagWrappers.item(0).offsetWidth + scores.item(0).offsetWidth) {
+						this.scoresShowing = true;
 						TweenLite.to(scores, 0.5, {
 							y: '0%',
 							ease: Power3.easeOut
@@ -130,7 +141,7 @@
 					}
 				}
 			}, 'start');
-		},
+		}
 
 		hide() {
 			if (!this._showing) {
@@ -139,12 +150,11 @@
 
 			this._showing = false;
 
-			const wrappers = this.getElementsByClassName('wrapper');
-			const tagWrappers = this.getElementsByClassName('tagWrapper');
-			const scores = this.getElementsByClassName('score');
-			const lines = this.getElementsByClassName('line');
+			const wrappers = this.shadowRoot.querySelectorAll('.wrapper');
+			const tagWrappers = this.shadowRoot.querySelectorAll('.tagWrapper');
+			const scores = this.shadowRoot.querySelectorAll('.score');
+			const lines = this.shadowRoot.querySelectorAll('.line');
 			const logo = this.$.logo;
-			const self = this;
 			const tl = new TimelineLite();
 
 			nodecg.playSound('scoreboard_out');
@@ -165,18 +175,24 @@
 			tl.set(tagWrappers, {clearProps: 'transform'});
 			tl.set([wrappers, logo, scores, lines], {
 				clearProps: 'all',
+				callbackScope: this,
 				onComplete() {
-					self.scoresShowing = false;
-					self.tagsShowing = false;
+					this.scoresShowing = false;
+					this.tagsShowing = false;
 				}
 			});
-		},
+			tl.set(this.$.logo, {
+				scale: '0',
+				y: '21px',
+				x: '-50%'
+			});
+		}
 
 		changeTag(tagEl, newValue) {
 			tagEl.innerHTML = newValue;
 
-			const bluTag = this.$$('div[team="blu"] .tag');
-			const redTag = this.$$('div[team="red"] .tag');
+			const bluTag = this.shadowRoot.querySelector('div[team="blu"] .tag');
+			const redTag = this.shadowRoot.querySelector('div[team="red"] .tag');
 
 			// Reset width of tag wrappers. We'll set it after the tags themselves are sorted
 			const bluTagWrapper = bluTag.parentNode;
@@ -186,28 +202,32 @@
 
 			// If tag is wider than 200px, scale it down
 			const maxWidth = 200;
-			bluTag.style.transform = '';
-			redTag.style.transform = '';
+			TweenLite.set(bluTag, {scaleX: 1});
+			TweenLite.set(redTag, {scaleX: 1});
 
-			if (bluTag.scrollWidth > bluTag.offsetWidth) {
-				bluTag.style.transform = `scaleX(${bluTag.offsetWidth / bluTag.scrollWidth})`;
-			}
+			Polymer.RenderStatus.beforeNextRender(this, () => {
+				if (bluTag.scrollWidth > bluTag.offsetWidth) {
+					TweenLite.set(bluTag, {scaleX: bluTag.offsetWidth / bluTag.scrollWidth});
+				}
 
-			if (redTag.scrollWidth > redTag.offsetWidth) {
-				redTag.style.transform = `scaleX(${redTag.offsetWidth / redTag.scrollWidth})`;
-			}
+				if (redTag.scrollWidth > redTag.offsetWidth) {
+					TweenLite.set(redTag, {scaleX: redTag.offsetWidth / redTag.scrollWidth});
+				}
 
-			// Make both tag wrappers the same width
-			let width = Math.max(bluTag.offsetWidth, redTag.offsetWidth);
-			if (width > maxWidth) {
-				width = maxWidth;
-			}
-			bluTagWrapper.style.width = `${width}px`;
-			redTagWrapper.style.width = `${width}px`;
-		},
+				// Make both tag wrappers the same width
+				let width = Math.max(bluTag.offsetWidth, redTag.offsetWidth);
+				if (width > maxWidth) {
+					width = maxWidth;
+				}
+				bluTagWrapper.style.width = `${width}px`;
+				redTagWrapper.style.width = `${width}px`;
+			});
+		}
 
 		changeScore(scoreEl, newValue) {
 			scoreEl.innerHTML = newValue;
 		}
-	});
+	}
+
+	customElements.define(TothScoreboard.is, TothScoreboard);
 })();

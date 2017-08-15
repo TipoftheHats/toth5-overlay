@@ -1,25 +1,25 @@
-<link rel="import" href="../../components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../time-ago/time-ago.html">
 
 <dom-module id="toth-tweet">
 	<template>
 		<style>
 			:host {
-				@apply(--layout-vertical);
+				@apply --layout-vertical;
 				margin-bottom: 10px;
 				margin-top: 16px;
 				position: relative;
 			}
 
 			#tweetWrapper {
-				@apply(--layout-horizontal);
+				@apply --layout-horizontal;
 				position: relative;
 			}
 
 			#tweet {
-				@apply(--layout-flex);
-				@apply(--layout-vertical);
+				@apply --layout-flex;
+				@apply --layout-vertical;
 				margin-left: 58px;
 			}
 

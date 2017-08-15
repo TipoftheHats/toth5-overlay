@@ -2,30 +2,45 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="import" href="components/paper-button/paper-button.html">
-	<link rel="import" href="components/nodecg-toggle/nodecg-toggle.html">
-	<link rel="import" href="components/nodecg-toast/nodecg-toast.html">
-	<style>
-		#total {
-			text-align: center;
-			margin-top: 0;
-			margin-bottom: 8px;
-		}
+	<link rel="import" href="../bower_components/font-roboto/roboto.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<link rel="import" href="../bower_components/nodecg-toggle/nodecg-toggle.html">
+	<link rel="import" href="../bower_components/nodecg-toast/nodecg-toast.html">
+	<custom-style>
+		<style>
+			body {
+				font-family: Roboto, sans-serif;
+			}
 
-		#update {
-			margin-left: 0;
-			flex: 1;
-		}
+			#total {
+				text-align: center;
+				margin-top: 0;
+				margin-bottom: 8px;
+			}
 
-		#edit {
-			margin-right: 0;
-		}
+			#update {
+				margin-left: 0;
+				flex: 1;
+				--paper-button: {
+					color: white;
+					background-color: #645BA6;
+				};
+			}
 
-		nodecg-toggle {
-			margin-top: 20px;
-			margin-bottom: 5px;
-		}
-	</style>
+			#edit {
+				margin-right: 0;
+				--paper-button: {
+					color: white;
+					background-color: #A50074;
+				};
+			}
+
+			nodecg-toggle {
+				margin-top: 20px;
+				margin-bottom: 5px;
+			}
+		</style>
+	</custom-style>
 </head>
 <body>
 	<nodecg-toast id="toast"></nodecg-toast>
@@ -34,7 +49,7 @@
 
 	<div style="display: flex;">
 		<paper-button id="update" class="flex" raised>Force Update</paper-button>
-		<paper-button id="edit" class="nodecg-configure" nodecg-dialog="edit-total" raised>Edit...</paper-button>
+		<paper-button id="edit" nodecg-dialog="edit-total" raised>Edit...</paper-button>
 	</div>
 
 	<nodecg-toggle replicant-name="autoUpdateTotal">Automatic Updates</nodecg-toggle>

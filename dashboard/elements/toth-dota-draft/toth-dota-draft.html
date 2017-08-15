@@ -1,4 +1,4 @@
-<link rel="import" href="../../vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
 
 <dom-module id="toth-dota-draft">
 	<template>
@@ -47,13 +47,13 @@
 		<div style="display: flex;">
 			<div class="column">
 				<div class="ncg-label color-blu">BLU</div>
-				<template is="dom-repeat" items="bluTeam" as="player">
+				<template is="dom-repeat" items="[[bluTeam]]" as="player" mutable-data>
 					<vaadin-combo-box items="[[availablePlayers]]" value="{{player}}" item-label-path="name"></vaadin-combo-box>
 				</template>
 			</div>
 			<div class="column">
 				<div class="ncg-label color-red">RED</div>
-				<template is="dom-repeat" items="redTeam" as="player">
+				<template is="dom-repeat" items="[[redTeam]]" as="player" mutable-data>
 					<vaadin-combo-box items="[[availablePlayers]]" value="{{player}}" item-label-path="name"></vaadin-combo-box>
 				</template>
 			</div>

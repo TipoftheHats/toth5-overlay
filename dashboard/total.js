@@ -16,25 +16,21 @@
 
 			if (err) {
 				console.error(err.message);
-				toast.text = 'Error updating total. Check console.';
-				toast.show();
+				toast.show('Error updating total. Check console.');
 				return;
 			}
 
 			if (updated) {
 				console.info(`[${nodecg.bundleName}] Total successfully updated`);
-				toast.text = 'Successfully updated total.';
-				toast.show();
+				toast.show('Successfully updated total.');
 			} else {
 				console.info(`[${nodecg.bundleName}] Total unchanged, not updated`);
-				toast.text = 'Total unchanged, not updated.';
-				toast.show();
+				toast.show('Total unchanged, not updated.');
 			}
 		});
 	});
 
-	const totalInput = window.top.document.querySelector(`#${nodecg.bundleName}_edit-total iframe`)
-		.contentDocument.getElementById('input');
+	const totalInput = nodecg.getDialogDocument('edit-total').getElementById('input');
 	document.getElementById('edit').addEventListener('click', () => {
 		totalInput.value = total.value.raw;
 	});

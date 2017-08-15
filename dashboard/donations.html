@@ -2,36 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<link rel="import" href="components/paper-button/paper-button.html">
-	<link rel="import" href="components/paper-input/paper-input.html">
-	<link rel="import" href="components/vaadin-combo-box/vaadin-combo-box.html">
-	<style is="custom-style">
-		body {
-			display: flex;
-			flex-direction: column;
-			margin-top: 0;
-		}
-
-		paper-input {
-			--paper-input-container: {
-				padding-top: 0;
+	<link rel="import" href="../bower_components/font-roboto/roboto.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<link rel="import" href="../bower_components/paper-input/paper-input.html">
+	<link rel="import" href="../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+	<custom-style>
+		<style>
+			body {
+				font-family: Roboto, sans-serif;
+				display: flex;
+				flex-direction: column;
+				margin-top: 0;
 			}
-		}
 
-		#inputs {
-			display: flex;
-		}
+			paper-input {
+				--paper-input-container: {
+					padding-top: 0;
+				}
+			}
 
-		#amount {
-			width: 4em;
-			margin-right: 0.6em;
-		}
+			#inputs {
+				display: flex;
+			}
 
-		#send {
-			margin-left: 0;
-			margin-right: 0;
-		}
-	</style>
+			#amount {
+				width: 4em;
+				margin-right: 0.6em;
+			}
+
+			#send {
+				margin-left: 0;
+				margin-right: 0;
+				--paper-button: {
+					color: white;
+					background-color: #645BA6;
+				};
+			}
+		</style>
+	</custom-style>
 </head>
 <body>
 	<vaadin-combo-box id="type" label="Type" items='["Cash", "Item"]' value="Cash"></vaadin-combo-box>
@@ -41,7 +49,7 @@
 		<paper-input id="donor" label="Donor Name" always-float-label></paper-input>
 	</div>
 
-	<paper-button id="send" class="nodecg-info" raised>Send Test Donation</paper-button>
+	<paper-button id="send" raised>Send Test Donation</paper-button>
 	<script src="donations.js"></script>
 </body>
 </html>

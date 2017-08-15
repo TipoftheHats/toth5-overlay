@@ -14,7 +14,12 @@
 			tweetUrl: {
 				type: String,
 				computed: 'computeTweetUrl(profileUrl, id)'
-			}
+			},
+			images: Array,
+			screenName: String,
+			name: String,
+			avatarUrl: String,
+			createdAt: String
 		},
 
 		computeProfileUrl(screenName) {

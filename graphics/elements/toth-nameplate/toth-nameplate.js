@@ -19,10 +19,25 @@
 	const MAX_PLAYER_NAME_WIDTH = 428;
 	const MAX_PLAYER_INFO_WIDTH = 378;
 
-	Polymer({
-		is: 'toth-nameplate',
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothNameplate extends Polymer.Element {
+		static get is() {
+			return 'toth-nameplate';
+		}
+
+		static get properties() {
+			return {
+				couch1: Object,
+				couch2: Object,
+				couch3: Object
+			};
+		}
 
 		ready() {
+			super.ready();
 			this.tl = new TimelineLite({autoRemoveChildren: true});
 
 			host.on('change', newVal => {
@@ -136,7 +151,7 @@
 					this._checkReplicantsReady();
 				}
 			});
-		},
+		}
 
 		// Only declare the "visible" replicants once all the other replicants are ready.
 		_checkReplicantsReady() {
@@ -146,7 +161,7 @@
 				couchVisible.on('change', this.couchVisibleChanged.bind(this));
 				playerVisible.on('change', this.playersVisibleChanged.bind(this));
 			}
-		},
+		}
 
 		couchVisibleChanged(newVal) {
 			if (newVal) {
@@ -183,8 +198,8 @@
 
 				if (this.host) {
 					this.tl.call(() => {
-						this.setAndFitText(this.$$('#host .name-content'), this.host.name, MAX_HOST_NAME_WIDTH);
-						this.setAndFitText(this.$$('#host .info-content'), this.host.info, MAX_HOST_INFO_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#host .name-content'), this.host.name, MAX_HOST_NAME_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#host .info-content'), this.host.info, MAX_HOST_INFO_WIDTH);
 					}, null, null, 'couchEnter');
 
 					this.tl.to(this.$.host, 1, {
@@ -200,7 +215,7 @@
 					ease: Power3.easeIn
 				});
 			}
-		},
+		}
 
 		playersVisibleChanged(newVal) {
 			if (newVal) {
@@ -208,11 +223,11 @@
 
 				if (this.player1) {
 					this.tl.call(() => {
-						this.setAndFitText(this.$$('#player1 .name-content'), this.player1.name, MAX_PLAYER_NAME_WIDTH);
-						this.setAndFitText(this.$$('#player1 .info-content'), this.player1.info, MAX_PLAYER_INFO_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player1 .name-content'), this.player1.name, MAX_PLAYER_NAME_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player1 .info-content'), this.player1.info, MAX_PLAYER_INFO_WIDTH);
 					}, null, null, 'playersEnter');
 
-					this.tl.to('#player1', 0.5, {
+					this.tl.to(this.$.player1, 0.5, {
 						opacity: 1,
 						x: 0,
 						ease: Power2.easeOut
@@ -221,11 +236,11 @@
 
 				if (this.player2) {
 					this.tl.call(() => {
-						this.setAndFitText(this.$$('#player2 .name-content'), this.player2.name, MAX_PLAYER_NAME_WIDTH);
-						this.setAndFitText(this.$$('#player2 .info-content'), this.player2.info, MAX_PLAYER_INFO_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player2 .name-content'), this.player2.name, MAX_PLAYER_NAME_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player2 .info-content'), this.player2.info, MAX_PLAYER_INFO_WIDTH);
 					}, null, null, 'playersEnter');
 
-					this.tl.to('#player2', 0.5, {
+					this.tl.to(this.$.player2, 0.5, {
 						opacity: 1,
 						x: 0,
 						ease: Power2.easeOut
@@ -234,11 +249,11 @@
 
 				if (this.player3) {
 					this.tl.call(() => {
-						this.setAndFitText(this.$$('#player3 .name-content'), this.player3.name, MAX_PLAYER_NAME_WIDTH);
-						this.setAndFitText(this.$$('#player3 .info-content'), this.player3.info, MAX_PLAYER_INFO_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player3 .name-content'), this.player3.name, MAX_PLAYER_NAME_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player3 .info-content'), this.player3.info, MAX_PLAYER_INFO_WIDTH);
 					}, null, null, 'playersEnter');
 
-					this.tl.to('#player3', 0.5, {
+					this.tl.to(this.$.player3, 0.5, {
 						opacity: 1,
 						x: 0,
 						ease: Power2.easeOut
@@ -247,11 +262,11 @@
 
 				if (this.player4) {
 					this.tl.call(() => {
-						this.setAndFitText(this.$$('#player4 .name-content'), this.player4.name, MAX_PLAYER_NAME_WIDTH);
-						this.setAndFitText(this.$$('#player4 .info-content'), this.player4.info, MAX_PLAYER_INFO_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player4 .name-content'), this.player4.name, MAX_PLAYER_NAME_WIDTH);
+						this.setAndFitText(this.shadowRoot.querySelector('#player4 .info-content'), this.player4.info, MAX_PLAYER_INFO_WIDTH);
 					}, null, null, 'playersEnter');
 
-					this.tl.to('#player4', 0.5, {
+					this.tl.to(this.$.player4, 0.5, {
 						opacity: 1,
 						x: 0,
 						ease: Power2.easeOut
@@ -261,8 +276,8 @@
 				this.tl.add('playersExit');
 
 				this.tl.to([
-					'#player1',
-					'#player3'
+					this.$.player1,
+					this.$.player3
 				], 0.5, {
 					opacity: 0,
 					x: -25,
@@ -270,15 +285,15 @@
 				}, 'playersExit');
 
 				this.tl.to([
-					'#player2',
-					'#player4'
+					this.$.player2,
+					this.$.player4
 				], 0.5, {
 					opacity: 0,
 					x: 25,
 					ease: Power2.easeIn
 				}, 'playersExit');
 			}
-		},
+		}
 
 		setAndFitText(node, newString, maxWidth) {
 			node.innerText = newString;
@@ -289,5 +304,7 @@
 				TweenLite.set(node, {scaleX: 1});
 			}
 		}
-	});
+	}
+
+	customElements.define(TothNameplate.is, TothNameplate);
 })();

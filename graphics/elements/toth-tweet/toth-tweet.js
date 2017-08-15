@@ -4,36 +4,72 @@
 	const tweet = nodecg.Replicant('tweet');
 	const tweetShowing = nodecg.Replicant('tweetShowing');
 
-	Polymer({
-		is: 'toth-tweet',
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothTweet extends Polymer.Element {
+		static get is() {
+			return 'toth-tweet';
+		}
 
-		properties: {
-			tl: {
-				type: Object,
-				value: new TimelineLite({autoRemoveChildren: true}),
-				readOnly: true
-			},
-			imagesTl: {
-				type: Object,
-				value: new TimelineMax(),
-				readOnly: true
-			},
-			images: {
-				type: Object,
-				value() {
-					return [];
+		static get properties() {
+			return {
+				importPath: String, // https://github.com/Polymer/polymer-linter/issues/71
+				tl: {
+					type: Object,
+					value: new TimelineLite({autoRemoveChildren: true}),
+					readOnly: true
 				},
-				observer: 'imagesChanged'
-			},
-			_showing: {
-				type: Boolean,
-				value: false
-			},
-			_initialized: {
-				type: Boolean,
-				value: false
-			}
-		},
+				imagesTl: {
+					type: Object,
+					value: new TimelineMax(),
+					readOnly: true
+				},
+				images: {
+					type: Object,
+					value() {
+						return [];
+					},
+					observer: 'imagesChanged'
+				},
+				name: String,
+				screenName: String,
+				avatarUrl: String,
+				_showing: {
+					type: Boolean,
+					value: false
+				},
+				_initialized: {
+					type: Boolean,
+					value: false
+				}
+			};
+		}
+
+		ready() {
+			super.ready();
+
+			tweet.on('change', newVal => {
+				if (typeof newVal !== 'object') {
+					return;
+				}
+
+				this.avatarUrl = newVal.avatarUrl;
+				this.name = newVal.name;
+				this.screenName = newVal.screenName;
+				this.images = newVal.images;
+				Polymer.dom(this.$.message).innerHTML = newVal.body;
+			});
+
+			tweetShowing.on('change', newVal => {
+				if (newVal) {
+					this.show();
+				} else {
+					this.hide();
+				}
+			});
+		}
 
 		imagesChanged() {
 			const self = this;
@@ -71,31 +107,7 @@
 			});
 
 			this.imagesTl.to({}, 7, {});
-		},
-
-		ready() {
-			const self = this;
-
-			tweet.on('change', newVal => {
-				if (typeof newVal !== 'object') {
-					return;
-				}
-
-				this.avatarUrl = newVal.avatarUrl;
-				this.name = newVal.name;
-				this.screenName = newVal.screenName;
-				this.images = newVal.images;
-				Polymer.dom(self.$.message).innerHTML = newVal.body;
-			});
-
-			tweetShowing.on('change', newVal => {
-				if (newVal) {
-					self.show();
-				} else {
-					self.hide();
-				}
-			});
-		},
+		}
 
 		show() {
 			if (this._showing) {
@@ -124,7 +136,7 @@
 				y: '0%',
 				ease: Power3.easeOut
 			}, '-=0.5');
-		},
+		}
 
 		hide() {
 			if (!this._showing) {
@@ -152,5 +164,7 @@
 				ease: Power3.easeInOut
 			});
 		}
-	});
+	}
+
+	customElements.define(TothTweet.is, TothTweet);
 })();

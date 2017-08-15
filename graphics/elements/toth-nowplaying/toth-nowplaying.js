@@ -1,37 +1,61 @@
 (function () {
 	'use strict';
 
-	Polymer({
-		is: 'toth-nowplaying',
+	const nowPlaying = nodecg.Replicant('nowPlaying');
+	const pulsing = nodecg.Replicant('nowPlayingPulsing');
 
-		properties: {
-			artUrl: {
-				type: String
-			},
-			song: {
-				type: String,
-				value: '',
-				observer: 'songChanged'
-			},
-			artist: {
-				type: String,
-				value: '',
-				observer: 'artistChanged'
-			},
-			duration: {
-				type: Number,
-				value: 15
-			},
-			showing: {
-				type: Boolean,
-				value: false,
-				readOnly: true
-			},
-			tl: {
-				type: Object,
-				value: new TimelineLite({autoRemoveChildren: true})
-			}
-		},
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothNowplaying extends Polymer.Element {
+		static get is() {
+			return 'toth-nowplaying';
+		}
+
+		static get properties() {
+			return {
+				importPath: String, // https://github.com/Polymer/polymer-linter/issues/71
+				artUrl: {
+					type: String
+				},
+				song: {
+					type: String,
+					value: '',
+					observer: 'songChanged'
+				},
+				artist: {
+					type: String,
+					value: '',
+					observer: 'artistChanged'
+				},
+				duration: {
+					type: Number,
+					value: 15
+				},
+				showing: {
+					type: Boolean,
+					value: false,
+					readOnly: true
+				},
+				tl: {
+					type: Object,
+					value: new TimelineLite({autoRemoveChildren: true})
+				}
+			};
+		}
+
+		ready() {
+			super.ready();
+
+			pulsing.on('change', (newVal, oldVal) => {
+				if (newVal && typeof oldVal !== 'undefined') {
+					this.show(nowPlaying.value.artist, nowPlaying.value.song, nowPlaying.value.cover);
+				} else {
+					this.hide();
+				}
+			});
+		}
 
 		songChanged(newVal) {
 			this.$.song.innerHTML = `&#9834; ${newVal}`;
@@ -44,7 +68,7 @@
 			} else {
 				TweenLite.set(song, {scaleX: 1});
 			}
-		},
+		}
 
 		artistChanged() {
 			const artist = this.$.artist;
@@ -55,28 +79,9 @@
 			} else {
 				TweenLite.set(artist, {scaleX: 1});
 			}
-		},
-
-		ready() {
-			const self = this;
-			const nowPlaying = nodecg.Replicant('nowPlaying');
-			const pulsing = nodecg.Replicant('nowPlayingPulsing');
-
-			pulsing.on('change', newVal => {
-				if (newVal) {
-					self.show(nowPlaying.value.artist, nowPlaying.value.song, nowPlaying.value.cover);
-				} else {
-					self.hide();
-				}
-			});
-		},
+		}
 
 		show(artist, song, cover) {
-			if (!this._ignoredFirst) {
-				this._ignoredFirst = true;
-				return;
-			}
-
 			if (this.showing) {
 				return;
 			}
@@ -110,7 +115,7 @@
 				x: '0%',
 				ease: Power1.easeOut
 			}, 'stuffIn');
-		},
+		}
 
 		hide() {
 			if (!this.showing) {
@@ -135,12 +140,14 @@
 				height: '0%',
 				ease: Power1.easeInOut
 			});
-		},
+		}
 
 		_getElementContentWidth(element) {
 			const styles = window.getComputedStyle(element);
 			const padding = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
 			return element.clientWidth - padding;
 		}
-	});
+	}
+
+	customElements.define(TothNowplaying.is, TothNowplaying);
 })();

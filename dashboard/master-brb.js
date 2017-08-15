@@ -1,5 +1,6 @@
 (function () {
 	'use strict';
+
 	const show = document.getElementById('brb-show');
 	const hide = document.getElementById('brb-hide');
 	const brbShowing = nodecg.Replicant('brbShowing');

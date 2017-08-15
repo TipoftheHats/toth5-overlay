@@ -25,9 +25,14 @@
 	});
 
 	countdown.on('change', newVal => {
+		if (!newVal) {
+			return;
+		}
+
 		timeInput.setSeconds(newVal.time.raw);
 
 		if (newVal.running) {
+			console.log('disabling time input');
 			timeInput.setAttribute('disabled', 'true');
 			start.setAttribute('disabled-running', 'true');
 			stop.removeAttribute('disabled');
