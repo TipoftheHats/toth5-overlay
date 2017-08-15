@@ -8,3 +8,5 @@ bower_components
 .DS_Store
 .idea/shelf/
 Thumbs.db
+
+/desktop.ini

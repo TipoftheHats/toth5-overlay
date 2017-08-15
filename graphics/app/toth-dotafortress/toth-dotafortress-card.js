@@ -1,10 +1,14 @@
-(function () {
-	'use strict';
+/**
+ * @customElement
+ * @polymer
+ */
+class TothDotafortressCard extends Polymer.Element {
+	static get is() {
+		return 'toth-dotafortress-card';
+	}
 
-	Polymer({
-		is: 'toth-dotafortress-card',
-
-		properties: {
+	static get properties() {
+		return {
 			name: {
 				type: String,
 				value: '',
@@ -40,11 +44,12 @@
 				type: Object,
 				value: new TimelineLite({autoRemoveChildren: true})
 			}
-		},
+		};
+	}
 
-		nameChanged(newVal) {
-			this.$.name.innerHTML = newVal || '&nbsp;';
-
+	nameChanged(newVal) {
+		this.$.name.innerHTML = newVal || '&nbsp;';
+		Polymer.RenderStatus.beforeNextRender(this, () => {
 			const name = this.$.name;
 			const nameWidth = name.scrollWidth;
 			const maxWidth = this._getElementContentWidth(this.$.head);
@@ -53,48 +58,50 @@
 			} else {
 				TweenLite.set(name, {scaleX: 1});
 			}
-		},
+		});
+	}
 
-		teamChanged(newVal) {
-			switch (newVal) {
-				case 'red':
-					this.style.backgroundColor = '#F53641';
-					break;
-				case 'blu':
-					this.style.backgroundColor = '#127FDC';
-					break;
-				default:
-					this.style.backgroundColor = '#F47425';
-			}
-		},
-
-		computeClassIconUrl(playerClass) {
-			if (!playerClass) {
-				return '';
-			}
-
-			return `app/toth-dotafortress/class_icons/${playerClass}.png`;
-		},
-
-		computePortraitUrl(playerClass, index, team) {
-			if (index === -1) {
-				return 'app/toth-dotafortress/portraits/placeholder.webm';
-			}
-
-			return `app/toth-dotafortress/portraits/${playerClass}/${playerClass}_${index}_${team || 'red'}.webm`;
-		},
-
-		computeThumbnailUrl(portraitUrl) {
-			const url = portraitUrl.split('.');
-			url.pop();
-			url.push('jpg');
-			return url.join('.');
-		},
-
-		_getElementContentWidth(element) {
-			const styles = window.getComputedStyle(element);
-			const padding = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
-			return element.clientWidth - padding;
+	teamChanged(newVal) {
+		switch (newVal) {
+			case 'red':
+				this.style.backgroundColor = '#F53641';
+				break;
+			case 'blu':
+				this.style.backgroundColor = '#127FDC';
+				break;
+			default:
+				this.style.backgroundColor = '#F47425';
 		}
-	});
-})();
+	}
+
+	computeClassIconUrl(playerClass) {
+		if (!playerClass) {
+			return '';
+		}
+
+		return `app/toth-dotafortress/class_icons/${playerClass}.png`;
+	}
+
+	computePortraitUrl(playerClass, index, team) {
+		if (index === -1) {
+			return 'app/toth-dotafortress/portraits/placeholder.webm';
+		}
+
+		return `app/toth-dotafortress/portraits/${playerClass}/${playerClass}_${index}_${team || 'red'}.webm`;
+	}
+
+	computeThumbnailUrl(portraitUrl) {
+		const url = portraitUrl.split('.');
+		url.pop();
+		url.push('jpg');
+		return url.join('.');
+	}
+
+	_getElementContentWidth(element) {
+		const styles = window.getComputedStyle(element);
+		const padding = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+		return element.clientWidth - padding;
+	}
+}
+
+customElements.define(TothDotafortressCard.is, TothDotafortressCard);

@@ -36,13 +36,17 @@
 
 		ready() {
 			super.ready();
-			texts.on('change', newVal => {
-				this.titleMsg = newVal.title;
-				this.bodyMsg = newVal.body;
-				if (!this._textsReady) {
-					this._textsReady = true;
-					this._onTextsReady();
-				}
+
+			Polymer.RenderStatus.beforeNextRender(this, () => {
+				TweenLite.set(this.$.title, {y: '100%'});
+				texts.on('change', newVal => {
+					this.titleMsg = newVal.title;
+					this.bodyMsg = newVal.body;
+					if (!this._textsReady) {
+						this._textsReady = true;
+						this._onTextsReady();
+					}
+				});
 			});
 		}
 
@@ -55,8 +59,7 @@
 				TweenLite.set(title, {
 					scaleX: maxWidth / titleWidth
 				});
-			} else if (title.showing) {
-				// Ok... this fixes that weird bug that shows the title when it shouldn't be showing. Reminder to tell lange about it.
+			} else {
 				TweenLite.set(title, {
 					scaleX: 1
 				});
@@ -88,6 +91,7 @@
 				});
 			}
 		}
+
 		// Only declare the "showing" replicant once all the "texts" replicant is ready.
 		_onTextsReady() {
 			lowerthirdShowing.on('change', newVal => {

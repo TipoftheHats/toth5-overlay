@@ -22,71 +22,71 @@
 		player4
 	};
 
-	Polymer({
-		is: 'toth-nameplate-control',
+	/**
+	 * @customElement
+	 * @polymer
+	 */
+	class TothNameplateControl extends Polymer.MutableData(Polymer.Element) {
+		static get is() {
+			return 'toth-nameplate-control';
+		}
 
 		ready() {
+			super.ready();
+
 			host.on('change', newVal => {
-				this.host = {};
 				this.host = newVal;
 			});
 
 			couch1.on('change', newVal => {
-				this.couch1 = {};
 				this.couch1 = newVal;
 			});
 
 			couch2.on('change', newVal => {
-				this.couch2 = {};
 				this.couch2 = newVal;
 			});
 
 			couch3.on('change', newVal => {
-				this.couch3 = {};
 				this.couch3 = newVal;
 			});
 
 			player1.on('change', newVal => {
-				this.player1 = {};
 				this.player1 = newVal;
 			});
 
 			player2.on('change', newVal => {
-				this.player2 = {};
 				this.player2 = newVal;
 			});
 
 			player3.on('change', newVal => {
-				this.player3 = {};
 				this.player3 = newVal;
 			});
 
 			player4.on('change', newVal => {
-				this.player4 = {};
 				this.player4 = newVal;
 			});
-		},
+		}
 
 		hideCouch() {
 			this.couchVisible = false;
-		},
+		}
 
 		showCouch() {
 			this.couchVisible = true;
 			this.playersVisible = false;
-		},
+		}
 
 		hidePlayers() {
 			this.playersVisible = false;
-		},
+		}
 
 		showPlayers() {
 			this.couchVisible = false;
 			this.playersVisible = true;
-		},
+		}
 
 		_handleSelectedItemChanged(e) {
-			if (this.isDebouncerActive('_handleSelectedItemChanged')) {
+			if (this._debouncer && this._debouncer.isActive()) {
 				return;
 			}
 
@@ -107,9 +107,13 @@
 			// Clear out the target's selected item once we have it.
 			e.target.value = null;
 
-			this.debounce('_handleSelectedItemChanged', () => {
-				replicant.value = selectedItem;
-			});
+			this._debouncer = Polymer.Debouncer.debounce(this._debouncer,
+				Polymer.Async.timeOut.after(0),
+				() => {
+					replicant.value = selectedItem;
+				});
 		}
-	});
+	}
+
+	customElements.define(TothNameplateControl.is, TothNameplateControl);
 })();

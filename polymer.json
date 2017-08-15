@@ -4,5 +4,11 @@
 		"ignoreWarnings": [
 			"unknown-superclass"
 		]
-	}
+	},
+	"sources": [
+		"graphics/**/*",
+		"dashboard/**/*",
+		"shared/**/*",
+		"bower.json"
+	]
 }
