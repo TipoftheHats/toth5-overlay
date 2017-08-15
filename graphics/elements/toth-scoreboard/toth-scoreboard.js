@@ -96,9 +96,9 @@
 
 			this._showing = true;
 
-			const lines = this.shadowRoot.querySelectorAll('.line');
-			const tagWrappers = this.shadowRoot.querySelectorAll('.tagWrapper');
-			const scores = this.shadowRoot.querySelectorAll('.score');
+			const lines = Array.from(this.shadowRoot.querySelectorAll('.line'));
+			const tagWrappers = Array.from(this.shadowRoot.querySelectorAll('.tagWrapper'));
+			const scores = Array.from(this.shadowRoot.querySelectorAll('.score'));
 			const logo = this.$.logo;
 			const tl = new TimelineLite();
 
@@ -118,9 +118,9 @@
 				ease: Power3.easeInOut,
 				callbackScope: this,
 				onUpdate() {
-					const currLineWidth = lines.item(0).offsetWidth;
+					const currLineWidth = lines[0].offsetWidth;
 
-					if (!this.tagsShowing && currLineWidth >= tagWrappers.item(0).offsetWidth) {
+					if (!this.tagsShowing && currLineWidth >= tagWrappers[0].offsetWidth) {
 						this.tagsShowing = true;
 						TweenLite.to(tagWrappers, 0.5, {
 							y: '0%',
@@ -132,7 +132,7 @@
 						});
 					}
 
-					if (!this.scoresShowing && currLineWidth >= tagWrappers.item(0).offsetWidth + scores.item(0).offsetWidth) {
+					if (!this.scoresShowing && currLineWidth >= tagWrappers[0].offsetWidth + scores[0].offsetWidth) {
 						this.scoresShowing = true;
 						TweenLite.to(scores, 0.5, {
 							y: '0%',
@@ -150,21 +150,21 @@
 
 			this._showing = false;
 
-			const wrappers = this.shadowRoot.querySelectorAll('.wrapper');
-			const tagWrappers = this.shadowRoot.querySelectorAll('.tagWrapper');
-			const scores = this.shadowRoot.querySelectorAll('.score');
-			const lines = this.shadowRoot.querySelectorAll('.line');
+			const wrappers = Array.from(this.shadowRoot.querySelectorAll('.wrapper'));
+			const tagWrappers = Array.from(this.shadowRoot.querySelectorAll('.tagWrapper'));
+			const scores = Array.from(this.shadowRoot.querySelectorAll('.score'));
+			const lines = Array.from(this.shadowRoot.querySelectorAll('.line'));
 			const logo = this.$.logo;
 			const tl = new TimelineLite();
 
 			nodecg.playSound('scoreboard_out');
 
 			tl.add('start');
-			tl.to(wrappers.item(0), 0.5, {
+			tl.to(wrappers[0], 0.5, {
 				x: '100%',
 				ease: Power3.easeIn
 			}, 'start');
-			tl.to(wrappers.item(1), 0.5, {
+			tl.to(wrappers[1], 0.5, {
 				x: '-100%',
 				ease: Power3.easeIn
 			}, 'start');
