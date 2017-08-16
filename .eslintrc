@@ -10,6 +10,7 @@
 				"capIsNewExceptions": [
 					"Polymer",
 					"Polymer.MutableData",
+					"Polymer.GestureEventListeners",
 					"nodecg.Replicant",
 					"e.apis.extension.Replicant",
 					"window.dashboardApi.Replicant"

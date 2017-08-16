@@ -7,8 +7,9 @@
 	/**
 	 * @customElement
 	 * @polymer
+	 * @appliesMixin Polymer.GestureEventListeners
 	 */
-	class TothTalkback extends Polymer.Element {
+	class TothTalkback extends Polymer.GestureEventListeners(Polymer.Element) {
 		static get is() {
 			return 'toth-talkback';
 		}
@@ -19,6 +20,9 @@
 					type: String,
 					reflectToAttribute: true
 				},
+				stationLabel: {
+					type: String
+				},
 				targets: {
 					type: Array,
 					/* eslint-disable object-property-newline */
@@ -27,10 +31,20 @@
 							{name: 'couch', intent: false, status: false, latch: false},
 							{name: 'host', intent: false, status: false, latch: false},
 							{name: 'players', intent: false, status: false, latch: false},
-							{name: 'all', intent: false, status: false, latch: false}
+							{name: 'all', intent: false, status: false, latch: false},
+							{name: 'player1', intent: false, status: false, latch: false},
+							{name: 'player2', intent: false, status: false, latch: false},
+							{name: 'player3', intent: false, status: false, latch: false},
+							{name: 'player4', intent: false, status: false, latch: false}
 						];
 					}
 					/* eslint-enable object-property-newline */
+				},
+				allLatchesToggled: {
+					type: Boolean,
+					value: false,
+					readOnly: true,
+					reflectToAttribute: true
 				}
 			};
 		}
@@ -41,17 +55,25 @@
 			talkbackIntent.on('change', newVal => {
 				this.set('targets.0.intent', newVal[this.station].couch);
 				this.set('targets.1.intent', newVal[this.station].host);
-				this.set('targets.2.intent', newVal[this.station].player1 ||
-					newVal[this.station].player2 || newVal[this.station].player3 || newVal[this.station].player4);
+				this.set('targets.2.intent', newVal[this.station].player1 &&
+					newVal[this.station].player2 && newVal[this.station].player3 && newVal[this.station].player4);
 				this.set('targets.3.intent', this.targets[0].intent && this.targets[1].intent && this.targets[2].intent);
+				this.set('targets.4.intent', newVal[this.station].player1);
+				this.set('targets.5.intent', newVal[this.station].player2);
+				this.set('targets.6.intent', newVal[this.station].player3);
+				this.set('targets.7.intent', newVal[this.station].player4);
 			});
 
 			talkbackStatus.on('change', newVal => {
 				this.set('targets.0.status', newVal[this.station].couch);
 				this.set('targets.1.status', newVal[this.station].host);
-				this.set('targets.2.status', newVal[this.station].player1 ||
-					newVal[this.station].player2 || newVal[this.station].player3 || newVal[this.station].player4);
+				this.set('targets.2.status', newVal[this.station].player1 &&
+					newVal[this.station].player2 && newVal[this.station].player3 && newVal[this.station].player4);
 				this.set('targets.3.status', this.targets[0].status && this.targets[1].status && this.targets[2].status);
+				this.set('targets.4.status', newVal[this.station].player1);
+				this.set('targets.5.status', newVal[this.station].player2);
+				this.set('targets.6.status', newVal[this.station].player3);
+				this.set('targets.7.status', newVal[this.station].player4);
 			});
 		}
 
@@ -156,6 +178,20 @@
 
 		getTarget(name) {
 			return this.targets.find(target => target.name === name);
+		}
+
+		toggleAllLatches() {
+			this._setAllLatchesToggled(!this.allLatchesToggled);
+
+			this.targets.forEach((target, index) => {
+				this.set(`targets.${index}.latch`, this.allLatchesToggled);
+			});
+
+			this.checkLatches();
+		}
+
+		_calcToggleAllLatchesButtonLabel(allLatchesToggled) {
+			return allLatchesToggled ? 'TOGGLE ALL LATCHES OFF' : 'TOGGLE ALL LATCHES ON';
 		}
 	}
 

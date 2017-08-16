@@ -1,14 +1,28 @@
+<link rel="import" href="../../../bower_components/font-roboto/roboto.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 
 <dom-module id="toth-talkback">
 	<template>
 		<style>
 			:host {
-				display: flex;
-				flex-wrap: wrap;
-				flex-direction: column;
-				justify-content: center;
-				max-width: 256px;
+				display: block;
+				max-width: 316px;
+				font-family: Roboto, sans-serif;
+				@apply --layout-vertical;
+			}
+
+			#stationLabel {
+				text-align: center;
+			}
+
+			#talkbackButtons {
+				max-height: 320px;
+				@apply --layout-vertical;
+				@apply --layout-center;
+				@apply --layout-wrap;
 			}
 
 			button {
@@ -18,7 +32,8 @@
 				border: 2px solid #bfbfbf;
 				font-size: 14px;
 				text-transform: capitalize;
-				margin-right: 12px;
+				margin: 0 12px;
+				cursor: pointer;
 			}
 
 			button[engaged] {
@@ -27,6 +42,7 @@
 
 			paper-checkbox {
 				margin-top: 8px;
+				margin-right: 4px;
 				text-transform: capitalize
 			}
 
@@ -36,20 +52,46 @@
 				align-items: center;
 				margin: 8px 0;
 			}
+
+			#toggleAllLatches {
+				margin-top: 8px;
+				--paper-button: {
+					color: white;
+					background-color: #5BA664;
+				};
+				@apply --layout-self-stretch;
+			}
+
+			:host([all-latches-toggled]) #toggleAllLatches {
+				--paper-button: {
+					color: white;
+					background-color: #C9513E;
+				};
+			}
 		</style>
 
-		<template is="dom-repeat" items="[[targets]]" as="target">
-			<div class="group">
-				<button data-target$="[[target.name]]"
-						on-down="talkback"
-						on-up="mute"
-						on-tap="toggle"
-						engaged$="[[target.status]]">
-					To [[target.name]]
-				</button>
-				<paper-checkbox checked="{{target.latch}}" on-tap="checkLatches">Latch</paper-checkbox>
-			</div>
-		</template>
+		<h3 id="stationLabel">
+			You are the <b>[[stationLabel]]</b>
+		</h3>
+
+		<div id="talkbackButtons">
+			<template is="dom-repeat" items="[[targets]]" as="target">
+				<div class="group">
+					<button data-target$="[[target.name]]"
+							on-down="talkback"
+							on-up="mute"
+							on-tap="toggle"
+							engaged$="[[target.status]]">
+						To [[target.name]]
+					</button>
+					<paper-checkbox checked="{{target.latch}}" on-tap="checkLatches">Latch</paper-checkbox>
+				</div>
+			</template>
+		</div>
+
+		<paper-button id="toggleAllLatches" raised on-tap="toggleAllLatches">
+			[[_calcToggleAllLatchesButtonLabel(allLatchesToggled)]]
+		</paper-button>
 	</template>
 
 	<script src="toth-talkback.js"></script>
