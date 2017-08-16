@@ -18,7 +18,7 @@ module.exports = function (nodecg) {
 
 	const MIXBUSES = {
 		couch: nodecg.bundleConfig.x32.couchMixBus,
-		host: nodecg.bundleConfig.x32.hostMixBus,
+		host: nodecg.bundleConfig.x32.hostTalkbackMixBus,
 		player1: nodecg.bundleConfig.x32.player1MixBus,
 		player2: nodecg.bundleConfig.x32.player2MixBus,
 		player3: nodecg.bundleConfig.x32.player3MixBus,

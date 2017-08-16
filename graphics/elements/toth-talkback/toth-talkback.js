@@ -28,7 +28,7 @@
 					/* eslint-disable object-property-newline */
 					value() {
 						return [
-							{name: 'couch', intent: false, status: false, latch: false},
+							{name: 'couch', displayName: 'Couch & Host', intent: false, status: false, latch: false},
 							{name: 'host', intent: false, status: false, latch: false},
 							{name: 'players', intent: false, status: false, latch: false},
 							{name: 'all', intent: false, status: false, latch: false},
@@ -69,7 +69,7 @@
 				this.set('targets.1.status', newVal[this.station].host);
 				this.set('targets.2.status', newVal[this.station].player1 &&
 					newVal[this.station].player2 && newVal[this.station].player3 && newVal[this.station].player4);
-				this.set('targets.3.status', this.targets[0].status && this.targets[1].status && this.targets[2].status);
+				this.set('targets.3.status', this.targets[0].status && this.targets[2].status);
 				this.set('targets.4.status', newVal[this.station].player1);
 				this.set('targets.5.status', newVal[this.station].player2);
 				this.set('targets.6.status', newVal[this.station].player3);
@@ -113,6 +113,13 @@
 			if (target.name === 'all') {
 				for (const mixbus in talkbackIntent.value[this.station]) {
 					if (!{}.hasOwnProperty.call(talkbackIntent.value[this.station], mixbus)) {
+						continue;
+					}
+
+					// The host also gets talkback from the Couch mixbus.
+					// So to avoid giving them talkback twice, we disable their dedicated talkback channel.
+					if (mixbus === 'host') {
+						talkbackIntent.value[this.station][mixbus] = false;
 						continue;
 					}
 
@@ -192,6 +199,14 @@
 
 		_calcToggleAllLatchesButtonLabel(allLatchesToggled) {
 			return allLatchesToggled ? 'TOGGLE ALL LATCHES OFF' : 'TOGGLE ALL LATCHES ON';
+		}
+
+		_calcLabel(target) {
+			if (!target) {
+				return '';
+			}
+
+			return target.displayName || target.name;
 		}
 	}
 

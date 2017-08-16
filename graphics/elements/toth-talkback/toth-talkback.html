@@ -82,7 +82,7 @@
 							on-up="mute"
 							on-tap="toggle"
 							engaged$="[[target.status]]">
-						To [[target.name]]
+						To [[_calcLabel(target)]]
 					</button>
 					<paper-checkbox checked="{{target.latch}}" on-tap="checkLatches">Latch</paper-checkbox>
 				</div>

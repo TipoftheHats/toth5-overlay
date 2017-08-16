@@ -68,10 +68,35 @@
 		},
 		"x32": {
 			"type": "object",
+			"additionalProperties": false,
 			"properties": {
 				"address": {
 					"type": "string",
 					"description": "The IP address or hostname of a Behringer X32 digital mixer."
+				},
+				"techDirectorMicChannel": {
+					"type": "number"
+				},
+				"floorManagerMicChannel": {
+					"type": "number"
+				},
+				"couchMixBus": {
+					"type": "number"
+				},
+				"hostTalkbackMixBus": {
+					"type": "number"
+				},
+				"player1MixBus": {
+					"type": "number"
+				},
+				"player2MixBus": {
+					"type": "number"
+				},
+				"player3MixBus": {
+					"type": "number"
+				},
+				"player4MixBus": {
+					"type": "number"
 				}
 			},
 			"required": [
