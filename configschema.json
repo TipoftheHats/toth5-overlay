@@ -75,28 +75,36 @@
 					"description": "The IP address or hostname of a Behringer X32 digital mixer."
 				},
 				"techDirectorMicChannel": {
-					"type": "number"
+					"type": "number",
+					"default": 28
 				},
 				"floorManagerMicChannel": {
-					"type": "number"
+					"type": "number",
+					"default": 30
 				},
 				"couchMixBus": {
-					"type": "number"
+					"type": "number",
+					"default": 1
 				},
 				"hostTalkbackMixBus": {
-					"type": "number"
+					"type": "number",
+					"default": 3
 				},
 				"player1MixBus": {
-					"type": "number"
+					"type": "number",
+					"default": 9
 				},
 				"player2MixBus": {
-					"type": "number"
+					"type": "number",
+					"default": 11
 				},
 				"player3MixBus": {
-					"type": "number"
+					"type": "number",
+					"default": 13
 				},
 				"player4MixBus": {
-					"type": "number"
+					"type": "number",
+					"default": 15
 				}
 			},
 			"required": [
