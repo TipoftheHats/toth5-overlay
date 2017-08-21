@@ -171,6 +171,13 @@
 						continue;
 					}
 
+					// The host also gets talkback from the Couch mixbus.
+					// So to avoid giving them talkback twice, we disable their dedicated talkback channel.
+					if (mixbus === 'host') {
+						talkbackIntent.value[this.station][mixbus] = false;
+						continue;
+					}
+
 					talkbackIntent.value[this.station][mixbus] = !talkbackIntent.value[this.station][mixbus];
 				}
 			} else if (target.name === 'players') {
