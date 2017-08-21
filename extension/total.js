@@ -97,7 +97,8 @@ module.exports = function (nodecg) {
 				formatted: freshTotal.toLocaleString('en-US', {
 					style: 'currency',
 					currency: 'USD',
-					maximumFractionDigits: 0
+					maximumFractionDigits: 0,
+					minimumFractionDigits: 0
 				})
 			};
 			cb(null, true);
