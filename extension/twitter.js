@@ -28,6 +28,10 @@ module.exports = function (nodecg) {
 	const tweet = nodecg.Replicant('tweet', {defaultValue: {}});
 
 	nodecg.listenFor('loadTweet', url => {
+		if (typeof url !== 'string' || url.length <= 0) {
+			return;
+		}
+
 		const id = url.split('/').pop();
 		twitter.get('statuses/show', {
 			id,
