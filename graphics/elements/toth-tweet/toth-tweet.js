@@ -76,7 +76,7 @@
 
 			this.imagesTl.clear();
 
-			if (this.images.length === 0) {
+			if (!this.images || this.images.length === 0) {
 				self.imagesTl.to(self.$.image, 0.5, {
 					opacity: 0,
 					ease: Power1.easeInOut
