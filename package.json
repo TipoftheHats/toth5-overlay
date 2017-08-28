@@ -31,7 +31,7 @@
     "eslint-plugin-html": "^3.1.1"
   },
   "nodecg": {
-    "compatibleRange": "^0.9.0-beta",
+    "compatibleRange": "~0.9.0",
     "graphics": [
       {
         "file": "index.html",
