@@ -5,11 +5,13 @@
 	const update = document.getElementById('update');
 	const hide = document.getElementById('hide');
 	const swap = document.getElementById('swap');
+	const offset = document.getElementById('offset');
 	const bluScore = document.querySelectorAll('paper-input[label="Score"]')[0];
 	const bluTag = document.querySelectorAll('paper-input[label="Tag"]')[0];
 	const redScore = document.querySelectorAll('paper-input[label="Score"]')[1];
 	const redTag = document.querySelectorAll('paper-input[label="Tag"]')[1];
 	const scoreboardShowing = nodecg.Replicant('scoreboardShowing');
+	const scoreboardVerticalOffset = nodecg.Replicant('scoreboardVerticalOffset');
 	const scores = nodecg.Replicant('scores');
 
 	scores.on('change', newVal => {
@@ -53,6 +55,14 @@
 				tag: scores.value.red.tag
 			}
 		};
+	});
+
+	scoreboardVerticalOffset.on('change', newVal => {
+		offset.value = newVal;
+	});
+
+	offset.addEventListener('change', e => {
+		scoreboardVerticalOffset.value = parseInt(e.target.value, 10);
 	});
 
 	function doUpdate() {

@@ -2,6 +2,7 @@
 	'use strict';
 
 	const scoreboardShowing = nodecg.Replicant('scoreboardShowing');
+	const scoreboardVerticalOffset = nodecg.Replicant('scoreboardVerticalOffset');
 	const scores = nodecg.Replicant('scores');
 
 	/**
@@ -85,6 +86,10 @@
 					} else {
 						this.hide();
 					}
+				});
+
+				scoreboardVerticalOffset.on('change', newVal => {
+					this.style.top = `${newVal}px`;
 				});
 			});
 		}
