@@ -51,7 +51,7 @@ module.exports = function (nodecg) {
 	 */
 	function update(silent = true, cb = function () {}) {
 		const trackerProimise = request({
-			uri: 'http://tracker.tipofthehats.org/3?json',
+			uri: 'http://tracker.tipofthehats.org/4?json',
 			json: true
 		}).then(response => {
 			if (!response) {

@@ -44,7 +44,7 @@ module.exports = function (nodecg) {
 			qs: {
 				type: 'allbids',
 				feed: 'open',
-				event: 3
+				event: 4
 			},
 			json: true
 		}).then(bids => {

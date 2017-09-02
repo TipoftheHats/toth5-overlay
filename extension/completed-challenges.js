@@ -25,7 +25,7 @@ module.exports = function (nodecg) {
 				'http://tracker.tipofthehats.org/search',
 			qs: {
 				type: 'allbids',
-				event: 3
+				event: 4
 			},
 			json: true
 		}).then(bids => {
