@@ -7,6 +7,12 @@ class TothDonationTier2 extends Polymer.Element {
 		return 'toth-donation-tier2';
 	}
 
+	static get properties() {
+		return {
+			importPath: String // https://github.com/Polymer/polymer-linter/issues/71
+		};
+	}
+
 	ready() {
 		super.ready();
 		this.tl = window.notificationTl;

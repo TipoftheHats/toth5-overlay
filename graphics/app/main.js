@@ -16,6 +16,12 @@
 	});
 
 	nodecg.Replicant('showHashtag').on('change', newVal => {
+		const sponsors = document.getElementById('sponsors');
+		if (sponsors && sponsors.showing) {
+			// Do nothing if the sponsors graphic is showing.
+			return;
+		}
+
 		const hashtag = document.getElementById('hashtag');
 		if (newVal) {
 			TweenLite.to(hashtag, 0.6, {

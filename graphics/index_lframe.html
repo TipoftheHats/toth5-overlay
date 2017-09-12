@@ -36,9 +36,19 @@
 			width: 1920px;
 			height: 1080px;
 			overflow: hidden;
-			font-family: "proxima-nova";
-			/*background: url("http://i.imgur.com/EcIltyp.png");
+			font-family: "proxima-nova", sans-serif;
+			/*background: url("img/lframe_mockup.jpg");
+			background: url("http://i.imgur.com/EcIltyp.png");
 			background: url("http://i.imgur.com/ivbkXt1.png");*/
+		}
+
+		#lframe {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 1456px;
+			height: 819px;
+			overflow: hidden;
 		}
 
 		#brb {
@@ -58,17 +68,17 @@
 			opacity: 0;
 		}
 
+		#lowerthird {
+			position: absolute;
+			bottom: 30px;
+			left: 0;
+		}
+
 		#scoreboard {
 			position: absolute;
 			top: 0;
 			left: 50%;
 			transform: translateX(-50%);
-		}
-
-		#lowerthird {
-			position: absolute;
-			top: 805px;
-			right: 88px;
 		}
 
 		#nowPlaying {
@@ -77,9 +87,24 @@
 			left: 25px;
 		}
 
-		#nameplate {
-			position: absolute;
-			top: 180px;
+		#tweet {
+			bottom: 48px;
+			right: 53px;
+		}
+
+		toth-donation-tier1 {
+			bottom: 21px;
+		}
+
+		toth-donation-tier2 {
+			bottom: 110px;
+		}
+
+		toth-donation-tier3 {
+			top: 35px;
+			width: 1920px;
+			transform: scale(0.758);
+			transform-origin: top right;
 		}
 	</style>
 </head>
@@ -87,15 +112,18 @@
 	<div id="container">
 		<toth-brb id="brb"></toth-brb>
 		<div id="hashtag">#TotH2017</div>
-		<toth-scoreboard id="scoreboard"></toth-scoreboard>
-		<toth-lowerthird id="lowerthird"></toth-lowerthird>
 		<toth-sponsors id="sponsors"></toth-sponsors>
-		<toth-nowplaying id="nowPlaying"></toth-nowplaying>
-		<toth-tweet id="tweet"></toth-tweet>
-		<toth-donation-tier1></toth-donation-tier1>
-		<toth-donation-tier2></toth-donation-tier2>
-		<toth-donation-tier3></toth-donation-tier3>
-		<toth-nameplate id="nameplate"></toth-nameplate>
+
+		<div id="lframe">
+			<toth-scoreboard id="scoreboard"></toth-scoreboard>
+			<toth-lowerthird id="lowerthird" lframe></toth-lowerthird>
+			<toth-nowplaying id="nowPlaying"></toth-nowplaying>
+			<toth-tweet id="tweet"></toth-tweet>
+			<toth-donation-tier1></toth-donation-tier1>
+			<toth-donation-tier2></toth-donation-tier2>
+			<toth-donation-tier3></toth-donation-tier3>
+		</div>
+
 		<toth-ticker id="ticker"></toth-ticker>
 	</div>
 </body>

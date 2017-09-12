@@ -15,10 +15,7 @@
 
 		static get properties() {
 			return {
-				titleMsg: {
-					type: String,
-					observer: '_titleMsgChanged'
-				},
+				titleMsg: String,
 				bodyMsg: {
 					type: String,
 					observer: '_bodyMsgChanged'
@@ -26,6 +23,10 @@
 				absoluteMaxWidth: {
 					type: Number,
 					value: 1240
+				},
+				lframe: {
+					type: Boolean,
+					reflectToAttribute: true
 				},
 				_showing: {
 					type: Boolean,
@@ -48,22 +49,6 @@
 					}
 				});
 			});
-		}
-
-		_titleMsgChanged() {
-			// Limit width of title to 800 px
-			const title = this.$.title;
-			const maxWidth = 800;
-			const titleWidth = title.scrollWidth;
-			if (titleWidth > maxWidth) {
-				TweenLite.set(title, {
-					scaleX: maxWidth / titleWidth
-				});
-			} else {
-				TweenLite.set(title, {
-					scaleX: 1
-				});
-			}
 		}
 
 		_bodyMsgChanged() {
@@ -119,22 +104,44 @@
 			TweenLite.to(line, 0.8, {
 				width: Math.max(title.getBoundingClientRect().width + logo.offsetWidth, body.offsetWidth),
 				ease: Power3.easeInOut,
+				callbackScope: this,
 				onUpdate() {
+					const logoWidth = logo.offsetWidth;
+					const titleWidth = title.getBoundingClientRect().width;
 					const currLineWidth = line.offsetWidth;
-					if (!logo.showing && currLineWidth >= logo.offsetWidth) {
-						logo.showing = true;
-						TweenLite.to(logo, 0.5, {
-							y: '0%',
-							ease: Power3.easeOut
-						});
-					}
 
-					if (!title.showing && currLineWidth >= title.getBoundingClientRect().width) {
-						title.showing = true;
-						TweenLite.to(title, 0.5, {
-							y: '0%',
-							ease: Power3.easeOut
-						});
+					if (this.lframe) {
+						if (!title.showing && currLineWidth >= titleWidth) {
+							title.showing = true;
+							TweenLite.to(title, 0.5, {
+								y: '0%',
+								ease: Power3.easeOut
+							});
+						}
+
+						if (!logo.showing && currLineWidth >= logoWidth + titleWidth) {
+							logo.showing = true;
+							TweenLite.to(logo, 0.5, {
+								y: '0%',
+								ease: Power3.easeOut
+							});
+						}
+					} else {
+						if (!logo.showing && currLineWidth >= logoWidth) {
+							logo.showing = true;
+							TweenLite.to(logo, 0.5, {
+								y: '0%',
+								ease: Power3.easeOut
+							});
+						}
+
+						if (!title.showing && currLineWidth >= titleWidth + logoWidth) {
+							title.showing = true;
+							TweenLite.to(title, 0.5, {
+								y: '0%',
+								ease: Power3.easeOut
+							});
+						}
 					}
 
 					if (!body.showing && currLineWidth >= body.offsetWidth) {

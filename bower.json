@@ -17,6 +17,7 @@
     "paper-input": "PolymerElements/paper-input#^2.0.0",
     "paper-item": "PolymerElements/paper-item#^2.0.0",
     "vaadin-combo-box": "vaadin/vaadin-combo-box#2.0.0",
-    "iron-icons": "PolymerElements/iron-icons#^2.0.1"
+    "iron-icons": "PolymerElements/iron-icons#^2.0.1",
+    "sc-fitted-text": "SupportClass/sc-fitted-text#^1.0.4"
   }
 }
