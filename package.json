@@ -160,7 +160,14 @@
         "width": 4,
         "file": "nameplate.html",
         "headerColor": "#f47425"
-      }
+      },
+			{
+				"name": "overwatch-scoreboard",
+				"title": "Overwatch",
+				"width": 4,
+				"file": "overwatch-scoreboard.html",
+				"headerColor": "#f47425"
+			}
     ],
     "soundCues": [
       {
@@ -212,7 +219,17 @@
         "name": "challenge_accepted",
         "assignable": false,
         "defaultFile": "sound/challenge_accepted.ogg"
-      }
+      },
+			{
+				"name": "ow_scoreboard_in",
+				"assignable": false,
+				"defaultFile": "sound/ow_scoreboard_in.ogg"
+			},
+			{
+				"name": "ow_scoreboard_out",
+				"assignable": false,
+				"defaultFile": "sound/ow_scoreboard_out.ogg"
+			}
     ]
   }
 }
