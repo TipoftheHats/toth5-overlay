@@ -93,4 +93,10 @@ module.exports = function (nodecg) {
 		nodecg.log.error('Failed to load "nameplates" lib:', e.stack);
 		process.exit(1);
 	}
+	try {
+		require('./overwatch-scoreboard')(nodecg);
+	} catch (e) {
+		nodecg.log.error('Failed to load "overwatch-scoreboard" lib:', e.stack);
+		process.exit(1);
+	}
 };

@@ -24,8 +24,17 @@
 	<link href="elements/toth-sponsors/toth-sponsors.html" rel="import">
 	<link href="elements/toth-tweet/toth-tweet.html" rel="import">
 	<link href="elements/toth-nameplate/toth-nameplate.html" rel="import">
+  <link href="elements/toth-overwatch/toth-overwatch.html" rel="import">
 
 	<style>
+  @font-face {
+    font-family: BigNoodle;
+    src: url('elements/toth-overwatch/fonts/big_noodle_titling_oblique.ttf');
+  }
+  @font-face {
+    font-family: LemonMilk;
+    src: url('elements/toth-overwatch/fonts/lemonmilk.otf');
+  }
 		body {
 			margin: 0;
 			opacity: 0;
@@ -64,6 +73,12 @@
 			left: 50%;
 			transform: translateX(-50%);
 		}
+    #overwatch-scoreboard {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
 		#lowerthird {
 			position: absolute;
@@ -88,6 +103,7 @@
 		<toth-brb id="brb"></toth-brb>
 		<div id="hashtag">#TotH2017</div>
 		<toth-scoreboard id="scoreboard"></toth-scoreboard>
+		<toth-overwatch id="overwatch-scoreboard"></toth-overwatch>
 		<toth-lowerthird id="lowerthird"></toth-lowerthird>
 		<toth-sponsors id="sponsors"></toth-sponsors>
 		<toth-nowplaying id="nowPlaying"></toth-nowplaying>
