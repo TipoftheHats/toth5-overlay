@@ -1,6 +1,8 @@
+/* global _ */
 (function () {
 	'use strict';
 
+	const scoreboardVisible = nodecg.Replicant('scoreboardVisible', {defaultValue: false});
 	const redTeamScore = nodecg.Replicant('redTeamScore', {defaultValue: 0});
 	const blueTeamScore = nodecg.Replicant('blueTeamScore', {defaultValue: 0});
 	const blueTeamName = nodecg.Replicant('blueTeamName', {defaultValue: 'Team A'});
@@ -13,18 +15,21 @@
 
 		ready() {
 			super.ready();
-			redTeamScore.on('change', newVal => {
-				if (newVal === '') {
-					this.redTeamScore = 0;
-				} else {
-					this.redTeamScore = newVal;
-				}
+			scoreboardVisible.on('change', newVal => {
+				this.scoreboardVisible = newVal;
 			});
 			blueTeamScore.on('change', newVal => {
 				if (newVal === '') {
 					this.blueTeamScore = 0;
 				} else {
 					this.blueTeamScore = newVal;
+				}
+			});
+			redTeamScore.on('change', newVal => {
+				if (newVal === '') {
+					this.redTeamScore = 0;
+				} else {
+					this.redTeamScore = newVal;
 				}
 			});
 			blueTeamName.on('change', newVal => {

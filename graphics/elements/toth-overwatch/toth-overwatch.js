@@ -1,3 +1,4 @@
+/* global SteppedEase */
 (function () {
 	'use strict';
 

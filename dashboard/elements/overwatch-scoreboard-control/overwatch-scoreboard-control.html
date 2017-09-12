@@ -39,9 +39,9 @@
 
 					<paper-input label="Name" value="{{blueTeamName}}" tabindex="1"></paper-input>
 					<paper-dropdown-menu label="Logo" tabindex="3">
-					  	<paper-listbox slot="dropdown-content" attr-for-selected="value" selected="{{blueTeamLogo}}">
+					  	<paper-listbox slot="dropdown-content" attr-for-selected="role" selected="{{blueTeamLogo}}">
 							<template is="dom-repeat" items="{{teamLogos}}">
-								<paper-item label="{{item.base}}" value="{{item.url}}"><iron-image height="100" width="100" sizing="contain" src="{{item.url}}"></paper-item>
+								<paper-item role$="{{item.url}}"><iron-image height="100" width="100" sizing="contain" src="{{item.url}}">{{item.base}}</paper-item>
 							</template>
 					  	</paper-listbox>
 					</paper-dropdown-menu>
@@ -60,9 +60,9 @@
 
 					<paper-input label="Name" value="{{redTeamName}}" tabindex="2"></paper-input>
 					<paper-dropdown-menu label="Logo" tabindex="4">
-					  	<paper-listbox  slot="dropdown-content" attr-for-selected="value" selected="{{redTeamLogo}}">
+					  	<paper-listbox  slot="dropdown-content" attr-for-selected="role" selected="{{redTeamLogo}}">
 							<template is="dom-repeat" items="{{teamLogos}}">
-								<paper-item label="{{item.base}}" value="{{item.url}}"><iron-image height="100" width="100" sizing="contain" src="{{item.url}}"></paper-item>
+								<paper-item role$="{{item.url}}"><iron-image height="100" width="100" sizing="contain" src="{{item.url}}">{{item.base}}</paper-item>
 							</template>
 					  	</paper-listbox>
 					</paper-dropdown-menu>
@@ -89,8 +89,8 @@
 			</div>
 
 			<div class="horizontal layout">
-				<paper-button raised on-tap="hideOverlay"  class="flex">Hide</paper-button>
-				<paper-button raised on-tap="showOverlay"  class="flex">Show</paper-button>
+				<paper-button raised id="hide-overlay" on-tap="hideOverlay" disabled="{{!scoreboardVisible}}" class="flex">Hide</paper-button>
+				<paper-button raised id="show-overlay" on-tap="showOverlay" disabled="{{scoreboardVisible}}" class="flex">Show</paper-button>
 			</div>
 
 			<nodecg-replicant replicant-name="scoreboardVisible" value="{{scoreboardVisible}}"></nodecg-replicant>
