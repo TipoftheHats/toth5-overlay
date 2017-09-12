@@ -221,14 +221,14 @@
         "defaultFile": "sound/challenge_accepted.ogg"
       },
 			{
-				"name": "scoreboard-in",
+				"name": "ow_scoreboard_in",
 				"assignable": false,
-				"defaultFile": "sound/scoreboard-in.ogg"
+				"defaultFile": "sound/ow_scoreboard_in.ogg"
 			},
 			{
-				"name": "scoreboard-out",
+				"name": "ow_scoreboard_out",
 				"assignable": false,
-				"defaultFile": "sound/scoreboard-out.ogg"
+				"defaultFile": "sound/ow_scoreboard_out.ogg"
 			}
     ]
   }

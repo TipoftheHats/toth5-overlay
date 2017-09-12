@@ -88,7 +88,7 @@
 			this.initialized = true;
 
 			if (!oldVal && newVal) {
-				nodecg.playSound('scoreboard-in');
+				nodecg.playSound('ow_scoreboard_in');
 				this.timeline.fromTo(lines, 0.5, {
 					className: '-=visible'
 				}, {
@@ -140,7 +140,7 @@
 					className: '+=visible'
 				}, 2);
 			} else if (oldVal && !newVal) {
-				nodecg.playSound('scoreboard-out');
+				nodecg.playSound('ow_scoreboard_out');
 				console.log('out');
 				this.timeline.fromTo(scores, 0.2, {
 					className: '+=visible'
