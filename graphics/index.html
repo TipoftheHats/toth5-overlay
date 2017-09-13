@@ -2,14 +2,13 @@
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
-	<title>toth5-overlay Main</title>
+	<title>toth5-overlay Main (Full-Frame)</title>
 	<script src="//use.typekit.net/ofl6oue.js"></script>
 	<script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 	<script>
 		try {
 			Typekit.load();
-		} catch (e) {
-		}
+		} catch (e) {}
 	</script>
 	<script src="../bower_components/gsap/src/minified/TweenMax.min.js"></script>
 	<link rel="import" href="../bower_components/polymer/polymer-element.html">
@@ -24,17 +23,19 @@
 	<link href="elements/toth-sponsors/toth-sponsors.html" rel="import">
 	<link href="elements/toth-tweet/toth-tweet.html" rel="import">
 	<link href="elements/toth-nameplate/toth-nameplate.html" rel="import">
-  <link href="elements/toth-overwatch/toth-overwatch.html" rel="import">
+	<link href="elements/toth-overwatch/toth-overwatch.html" rel="import">
 
 	<style>
-  @font-face {
-    font-family: BigNoodle;
-    src: url('elements/toth-overwatch/fonts/big_noodle_titling_oblique.ttf');
-  }
-  @font-face {
-    font-family: LemonMilk;
-    src: url('elements/toth-overwatch/fonts/lemonmilk.otf');
-  }
+		@font-face {
+			font-family: BigNoodle;
+			src: url('elements/toth-overwatch/fonts/big_noodle_titling_oblique.ttf');
+		}
+
+		@font-face {
+			font-family: LemonMilk;
+			src: url('elements/toth-overwatch/fonts/lemonmilk.otf');
+		}
+
 		body {
 			margin: 0;
 			opacity: 0;
@@ -73,12 +74,13 @@
 			left: 50%;
 			transform: translateX(-50%);
 		}
-    #overwatch-scoreboard {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+
+		#overwatch-scoreboard {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+		}
 
 		#lowerthird {
 			position: absolute;
