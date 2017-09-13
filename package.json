@@ -19,6 +19,7 @@
     "bluebird": "^3.4.1",
     "deep-equal": "^1.0.1",
     "lastfm": "^0.9.2",
+    "nanotimer": "^0.3.15",
     "osc": "^2.1.0",
     "q": "^1.4.1",
     "request-promise": "^3.0.0",
@@ -161,13 +162,13 @@
         "file": "nameplate.html",
         "headerColor": "#f47425"
       },
-			{
-				"name": "overwatch-scoreboard",
-				"title": "Overwatch",
-				"width": 4,
-				"file": "overwatch-scoreboard.html",
-				"headerColor": "#f47425"
-			}
+      {
+        "name": "overwatch-scoreboard",
+        "title": "Overwatch",
+        "width": 4,
+        "file": "overwatch-scoreboard.html",
+        "headerColor": "#f47425"
+      }
     ],
     "soundCues": [
       {
@@ -220,16 +221,16 @@
         "assignable": false,
         "defaultFile": "sound/challenge_accepted.ogg"
       },
-			{
-				"name": "ow_scoreboard_in",
-				"assignable": false,
-				"defaultFile": "sound/ow_scoreboard_in.ogg"
-			},
-			{
-				"name": "ow_scoreboard_out",
-				"assignable": false,
-				"defaultFile": "sound/ow_scoreboard_out.ogg"
-			}
+      {
+        "name": "ow_scoreboard_in",
+        "assignable": false,
+        "defaultFile": "sound/ow_scoreboard_in.ogg"
+      },
+      {
+        "name": "ow_scoreboard_out",
+        "assignable": false,
+        "defaultFile": "sound/ow_scoreboard_out.ogg"
+      }
     ]
   }
 }

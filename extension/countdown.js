@@ -1,10 +1,14 @@
 'use strict';
 
+// Packages
+const NanoTimer = require('nanotimer');
+
+// Ours
 const TimeObject = require('./classes/time-object');
 
-module.exports = function (nodecg) {
-	let timerCountdown;
+const timerCountdown = new NanoTimer();
 
+module.exports = function (nodecg) {
 	const countdownRep = nodecg.Replicant('countdown', {
 		defaultValue: {
 			time: new TimeObject(600),
@@ -21,7 +25,7 @@ module.exports = function (nodecg) {
 	if (countdownRep.value.running && countdownRep.value.time.raw && countdownRep.value.time.timestamp) {
 		const lostSeconds = Math.floor((Date.now() - countdownRep.value.time.timestamp) / 1000);
 		countdownRep.value.time = new TimeObject(countdownRep.value.time.raw + lostSeconds);
-		timerCountdown = setInterval(tick, 1000);
+		timerCountdown.setInterval(tick, '', '1s');
 	} else {
 		countdownRep.value.running = false;
 	}
@@ -41,7 +45,7 @@ module.exports = function (nodecg) {
 
 		countdownRep.value.running = true;
 		countdownRep.value.time = timeObj;
-		timerCountdown = setInterval(tick, 1000);
+		timerCountdown.setInterval(tick, '', '1s');
 	}
 
 	function stop() {
@@ -50,7 +54,7 @@ module.exports = function (nodecg) {
 		}
 
 		countdownRep.value.running = false;
-		clearInterval(timerCountdown);
+		timerCountdown.clearInterval();
 	}
 
 	function tick() {
