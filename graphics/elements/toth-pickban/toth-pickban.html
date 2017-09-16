@@ -15,6 +15,7 @@
 			.column {
 				margin-right: 4px;
 				margin-left: 4px;
+				margin-bottom:10px;
 			}
 			[data-state='banned'] {
 				background-color: var(--paper-red-500);
@@ -52,6 +53,8 @@
 				justify-content: space-around;
 				margin-left: 50px;
 				margin-right: 50px;
+				flex-flow: row wrap;
+
 			}
 			#teams {
 				margin:30px;
@@ -172,6 +175,20 @@
 				<paper-item class='class-name'>Heavy</paper-item>
 				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
 					<template is="dom-if" if="{{_isClass(player.playerClass, 'heavy')}}">
+						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+							{{player.name}}
+							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+						</paper-item>
+					</template>
+				</template>
+			</paper-listbox>
+		</div>
+		<div id="pyros" class="column" class="group">
+			<paper-listbox>
+				<paper-item class='class-name'>Pyro</paper-item>
+				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+					<template is="dom-if" if="{{_isClass(player.playerClass, 'pyro')}}">
 						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
 							{{player.name}}
 							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
