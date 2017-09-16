@@ -65,6 +65,16 @@
         "file": "countdown.html",
         "width": 1920,
         "height": 1080
+      },
+      {
+        "file": "blu_pick_ban.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "red_pick_ban.html",
+        "width": 1920,
+        "height": 1080
       }
     ],
     "dashboardPanels": [

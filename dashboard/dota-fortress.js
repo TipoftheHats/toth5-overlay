@@ -7,7 +7,7 @@
 	const bannedSelects = Array.from(document.querySelectorAll('[data-set="banned"]'));
 	const availableSelects = Array.from(document.querySelectorAll('[data-set="available"]'));
 	const pickedSelects = Array.from(document.querySelectorAll('[data-set="picked"]'));
-
+	const dotaCaptains = nodecg.Replicant('dotaCaptains');
 	const players = nodecg.Replicant('df_players');
 	players.on('change', newVal => {
 		// Remove all options from all <select> elements
@@ -64,6 +64,8 @@
 
 		setDraftedPlayers();
 	});
+	const draftStatus = nodecg.Replicant('draftState');
+	draftStatus.value = 0;
 
 	drafters.forEach(select => {
 		select.addEventListener('change', e => {
@@ -126,6 +128,18 @@
 		// Clear out the teams
 		teams.value.red = [];
 		teams.value.blu = [];
+		// Reset pick/ban ui
+		draftStatus.value = 0;
+		dotaCaptains.value = {
+			red: {
+				picks: [],
+				bans: []
+			},
+			blu: {
+				picks: [],
+				bans: []
+			}
+		};
 	});
 
 	function multiSelectHandler(el, state) {

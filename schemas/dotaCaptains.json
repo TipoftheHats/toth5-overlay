@@ -1,0 +1,32 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"red": {
+			"picks": {
+				"type": "array",
+				"description": "picks",
+				"default": []
+			},
+			"bans": {
+				"type": "array",
+				"description": "bans",
+				"default": []
+			}
+		},
+		"blu": {
+			"picks": {
+				"type": "array",
+				"description": "picks",
+				"default": []
+			},
+			"bans": {
+				"type": "array",
+				"description": "bans",
+				"default": []
+			}
+		}
+	},
+	"required": ["red", "blu"]
+}
