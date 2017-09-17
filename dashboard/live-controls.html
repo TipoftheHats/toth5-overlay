@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+	<link rel="import" href="elements/dash-donations/dash-donations.html">
+	<link rel="import" href="elements/dash-schedule/dash-schedule.html">
+	<link rel="import" href="elements/dash-section/dash-section.html">
+	<link rel="import" href="elements/dash-twitter/dash-twitter.html">
+
+	<custom-style>
+		<style>
+			body {
+				box-sizing: border-box;
+				min-width: 1860px;
+				background-color: #f5f5f5;
+				@apply --layout-vertical;
+				@apply --layout-center;
+			}
+
+			#container {
+				@apply --layout-horizontal;
+
+				position: relative;
+				min-height: 100%;
+				box-sizing: border-box;
+				margin-left: 16px;
+				margin-right: 16px;
+			}
+
+			/* Columns */
+			.column {
+				width: 560px;
+				box-sizing: border-box;
+				@apply --layout-vertical;
+				@apply --layout-flex-none;
+			}
+
+			#centerColumn {
+				margin: 0 60px;
+			}
+
+			dash-section[label="Donations"] {
+				--dash-section-color: #269735;
+			}
+
+			dash-section[label="Twitter"] {
+				--dash-section-color: #116CFA;
+			}
+		</style>
+	</custom-style>
+</head>
+<body>
+<div id="container">
+	<div id="leftColumn" class="column">
+		<dash-section label="Schedule" icon="date-range">
+			<dash-schedule></dash-schedule>
+		</dash-section>
+
+		<dash-section label="Donations" icon="editor:monetization-on">
+			<dash-donations></dash-donations>
+		</dash-section>
+
+		<dash-section label="Twitter" icon="social:share">
+			<dash-twitter></dash-twitter>
+		</dash-section>
+	</div>
+
+	<div id="centerColumn" class="column">
+
+	</div>
+
+	<div id="rightColumn" class="column">
+
+	</div>
+</div>
+</body>
+</html>

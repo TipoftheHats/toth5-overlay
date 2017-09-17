@@ -4,7 +4,7 @@
 	const tweet = nodecg.Replicant('tweet');
 
 	Polymer({
-		is: 'toth-tweet',
+		is: 'dash-twitter-tweet',
 
 		properties: {
 			profileUrl: {
