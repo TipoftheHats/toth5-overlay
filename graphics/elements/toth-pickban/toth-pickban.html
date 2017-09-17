@@ -99,7 +99,7 @@
 					<template is="dom-repeat" items="{{dotaCaptains.blu.bans}}" as="bans" mutable-data>{{bans}}, </template>
 				</div>
 				<div id="blu-picks" >PICKS:
-					<template is="dom-repeat" items="{{dotaCaptains.blu.picks}}" as="picks" mutable-data>{{picks}}, </template>
+					<template is="dom-repeat" items="{{teams.blu}}" as="picks" mutable-data>{{picks.name}}, </template>
 				</div>
 			</div>
 			<div id='red' class="column">
@@ -108,7 +108,7 @@
 					<template is="dom-repeat" items="{{dotaCaptains.red.bans}}" as="bans" mutable-data>{{bans}}, </template>
 				</div>
 				<div id="red-picks">PICKS:
-					<template is="dom-repeat" items="{{dotaCaptains.red.picks}}" as="picks" mutable-data>{{picks}}, </template>
+					<template is="dom-repeat" items="{{teams.red}}" as="picks" mutable-data>{{picks.name}}, </template>
 				</div>
 			</div>
 		</div>

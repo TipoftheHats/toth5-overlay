@@ -65,7 +65,11 @@
 		setDraftedPlayers();
 	});
 	const draftStatus = nodecg.Replicant('draftState');
-	draftStatus.value = 0;
+	// show what players have been banned each captain from UI.
+	dotaCaptains.on('change', newVal => {
+		document.querySelector('#blu-bans').innerHTML = newVal.blu.bans.toString();
+		document.querySelector('#red-bans').innerHTML = newVal.red.bans.toString();
+	});
 
 	drafters.forEach(select => {
 		select.addEventListener('change', e => {
@@ -132,11 +136,9 @@
 		draftStatus.value = 0;
 		dotaCaptains.value = {
 			red: {
-				picks: [],
 				bans: []
 			},
 			blu: {
-				picks: [],
 				bans: []
 			}
 		};

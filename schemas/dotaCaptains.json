@@ -4,11 +4,6 @@
 	"additionalProperties": false,
 	"properties": {
 		"red": {
-			"picks": {
-				"type": "array",
-				"description": "picks",
-				"default": []
-			},
 			"bans": {
 				"type": "array",
 				"description": "bans",
@@ -16,11 +11,6 @@
 			}
 		},
 		"blu": {
-			"picks": {
-				"type": "array",
-				"description": "picks",
-				"default": []
-			},
 			"bans": {
 				"type": "array",
 				"description": "bans",

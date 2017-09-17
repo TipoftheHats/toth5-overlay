@@ -124,11 +124,9 @@ module.exports = function (nodecg) {
 	nodecg.Replicant('dotaCaptains', {
 		defaultValue: {
 			red: {
-				picks: [],
 				bans: []
 			},
 			blu: {
-				picks: [],
 				bans: []
 			}
 		}

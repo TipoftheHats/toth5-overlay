@@ -32,6 +32,9 @@
 			players.on('change', newVal => {
 				this.players = newVal;
 			});
+			teams.on('change', newVal => {
+				this.teams = newVal;
+			});
 			draft.on('change', newVal => {
 				this.draft = newVal.filter(draft => draft);
 				if (!this._draftReady) {
@@ -105,9 +108,6 @@
 					if (player.name === playerName) {
 						playerIndex = idx;
 						player.state = 'drafted';
-						// i am tired....
-						const i = dotaCaptains.value[team].picks.length;
-						dotaCaptains.value[team].picks[i] = [playerName];
 						return true;
 					}
 
@@ -120,7 +120,6 @@
 						newIndex = teamIndex;
 					}
 					teams.value[team][newIndex] = players.value[playerIndex];
-					// draftStatus.value += 1;
 					this.updateDraft();
 				}
 			}
@@ -132,10 +131,8 @@
 				if (player.name === playerName) {
 					draftStatus.value += 1;
 					player.state = 'banned';
-						// i am tired....fix this
 					const i = dotaCaptains.value[team].bans.length;
 					dotaCaptains.value[team].bans[i] = [playerName];
-					// PENIS
 					return true;
 				}
 				return false;
