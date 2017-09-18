@@ -1,0 +1,221 @@
+<link rel="import" href="../../../bower_components/font-roboto/roboto.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+
+<dom-module id="toth-pickban">
+	<template>
+		<style>
+			:host {
+				font-family: Roboto, sans-serif;
+			}
+
+			#class-lists {
+				justify-content: space-around;
+				margin-left: 50px;
+				margin-right: 50px;
+				flex-flow: row wrap;
+			}
+
+			#teams {
+				margin:30px;
+				justify-content: space-evenly;
+			}
+
+			#blu {
+				background-color:white;
+				padding:10px;
+				box-shadow: 0 10px 20px rgba(57,92,120,0.3), 0 6px 6px rgba(57,92,120,0.5);
+				border-top: 20px solid rgba(57,92,120,1);
+			}
+
+			#red {
+				background-color:white;
+				padding:10px;
+				box-shadow: 0 10px 20px rgba(157,49,47,0.3), 0 6px 6px rgba(157,49,47,0.5);
+				border-top: 20px solid rgba(157,49,47,1);
+			}
+
+			#blu-bans,
+			#blu-picks,
+			#red-bans,
+			#red-picks {
+				padding:10px;
+			}
+
+			#blu h2,
+			#red h2 {
+				margin:0;
+				margin-top: -33px;
+				color:white;
+			}
+
+			.column {
+				margin-right: 4px;
+				margin-left: 4px;
+				margin-bottom: 10px;
+			}
+
+			.class {
+				background: white;
+				@apply --shadow-elevation-2dp;
+			}
+
+			.class-name {
+				justify-content: center;
+				font-weight: bold;
+				background-color: #F47425;
+				color: white;
+				text-transform: capitalize;
+			}
+
+			.player {
+				justify-content: space-between;
+			}
+
+			.player-name {
+				width: 120px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				@apply --layout-flex-none;
+			}
+
+			.player-button paper-button {
+				margin-right: 0;
+				min-width: 60px;
+			}
+
+			.stage {
+				background-color:white;
+				box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+				padding: 15px;
+				padding-left: 100px;
+			}
+
+			.pick-button {
+				--paper-button: {
+					color: white;
+					background-color: #5BA664;
+				};
+			}
+
+			.ban-button {
+				--paper-button: {
+					color: white;
+					background-color: #C9513E;
+				};
+			}
+
+			[data-state="banned"] {
+				background-color: var(--paper-red-500);
+				opacity: 0.9;
+				color: white;
+			}
+
+			[data-state="drafted"] {
+				background-color: var(--paper-green-500);
+				opacity: 0.9;
+				color: white;
+			}
+
+			[data-state="picked"] {
+				background-color: #211E1D;
+				color:white;
+				opacity: 0.8;
+			}
+
+			[data-state="drafted"] .player-button,
+			[data-state="banned"] .player-button,
+			[data-state="picked"] .player-button {
+				opacity: 0
+			}
+
+			paper-listbox {
+				padding: 0;
+			}
+
+			paper-item {
+				padding: 4px 8px;
+			}
+		</style>
+
+		<div id="pick-ban-ui">
+			<div class="stage">
+				<h2 id="captainType">You are the <b>[[captainLabel]]</b></h2>
+				<p><i>{{statusMessage}}</i></p>
+			</div>
+
+			<div class="captain-picks" style="justify-content: center">
+				<div id="teams" style="display: flex;">
+					<div id="blu" class="column">
+						<h2>BLU</h2>
+						<div id="blu-bans">
+							<strong>BANS:</strong>
+							<template is="dom-repeat" items="[[dotaCaptains.blu.bans]]" as="bans" mutable-data>[[bans]], </template>
+						</div>
+						<div id="blu-picks">
+							<strong>PICKS:</strong>
+							<template is="dom-repeat" items="[[teams.blu]]" as="picks" mutable-data>[[picks.name]], </template>
+						</div>
+					</div>
+					<div id="red" class="column">
+						<h2>RED</h2>
+						<div id="red-bans">
+							<strong>BANS:</strong>
+							<template is="dom-repeat" items="[[dotaCaptains.red.bans]]" as="bans" mutable-data>[[bans]], </template>
+						</div>
+						<div id="red-picks">
+							<strong>PICKS:</strong>
+							<template is="dom-repeat" items="[[teams.red]]" as="picks" mutable-data>[[picks.name]], </template>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="class-lists" style="display: flex;">
+				<template is="dom-repeat" items="[[classes]]" as="tf2class" mutable-data>
+					<div id="[[tf2class.name]]" class="class column">
+						<paper-item class="class-name">[[tf2class.name]]</paper-item>
+						<template is="dom-repeat" items="[[players]]" as="player" filter="[[_generateClassFilter(tf2class)]]" mutable-data>
+							<paper-item class="player" data-state$="[[player.state]]">
+								<span title="[[player.name]]" class="player-name">[[player.name]]</span>
+								<div class="player-button">
+									<paper-button
+										class="pick-button"
+										raised
+										on-tap="pickPlayer"
+										data-index$="[[player.index]]"
+										data-role$="[[player.playerClass]]"
+										data-player$="[[player.name]]"
+										hidden="[[pick]]"
+										disabled$="[[_isAvailable(player.state, captain)]]">
+										Pick
+									</paper-button>
+
+									<paper-button
+										class="ban-button"
+										raised
+										on-tap="banPlayer"
+										data-index$="[[player.index]]"
+										data-role$="[[player.playerClass]]"
+										data-player$="[[player.name]]"
+										hidden="[[ban]]"
+										disabled$="[[_isAvailable(player.state, captain)]]">
+										Ban
+									</paper-button>
+								</div>
+							</paper-item>
+						</template>
+					</div>
+				</template>
+			</div>
+		</div>
+	</template>
+
+	<script src="toth-pickban.js"></script>
+</dom-module>

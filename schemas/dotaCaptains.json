@@ -1,0 +1,31 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+
+	"definitions": {
+		"team": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"bans": {
+					"type": "array",
+					"description": "bans",
+					"items": "string",
+					"default": []
+				}
+			},
+			"required": ["bans"]
+		}
+	},
+
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"red": {
+			"$ref": "#/definitions/team"
+		},
+		"blu": {
+			"$ref": "#/definitions/team"
+		}
+	},
+	"required": ["red", "blu"]
+}

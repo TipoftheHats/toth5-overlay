@@ -7,7 +7,7 @@
 	const bannedSelects = Array.from(document.querySelectorAll('[data-set="banned"]'));
 	const availableSelects = Array.from(document.querySelectorAll('[data-set="available"]'));
 	const pickedSelects = Array.from(document.querySelectorAll('[data-set="picked"]'));
-
+	const dotaCaptains = nodecg.Replicant('dotaCaptains');
 	const players = nodecg.Replicant('df_players');
 	players.on('change', newVal => {
 		// Remove all options from all <select> elements
@@ -63,6 +63,12 @@
 		});
 
 		setDraftedPlayers();
+	});
+	const draftStatus = nodecg.Replicant('draftState');
+	// show what players have been banned each captain from UI.
+	dotaCaptains.on('change', newVal => {
+		document.querySelector('#blu-bans').innerHTML = newVal.blu.bans.toString();
+		document.querySelector('#red-bans').innerHTML = newVal.red.bans.toString();
 	});
 
 	drafters.forEach(select => {
@@ -126,6 +132,16 @@
 		// Clear out the teams
 		teams.value.red = [];
 		teams.value.blu = [];
+		// Reset pick/ban ui
+		draftStatus.value = 0;
+		dotaCaptains.value = {
+			red: {
+				bans: []
+			},
+			blu: {
+				bans: []
+			}
+		};
 	});
 
 	function multiSelectHandler(el, state) {

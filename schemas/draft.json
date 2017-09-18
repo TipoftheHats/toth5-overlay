@@ -1,0 +1,69 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"type": {
+				"type": "string",
+				"enum": ["ban", "pick"]
+			},
+			"team": {
+				"type": "string",
+				"enum": ["blu", "red"]
+			}
+		},
+		"required": ["type", "team"]
+	},
+
+	"default": [{
+		"type": "ban",
+		"team": "blu"
+	}, {
+		"type": "ban",
+		"team": "red"
+	}, {
+		"type": "ban",
+		"team": "blu"
+	}, {
+		"type": "ban",
+		"team": "red"
+	}, {
+		"type": "pick",
+		"team": "blu"
+	}, {
+		"type": "pick",
+		"team": "red"
+	}, {
+		"type": "pick",
+		"team": "blu"
+	}, {
+		"type": "pick",
+		"team": "red"
+	}, {
+		"type": "pick",
+		"team": "blu"
+	}, {
+		"type": "pick",
+		"team": "red"
+	}, {
+		"type": "pick",
+		"team": "blu"
+	}, {
+		"type": "pick",
+		"team": "red"
+	}, {
+		"type": "pick",
+		"team": "blu"
+	}, {
+		"type": "pick",
+		"team": "red"
+	}, {
+		"type": "pick",
+		"team": "blu"
+	}, {
+		"type": "pick",
+		"team": "red"
+	}]
+}

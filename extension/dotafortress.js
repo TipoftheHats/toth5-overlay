@@ -54,7 +54,7 @@ const _PLAYERS = [
 
 	// Sniper
 	{name: 'boar', playerClass: 'sniper', index: 0, state: 'available'},
-	{name: 'BLoodSire ', playerClass: 'sniper', index: 1, state: 'available'},
+	{name: 'BLoodSire', playerClass: 'sniper', index: 1, state: 'available'},
 
 	// Spy
 	{name: 'stabby', playerClass: 'spy', index: 0, state: 'available'},
@@ -70,4 +70,12 @@ module.exports = function (nodecg) {
 		},
 		persistent: false
 	});
+
+	// To change the draft order, edit the `default` property in `schemas/draft.json`.
+	// Because we set `persistent: false`, the default value from the schema will be applied on every start.
+	nodecg.Replicant('draft', {persistent: false});
+
+	// These two get everything they need from their schemas.
+	nodecg.Replicant('draftState');
+	nodecg.Replicant('dotaCaptains');
 };
