@@ -5,15 +5,11 @@
 	<title>toth5-overlay Main (Full-Frame)</title>
 	<script src="//use.typekit.net/ofl6oue.js"></script>
 	<script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-	<script>
-		try {
-			Typekit.load();
-		} catch (e) {}
-	</script>
 	<script src="../bower_components/gsap/src/minified/TweenMax.min.js"></script>
 	<link rel="import" href="../bower_components/polymer/polymer-element.html">
 
 	<script src="app/main.js"></script>
+	<link rel="stylesheet" href="style/main-shared.css">
 	<link href="elements/toth-donation/toth-donation.html" rel="import">
 	<link href="elements/toth-ticker/toth-ticker.html" rel="import">
 	<link href="elements/toth-brb/toth-brb.html" rel="import">
@@ -23,63 +19,12 @@
 	<link href="elements/toth-sponsors/toth-sponsors.html" rel="import">
 	<link href="elements/toth-tweet/toth-tweet.html" rel="import">
 	<link href="elements/toth-nameplate/toth-nameplate.html" rel="import">
-	<link href="elements/toth-overwatch/toth-overwatch.html" rel="import">
+	<link href="elements/toth-scoreboard/toth-scoreboard-ow.html" rel="import">
 
 	<style>
-		@font-face {
-			font-family: BigNoodle;
-			src: url('elements/toth-overwatch/fonts/big_noodle_titling_oblique.ttf');
-		}
-
-		@font-face {
-			font-family: LemonMilk;
-			src: url('elements/toth-overwatch/fonts/lemonmilk.otf');
-		}
-
-		body {
-			margin: 0;
-			opacity: 0;
-		}
-
 		#container {
-			position: absolute;
-			width: 1920px;
-			height: 1080px;
-			overflow: hidden;
-			font-family: "proxima-nova";
 			/*background: url("http://i.imgur.com/EcIltyp.png");
 			background: url("http://i.imgur.com/ivbkXt1.png");*/
-		}
-
-		#brb {
-			position: absolute;
-			width: 1920px;
-			height: 900px;
-			top: 130px;
-		}
-
-		#hashtag {
-			position: absolute;
-			top: 18px;
-			left: 24px;
-			font-size: 32px;
-			font-weight: 700;
-			color: white;
-			opacity: 0;
-		}
-
-		#scoreboard {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			transform: translateX(-50%);
-		}
-
-		#overwatch-scoreboard {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			transform: translateX(-50%);
 		}
 
 		#lowerthird {
@@ -98,6 +43,10 @@
 			position: absolute;
 			top: 180px;
 		}
+
+		#sponsors {
+			top: 52px; /* Moved down so its not in the way of the OW scoreboard. */
+		}
 	</style>
 </head>
 <body>
@@ -105,7 +54,6 @@
 		<toth-brb id="brb"></toth-brb>
 		<div id="hashtag">#TotH2017</div>
 		<toth-scoreboard id="scoreboard"></toth-scoreboard>
-		<toth-overwatch id="overwatch-scoreboard"></toth-overwatch>
 		<toth-lowerthird id="lowerthird"></toth-lowerthird>
 		<toth-sponsors id="sponsors"></toth-sponsors>
 		<toth-nowplaying id="nowPlaying"></toth-nowplaying>

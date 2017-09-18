@@ -69,105 +69,27 @@
     ],
     "dashboardPanels": [
       {
-        "name": "master",
-        "title": "Master Controls",
-        "width": 2,
-        "file": "master.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "donations",
-        "title": "Donations",
-        "width": 2,
-        "file": "donations.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "lowerthird",
-        "title": "Lowerthird",
-        "width": 2,
-        "file": "lowerthird.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "scoreboard",
-        "title": "Scoreboard",
-        "width": 2,
-        "file": "scoreboard.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "now-playing",
-        "title": "Now Playing",
-        "width": 2,
-        "file": "now-playing.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "total",
-        "title": "Total",
-        "width": 2,
-        "file": "total.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "edit-total",
-        "title": "Edit Total",
-        "width": 2,
-        "dialog": true,
-        "dialogButtons": [
-          {
-            "name": "save",
-            "type": "confirm"
-          },
-          {
-            "name": "cancel",
-            "type": "dismiss"
-          }
-        ],
-        "file": "dialogs/edit-total.html"
-      },
-      {
-        "name": "twitter",
-        "title": "Twitter",
-        "width": 3,
-        "file": "twitter.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "schedule",
-        "title": "Schedule",
-        "width": 4,
-        "file": "schedule.html",
-        "headerColor": "#f47425"
+        "name": "live controls",
+        "title": "Live Controls",
+        "file": "live-controls.html",
+        "headerColor": "#f47425",
+        "fullbleed": true
       },
       {
         "name": "dota-fortress",
         "title": "Dota Fortress",
         "width": 4,
         "file": "dota-fortress.html",
-        "headerColor": "#f47425"
+        "headerColor": "#f47425",
+        "workspace": "Misc"
       },
       {
         "name": "countdown",
         "title": "Countdn",
         "width": 1,
         "file": "countdown.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "nameplates",
-        "title": "Nameplates",
-        "width": 4,
-        "file": "nameplate.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "overwatch-scoreboard",
-        "title": "Overwatch",
-        "width": 4,
-        "file": "overwatch-scoreboard.html",
-        "headerColor": "#f47425"
+        "headerColor": "#f47425",
+        "workspace": "Misc"
       }
     ],
     "soundCues": [
@@ -230,6 +152,18 @@
         "name": "ow_scoreboard_out",
         "assignable": false,
         "defaultFile": "sound/ow_scoreboard_out.ogg"
+      }
+    ],
+    "assetCategories": [
+      {
+        "name": "ow-team-logos",
+        "title": "OW Team Logos",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png"
+        ]
       }
     ]
   }

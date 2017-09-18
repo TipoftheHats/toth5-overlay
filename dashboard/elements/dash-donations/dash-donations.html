@@ -1,0 +1,22 @@
+<link rel="import" href="dash-donations-test.html">
+<link rel="import" href="dash-donations-total.html">
+
+<dom-module id="dash-donations">
+	<template>
+		<style>
+			:host {
+				@apply --layout-vertical;
+				@apply --layout-center;
+			}
+
+			dash-donations-test {
+				margin-top: 18px;
+			}
+		</style>
+
+		<dash-donations-total></dash-donations-total>
+		<dash-donations-test></dash-donations-test>
+	</template>
+
+	<script src="dash-donations.js"></script>
+</dom-module>

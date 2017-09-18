@@ -1,6 +1,10 @@
 (function () {
 	'use strict';
 
+	try {
+		Typekit.load();
+	} catch (e) {}
+
 	nodecg.Replicant('mainShowing', {defaultValue: true}).on('change', newVal => {
 		if (newVal) {
 			TweenLite.to(document.body, 0.6, {

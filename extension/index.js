@@ -2,20 +2,8 @@
 
 module.exports = function (nodecg) {
 	// Initialize replicants.
-	nodecg.Replicant('scores', {
-		defaultValue: {
-			red: {
-				score: 0,
-				tag: 'RED'
-			},
-			blu: {
-				score: 0,
-				tag: 'BLU'
-			}
-		}
-	});
-
-	nodecg.Replicant('showHashtag', {defaultValue: true});
+	nodecg.Replicant('scores');
+	nodecg.Replicant('showHashtag');
 
 	try {
 		require('./lowerthird')(nodecg);

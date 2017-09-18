@@ -1,0 +1,53 @@
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+
+<dom-module id="dash-donations-test">
+	<template>
+		<style include="iron-flex iron-flex-alignment">
+			:host {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+			}
+
+			#type {
+				--paper-input-suffix: {
+					height: 24px;
+					align-items: center;
+				}
+			}
+
+			#amount {
+				width: 4em;
+				margin-left: 0.8em;
+			}
+
+			#send {
+				height: 100px;
+				position: relative;
+				top: 3px;
+				margin-left: 16px;
+				margin-right: 0;
+				--paper-button: {
+					color: white;
+					background-color: #645BA6;
+				};
+			}
+		</style>
+
+		<div class="layout vertical">
+			<div class="layout horizontal">
+				<vaadin-combo-box id="type" label="Type" items='["Cash", "Item"]' value="Cash"></vaadin-combo-box>
+				<paper-input id="amount" label="Amount" type="number" always-float-label></paper-input>
+			</div>
+
+			<paper-input id="donor" label="Donor Name" always-float-label></paper-input>
+		</div>
+
+		<paper-button id="send" raised on-tap="send">Send Test Donation</paper-button>
+	</template>
+
+	<script src="dash-donations-test.js"></script>
+</dom-module>

@@ -1,0 +1,177 @@
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../../bower_components/nodecg-replicant/nodecg-replicant.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../../bower_components/web-animations-js/web-animations-next-lite.min.html">
+
+<dom-module id="dash-scoreboard">
+	<template>
+		<style include="iron-flex iron-flex-alignment">
+			:host {
+				@apply --layout-vertical;
+			}
+
+			#mode {
+				margin-bottom: 12px;
+				@apply --layout-horizontal;
+				@apply --layout-self-center;
+			}
+
+			#mode-toggle {
+				margin-left: 16px;
+				margin-right: 13px;
+			}
+
+			.mode-label {
+				width: 160px;
+				font-weight: 900;
+				font-size: 24px;
+			}
+
+			.team {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.team-label {
+				font-weight: bold;
+				font-size: 18px;
+			}
+
+			#divider {
+				margin: 0 7px;
+				width: 1px;
+				flex-shrink: 0;
+				background: black;
+			}
+
+			#buttons {
+				margin-top: 8px;
+				@apply --layout-horizontal;
+				@apply --layout-center-center;
+			}
+
+			#show {
+				--paper-button: {
+					color: white;
+					background-color: #5BA664;
+				};
+			}
+
+			#update,
+			#swap {
+				--paper-button: {
+					color: white;
+					background-color: #645BA6;
+				};
+			}
+
+			#hide {
+				--paper-button: {
+					color: white;
+					background-color: #C9513E;
+				};
+			}
+
+			#show,
+			#update {
+				margin-left: 0;
+			}
+
+			#swap {
+				margin-right: 0;
+			}
+
+			#offset {
+				margin-top: 18px;
+				width: 120px;
+				@apply --layout-self-center;
+			}
+
+			paper-input[label="Score"] {
+				width: 5em;
+			}
+
+			paper-button {
+				width: 130px;
+			}
+		</style>
+
+		<nodecg-replicant replicant-name="assets:ow-team-logos" value="{{teamLogos}}"></nodecg-replicant>
+
+		<div id="mode">
+			<div class="mode-label" style="text-align: right;">OW Mode</div>
+			<paper-toggle-button
+				id="mode-toggle"
+				checked="{{_inTF2Mode}}"
+				on-change="_handleModeToggle">
+			</paper-toggle-button>
+			<div class="mode-label">TF2 Mode</div>
+		</div>
+
+		<div class="layout horizontal">
+			<div class="team">
+				<div class="team-label" style="color: #127FDC;">BLU</div>
+				<div class="layout horizontal">
+					<paper-input id="bluScore" always-float-label label="Score" type="number" style="margin-right: 8px;"></paper-input>
+					<paper-input id="bluTag" always-float-label label="Tag"></paper-input>
+				</div>
+
+				<paper-dropdown-menu label="Logo (for OW)" tabindex="3">
+					<paper-listbox slot="dropdown-content" attr-for-selected="data-url" selected="{{bluTeamLogo}}">
+						<template is="dom-repeat" items="[[teamLogos]]" mutable-data>
+							<paper-item data-url$="[[item.url]]">
+								<iron-image height="100" width="100" sizing="contain" src="[[item.url]]"></iron-image>
+								[[item.base]]
+							</paper-item>
+						</template>
+					</paper-listbox>
+				</paper-dropdown-menu>
+			</div>
+
+			<div id="divider"></div>
+
+			<div class="team">
+				<div class="team-label" style="color: #F53641; align-self: flex-end;">RED</div>
+				<div class="layout horizontal">
+					<paper-input id="redTag" always-float-label label="Tag"></paper-input>
+					<paper-input id="redScore" always-float-label label="Score" type="number" style="margin-left: 8px;"></paper-input>
+				</div>
+
+				<paper-dropdown-menu label="Logo (for OW)" tabindex="3">
+					<paper-listbox slot="dropdown-content" attr-for-selected="data-url" selected="{{redTeamLogo}}">
+						<template is="dom-repeat" items="[[teamLogos]]" mutable-data>
+							<paper-item data-url$="[[item.url]]">
+								<iron-image height="100" width="100" sizing="contain" src="[[item.url]]"></iron-image>
+								[[item.base]]
+							</paper-item>
+						</template>
+					</paper-listbox>
+				</paper-dropdown-menu>
+			</div>
+		</div>
+
+		<div id="buttons">
+			<paper-button id="show" raised on-tap="show">Show</paper-button>
+			<paper-button id="update" raised hidden on-tap="take">Update</paper-button>
+			<paper-button id="hide" raised on-tap="hide">Hide</paper-button>
+			<paper-button id="swap" raised on-tap="swap">Swap</paper-button>
+		</div>
+
+		<paper-input
+			id="offset"
+			label="Vertical Offset"
+			min="0"
+			max="1080"
+			type="number">
+		</paper-input>
+	</template>
+
+	<script src="dash-scoreboard.js"></script>
+</dom-module>

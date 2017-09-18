@@ -1,0 +1,6 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "string",
+	"enum": ["tf2", "ow"],
+	"default": "tf2"
+}

@@ -1,0 +1,39 @@
+@font-face {
+	font-family: BigNoodle;
+	src: url('fonts/big_noodle_titling_oblique.ttf');
+}
+
+@font-face {
+	font-family: LemonMilk;
+	src: url('fonts/lemonmilk.otf');
+}
+
+body {
+	margin: 0;
+	opacity: 0;
+}
+
+#container {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	overflow: hidden;
+	font-family: "proxima-nova", sans-serif;
+}
+
+#brb {
+	position: absolute;
+	width: 1920px;
+	height: 900px;
+	top: 130px;
+}
+
+#hashtag {
+	position: absolute;
+	top: 18px;
+	left: 24px;
+	font-size: 32px;
+	font-weight: 700;
+	color: white;
+	opacity: 0;
+}

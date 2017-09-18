@@ -1,0 +1,88 @@
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="dash-twitter-tweet.html">
+
+<dom-module id="dash-twitter">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			paper-button {
+				flex: 1;
+				min-width: 1px;
+			}
+
+			#url {
+				flex: 1;
+			}
+
+
+			#load {
+				flex-grow: 0;
+				min-width: 120px;
+				margin-right: 0;
+			}
+
+			#show {
+				margin-left: 0;
+				--paper-button: {
+					color: white;
+					background-color: #5BA664;
+				};
+			}
+
+			#hide {
+				margin-right: 0;
+				--paper-button: {
+					color: white;
+					background-color: #C9513E;
+				};
+			}
+
+			#seven {
+				margin-left: 0;
+			}
+
+			#thirty {
+				margin-right: 0;
+			}
+
+			#load,
+			paper-button[data-duration] {
+				--paper-button: {
+					color: white;
+					background-color: #645BA6;
+				};
+			}
+
+			img.emoji {
+				height: 1em;
+				width: 1em;
+				margin: 0 .05em 0 .1em;
+				vertical-align: -0.1em;
+			}
+		</style>
+
+		<div style="display: flex;">
+			<paper-input id="url" label="Tweet URL" always-float-label></paper-input>
+			<paper-button id="load" raised on-tap="load">Load Tweet</paper-button>
+		</div>
+
+		<dash-twitter-tweet></dash-twitter-tweet>
+
+		<div style="display: flex;">
+			<paper-button id="show" raised on-tap="show">Show Tweet</paper-button>
+			<paper-button id="hide" raised on-tap="hide">Hide Tweet</paper-button>
+		</div>
+
+		<div style="display: flex; margin-top: 8px;">
+			<paper-button id="seven" raised data-duration="7" on-tap="pulse">7 Seconds</paper-button>
+			<paper-button id="fifteen" raised data-duration="15" on-tap="pulse">15 Seconds</paper-button>
+			<paper-button id="thirty" raised data-duration="30" on-tap="pulse">30 Seconds</paper-button>
+		</div>
+	</template>
+
+	<script src="dash-twitter.js"></script>
+</dom-module>
