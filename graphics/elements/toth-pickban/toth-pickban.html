@@ -5,243 +5,260 @@
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+
 <dom-module id="toth-pickban">
 	<template>
 		<style>
 			:host {
 				font-family: Roboto, sans-serif;
-
 			}
+
 			.column {
 				margin-right: 4px;
 				margin-left: 4px;
 				margin-bottom:10px;
 			}
-			[data-state='banned'] {
+
+			[data-state="banned"] {
 				background-color: var(--paper-red-500);
 				opacity: 0.9
 			}
-			[data-state='drafted'] {
+
+			[data-state="drafted"] {
 				background-color: var(--paper-green-500);
 				opacity: 0.9
 			}
-			[data-state='picked'] {
+
+			[data-state="picked"] {
 				background-color: #211E1D;
 				color:white;
 				opacity: .8;
 			}
+
 			.class-name {
 				justify-content: center;
 				font-weight: bold;
 				background-color: #F47425;
 				color:white;
 			}
+
 			paper-listbox {
 				box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 				padding:0;
 			}
+
 			paper-item {
-				padding: 0px 8px;
+				padding: 0 8px;
 			}
+
 			.stage {
 				background-color:white;
-				padding:15px;
 				box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+				padding: 15px;
 				padding-left: 100px;
 			}
+
 			#class-lists {
 				justify-content: space-around;
 				margin-left: 50px;
 				margin-right: 50px;
 				flex-flow: row wrap;
 
+
 			}
 			#teams {
 				margin:30px;
 				justify-content: space-evenly;
 			}
-			#blu-team, #red-team {
-				justify-content: space-around;
-			}
+
 			#blu {
 				background-color:white;
 				padding:10px;
 				box-shadow: 0 10px 20px rgba(57,92,120,0.3), 0 6px 6px rgba(57,92,120,0.5);
 				border-top: 20px solid rgba(57,92,120,1);
 			}
+
 			#red {
 				background-color:white;
 				padding:10px;
 				box-shadow: 0 10px 20px rgba(157,49,47,0.3), 0 6px 6px rgba(157,49,47,0.5);
 				border-top: 20px solid rgba(157,49,47,1);
 			}
-			#blu-bans, #blu-picks, #red-bans, #red-picks {
+
+			#blu-bans,
+			#blu-picks,
+			#red-bans,
+			#red-picks {
 				padding:10px;
 			}
-			#blu h2, #red h2 {
+
+			#blu h2,
+			#red h2 {
 				margin:0;
 				margin-top: -33px;
 				color:white;
 			}
-
 		</style>
-		<div id='pick-ban-ui'>
-		<div class="stage">
-			<h2 id="captainType">You are the <b>[[captainLabel]]</b></h2>
-			<p><i>{{statusMessage}}</i> </p>
-		</div>
 
-		<div class="captain-picks" style="justify-content: center">
-			<div id="teams" style="display: flex;" >
-				<div id='blu' class="column">
-					<h2>BLU</h2>
-				<div id="blu-bans" >BANS:
-					<template is="dom-repeat" items="{{dotaCaptains.blu.bans}}" as="bans" mutable-data>{{bans}}, </template>
-				</div>
-				<div id="blu-picks" >PICKS:
-					<template is="dom-repeat" items="{{teams.blu}}" as="picks" mutable-data>{{picks.name}}, </template>
+		<div id="pick-ban-ui">
+			<div class="stage">
+				<h2 id="captainType">You are the <b>[[captainLabel]]</b></h2>
+				<p><i>{{statusMessage}}</i> </p>
+			</div>
+
+			<div class="captain-picks" style="justify-content: center">
+				<div id="teams" style="display: flex;">
+					<div id="blu" class="column">
+						<h2>BLU</h2>
+						<div id="blu-bans" >BANS:
+							<template is="dom-repeat" items="{{dotaCaptains.blu.bans}}" as="bans" mutable-data>{{bans}}, </template>
+						</div>
+						<div id="blu-picks" >PICKS:
+							<template is="dom-repeat" items="{{teams.blu}}" as="picks" mutable-data>{{picks.name}}, </template>
+						</div>
+					</div>
+					<div id="red" class="column">
+						<h2>RED</h2>
+						<div id="red-bans">BANS:
+							<template is="dom-repeat" items="{{dotaCaptains.red.bans}}" as="bans" mutable-data>{{bans}}, </template>
+						</div>
+						<div id="red-picks">PICKS:
+							<template is="dom-repeat" items="{{teams.red}}" as="picks" mutable-data>{{picks.name}}, </template>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div id='red' class="column">
-				<h2>RED</h2>
-				<div id="red-bans">BANS:
-					<template is="dom-repeat" items="{{dotaCaptains.red.bans}}" as="bans" mutable-data>{{bans}}, </template>
+
+			<div id="class-lists" style="display: flex;">
+				<div id="scouts" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Scout</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'scout')}}">
+							<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{  _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
 				</div>
-				<div id="red-picks">PICKS:
-					<template is="dom-repeat" items="{{teams.red}}" as="picks" mutable-data>{{picks.name}}, </template>
+				<div id="soldiers" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Soldier</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'soldier')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{  _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
+				</div>
+				<div id="Demos" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Demoman</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'demoman')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
+				</div>
+				<div id="Medics" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Medic</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'medic')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
+				</div>
+				<div id="Heavys" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Heavy</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'heavy')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
+				</div>
+				<div id="pyros" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Pyro</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'pyro')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
+				</div>
+				<div id="Engineers" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Engineer</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'engineer')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
+				</div>
+				<div id="Sniper" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Sniper</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'sniper')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
+				</div>
+				<div id="Spy" class="column" class="group">
+					<paper-listbox>
+						<paper-item class="class-name">Spy</paper-item>
+						<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
+							<template is="dom-if" if="{{_isClass(player.playerClass, 'spy')}}">
+								<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
+									{{player.name}}
+									<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
+									<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
+								</paper-item>
+							</template>
+						</template>
+					</paper-listbox>
 				</div>
 			</div>
 		</div>
+	</template>
 
-	<div id='class-lists' style="display: flex;">
-		<div id="scouts" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Scout</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'scout')}}">
-			  		<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{  _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			<paper-listbox>
-		</div>
-		<div id="soldiers" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Soldier</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'soldier')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{  _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-		<div id="Demos" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Demoman</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'demoman')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-		<div id="Medics" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Medic</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'medic')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-		<div id="Heavys" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Heavy</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'heavy')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-		<div id="pyros" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Pyro</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'pyro')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-		<div id="Engineers" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Engineer</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'engineer')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-		<div id="Sniper" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Sniper</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'sniper')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-		<div id="Spy" class="column" class="group">
-			<paper-listbox>
-				<paper-item class='class-name'>Spy</paper-item>
-				<template is="dom-repeat" items="{{players}}" as="player" mutable-data>
-					<template is="dom-if" if="{{_isClass(player.playerClass, 'spy')}}">
-						<paper-item data-state$="{{player.state}}" style="justify-content: space-between">
-							{{player.name}}
-							<paper-button raised on-tap="pickPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{pick}}" disabled$="{{ _isAvailable(player.state, captain) }}">Pick</paper-button>
-							<paper-button raised on-tap="banPlayer" data-index$="{{player.index}}" data-role$="{{player.playerClass}}" data-player$="{{player.name}}" hidden="{{ban}}" disabled$="{{ _isAvailable(player.state, captain) }}">Ban</paper-button>
-						</paper-item>
-					</template>
-				</template>
-			</paper-listbox>
-		</div>
-	</div>
-</div>
-</template>
-<script src="toth-pickban.js"></script>
+	<script src="toth-pickban.js"></script>
 </dom-module>

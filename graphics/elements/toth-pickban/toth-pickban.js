@@ -1,16 +1,22 @@
 (function () {
 	'use strict';
+
+	const dotaCaptains = nodecg.Replicant('dotaCaptains');
+	const draft = nodecg.Replicant('draft');
+	const draftStatus = nodecg.Replicant('draftState');
 	const players = nodecg.Replicant('df_players');
 	const teams = nodecg.Replicant('df_teams');
-	const draftStatus = nodecg.Replicant('draftState');
 
-	const draft = nodecg.Replicant('draft');
-	const dotaCaptains = nodecg.Replicant('dotaCaptains');
-
+	/**
+	 * @customElement
+	 * @polymer
+	 * @appliesMixin Polymer.MutableData
+	 */
 	class TothPickBan extends Polymer.MutableData(Polymer.Element) {
 		static get is() {
 			return 'toth-pickban';
 		}
+
 		static get properties() {
 			return {
 				captain: {
@@ -60,18 +66,15 @@
 			this.freeze = false;
 			this.updateDraft();
 		}
+
 		_isClass(playerType, classType) {
-			if (playerType === classType) {
-				return true;
-			}
-			return false;
+			return playerType === classType;
 		}
+
 		_isAvailable(state, captain) {
-			if (state === 'available' && captain === this.currentTeam) {
-				return false;
-			}
-			return true;
+			return !(state === 'available' && captain === this.currentTeam);
 		}
+
 		updateDraft() {
 			if (this.draft.length > 0 && draftStatus.value + 1 <= this.draft.length) {
 				this.currentTeam = this.draft[draftStatus.value].team;
@@ -93,6 +96,7 @@
 				this.pick = true;
 			}
 		}
+
 		pickPlayer(e) {
 			const team = this.currentTeam.toLowerCase();
 			const playerName = e.target.dataset.player;
@@ -124,6 +128,7 @@
 				}
 			}
 		}
+
 		banPlayer(e) {
 			const playerName = e.target.dataset.player;
 			const team = this.currentTeam.toLowerCase();
@@ -138,6 +143,7 @@
 				return false;
 			});
 		}
-}
+	}
+
 	customElements.define(TothPickBan.is, TothPickBan);
 })();
