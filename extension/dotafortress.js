@@ -54,61 +54,12 @@ const _PLAYERS = [
 
 	// Sniper
 	{name: 'boar', playerClass: 'sniper', index: 0, state: 'available'},
-	{name: 'BLoodSire ', playerClass: 'sniper', index: 1, state: 'available'},
+	{name: 'BLoodSire', playerClass: 'sniper', index: 1, state: 'available'},
 
 	// Spy
 	{name: 'stabby', playerClass: 'spy', index: 0, state: 'available'},
 	{name: 'Scruff McGruff', playerClass: 'spy', index: 1, state: 'available'}
 ];
-const DRAFT_ORDER = [{
-	type: 'ban',
-	team: 'blu'
-}, {
-	type: 'ban',
-	team: 'red'
-}, {
-	type: 'ban',
-	team: 'blu'
-}, {
-	type: 'ban',
-	team: 'red'
-}, {
-	type: 'pick',
-	team: 'blu'
-}, {
-	type: 'pick',
-	team: 'red'
-}, {
-	type: 'pick',
-	team: 'blu'
-}, {
-	type: 'pick',
-	team: 'red'
-}, {
-	type: 'pick',
-	team: 'blu'
-}, {
-	type: 'pick',
-	team: 'red'
-}, {
-	type: 'pick',
-	team: 'blu'
-}, {
-	type: 'pick',
-	team: 'red'
-}, {
-	type: 'pick',
-	team: 'blu'
-}, {
-	type: 'pick',
-	team: 'red'
-}, {
-	type: 'pick',
-	team: 'blu'
-}, {
-	type: 'pick',
-	team: 'red'
-}];
 
 module.exports = function (nodecg) {
 	nodecg.Replicant('df_players', {defaultValue: _PLAYERS, persistent: false});
@@ -119,16 +70,12 @@ module.exports = function (nodecg) {
 		},
 		persistent: false
 	});
-	nodecg.Replicant('draft', {defaultValue: DRAFT_ORDER, persistent: false});
-	nodecg.Replicant('draftState', {defaultValue: 0, persistent: true});
-	nodecg.Replicant('dotaCaptains', {
-		defaultValue: {
-			red: {
-				bans: []
-			},
-			blu: {
-				bans: []
-			}
-		}
-	});
+
+	// To change the draft order, edit the `default` property in `schemas/draft.json`.
+	// Because we set `persistent: false`, the default value from the schema will be applied on every start.
+	nodecg.Replicant('draft', {persistent: false});
+
+	// These two get everything they need from their schemas.
+	nodecg.Replicant('draftState');
+	nodecg.Replicant('dotaCaptains');
 };

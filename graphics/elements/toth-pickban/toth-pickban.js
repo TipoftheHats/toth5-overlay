@@ -19,6 +19,8 @@
 
 		static get properties() {
 			return {
+				dotaCaptains: Array,
+				teams: Array,
 				ban: Boolean,
 				pick: Boolean,
 				players: Array,
@@ -163,10 +165,7 @@
 
 			draftStatus.value += 1;
 			player.state = 'banned';
-
-			// TODO: turn this into a .push
-			const i = dotaCaptains.value[team].bans.length;
-			dotaCaptains.value[team].bans[i] = [playerName]; // TODO: should this be an array?
+			dotaCaptains.value[team].bans.push(playerName);
 		}
 
 		_checkReplicantsReady() {
