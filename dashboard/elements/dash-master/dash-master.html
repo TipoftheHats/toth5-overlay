@@ -1,0 +1,85 @@
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../../bower_components/nodecg-toggle/nodecg-toggle.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="dash-master">
+	<template>
+		<style include="iron-flex iron-flex-alignment">
+			:host {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+			}
+
+			#brb-show,
+			#main-show {
+				margin-left: 0;
+				--paper-button: {
+					color: white;
+					background-color: #5BA664;
+				};
+			}
+
+			#brb-hide,
+			#main-hide {
+				margin-right: 0;
+				--paper-button: {
+					color: white;
+					background-color: #C9513E;
+				};
+			}
+
+			.label {
+				font-weight: 900;
+				font-size: 24px;
+				text-align: center;
+				margin-bottom: 8px;
+			}
+
+			paper-button {
+				flex: 1;
+			}
+
+			#toggle {
+				@apply --layout-vertical;
+				@apply --layout-center;
+				@apply --layout-flex-none;
+				margin: 0 24px;
+			}
+
+			#toggleLabel {
+				text-transform: uppercase;
+				font-size: 12px;
+				font-weight: bold;
+				margin-bottom: 4px;
+				pointer-events: none;
+				user-select: none;
+				white-space: nowrap;
+			}
+		</style>
+
+
+		<div class="layout vertical flex" style="margin-right: 12px;">
+			<div class="label">Master Fade</div>
+			<div class="layout horizontal">
+				<paper-button id="main-show" raised on-tap="showMain">Fade In</paper-button>
+				<paper-button id="main-hide" raised on-tap="hideMain">Fade Out</paper-button>
+			</div>
+		</div>
+
+		<div class="layout vertical flex" style="margin-left: 12px;">
+			<div class="label">BRB</div>
+			<div class="layout horizontal">
+				<paper-button id="brb-show" raised on-tap="showBrb">Show BRB</paper-button>
+				<paper-button id="brb-hide" raised on-tap="hideBrb">Hide BRB</paper-button>
+			</div>
+		</div>
+
+		<div id="toggle">
+			<div id="toggleLabel">Hashtag</div>
+			<nodecg-toggle replicant-name="showHashtag"></nodecg-toggle>
+		</div>
+	</template>
+
+	<script src="dash-master.js"></script>
+</dom-module>

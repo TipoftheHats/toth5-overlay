@@ -5,16 +5,11 @@
 	<title>toth5-overlay Main (L-Frame)</title>
 	<script src="//use.typekit.net/ofl6oue.js"></script>
 	<script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-	<script>
-		try {
-			Typekit.load();
-		} catch (e) {
-		}
-	</script>
 	<script src="../bower_components/gsap/src/minified/TweenMax.min.js"></script>
 	<link rel="import" href="../bower_components/polymer/polymer-element.html">
 
 	<script src="app/main.js"></script>
+	<link rel="stylesheet" href="style/main-shared.css">
 	<link href="elements/toth-donation/toth-donation.html" rel="import">
 	<link href="elements/toth-ticker/toth-ticker.html" rel="import">
 	<link href="elements/toth-brb/toth-brb.html" rel="import">
@@ -26,20 +21,8 @@
 	<link href="elements/toth-nameplate/toth-nameplate.html" rel="import">
 
 	<style>
-		body {
-			margin: 0;
-			opacity: 0;
-		}
-
 		#container {
-			position: absolute;
-			width: 1920px;
-			height: 1080px;
-			overflow: hidden;
-			font-family: "proxima-nova", sans-serif;
-			/*background: url("img/lframe_mockup.jpg");
-			background: url("http://i.imgur.com/EcIltyp.png");
-			background: url("http://i.imgur.com/ivbkXt1.png");*/
+			background: url("img/lframe_mockup.jpg");
 		}
 
 		#lframe {
@@ -51,34 +34,15 @@
 			overflow: hidden;
 		}
 
-		#brb {
-			position: absolute;
-			width: 1920px;
-			height: 900px;
-			top: 130px;
-		}
-
-		#hashtag {
-			position: absolute;
-			top: 18px;
-			left: 24px;
-			font-size: 32px;
-			font-weight: 700;
-			color: white;
-			opacity: 0;
+		#scoreboard {
+			transform: scale(0.758);
+			transform-origin: top center;
 		}
 
 		#lowerthird {
 			position: absolute;
 			bottom: 30px;
 			left: 0;
-		}
-
-		#scoreboard {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			transform: translateX(-50%);
 		}
 
 		#nowPlaying {

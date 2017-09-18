@@ -1,0 +1,35 @@
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="dash-nowplaying">
+	<template>
+		<style>
+			:host {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+			}
+
+			#marquee {
+				font-weight: 500;
+				font-size: 24px;
+				word-break: break-word;
+				word-wrap: break-word;
+				@apply --layout-flex;
+			}
+
+			#show {
+				width: 152px;
+				margin-left: 16px;
+				margin-right: 0;
+				--paper-button: {
+					color: white;
+					background-color: #645BA6;
+				};
+			}
+		</style>
+
+		<div id="marquee">[[currentSong]]</div>
+		<paper-button id="show" raised on-tap="show">Show for 12s</paper-button>
+	</template>
+
+	<script src="dash-nowplaying.js"></script>
+</dom-module>

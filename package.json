@@ -76,13 +76,6 @@
         "fullbleed": true
       },
       {
-        "name": "master",
-        "title": "Master Controls",
-        "width": 2,
-        "file": "master.html",
-        "headerColor": "#f47425"
-      },
-      {
         "name": "lowerthird",
         "title": "Lowerthird",
         "width": 2,
@@ -90,25 +83,12 @@
         "headerColor": "#f47425"
       },
       {
-        "name": "scoreboard",
-        "title": "Scoreboard",
-        "width": 2,
-        "file": "scoreboard.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "now-playing",
-        "title": "Now Playing",
-        "width": 2,
-        "file": "now-playing.html",
-        "headerColor": "#f47425"
-      },
-      {
         "name": "dota-fortress",
         "title": "Dota Fortress",
         "width": 4,
         "file": "dota-fortress.html",
-        "headerColor": "#f47425"
+        "headerColor": "#f47425",
+        "workspace": "Dota Fortress"
       },
       {
         "name": "countdown",
@@ -122,13 +102,6 @@
         "title": "Nameplates",
         "width": 4,
         "file": "nameplate.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "overwatch-scoreboard",
-        "title": "Overwatch",
-        "width": 4,
-        "file": "overwatch-scoreboard.html",
         "headerColor": "#f47425"
       }
     ],
@@ -192,6 +165,18 @@
         "name": "ow_scoreboard_out",
         "assignable": false,
         "defaultFile": "sound/ow_scoreboard_out.ogg"
+      }
+    ],
+    "assetCategories": [
+      {
+        "name": "ow-team-logos",
+        "title": "OW Team Logos",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png"
+        ]
       }
     ]
   }
