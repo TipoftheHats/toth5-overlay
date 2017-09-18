@@ -19,6 +19,9 @@
 
 		static get properties() {
 			return {
+				ban: Boolean,
+				pick: Boolean,
+				players: Array,
 				captain: {
 					type: String,
 					reflectToAttribute: true
@@ -28,6 +31,30 @@
 				},
 				statusMessage: {
 					type: String
+				},
+				classes: {
+					type: Array,
+					value() {
+						return [{
+							name: 'scout'
+						}, {
+							name: 'soldier'
+						}, {
+							name: 'demoman'
+						}, {
+							name: 'medic'
+						}, {
+							name: 'heavy'
+						}, {
+							name: 'pyro'
+						}, {
+							name: 'engineer'
+						}, {
+							name: 'sniper'
+						}, {
+							name: 'spy'
+						}];
+					}
 				}
 			};
 		}
@@ -35,12 +62,15 @@
 		ready() {
 			super.ready();
 			this.statusMessage = 'Ready to Begin Draft';
+
 			players.on('change', newVal => {
 				this.players = newVal;
 			});
+
 			teams.on('change', newVal => {
 				this.teams = newVal;
 			});
+
 			draft.on('change', newVal => {
 				this.draft = newVal.filter(draft => draft);
 				if (!this._draftReady) {
@@ -48,6 +78,7 @@
 					this._checkReplicantsReady();
 				}
 			});
+
 			dotaCaptains.on('change', newVal => {
 				this.dotaCaptains = newVal;
 				if (!this._dotaCaptainsReady) {
@@ -57,22 +88,9 @@
 			});
 		}
 
-		_checkReplicantsReady() {
-			if (this._draftReady && this._dotaCaptainsReady) {
-				draftStatus.on('change', this.draftChanged.bind(this));
-			}
-		}
 		draftChanged() {
 			this.freeze = false;
 			this.updateDraft();
-		}
-
-		_isClass(playerType, classType) {
-			return playerType === classType;
-		}
-
-		_isAvailable(state, captain) {
-			return !(state === 'available' && captain === this.currentTeam);
 		}
 
 		updateDraft() {
@@ -86,9 +104,11 @@
 					this.ban = true;
 					this.pick = false;
 				}
+
 				players.on('change', newVal => {
 					this.players = newVal;
 				});
+
 				this.statusMessage = this.currentTeam + '\'s turn to ' + this.currentDraftAction;
 			} else {
 				this.statusMessage = 'Draft Completed';
@@ -107,6 +127,7 @@
 				teams.value[team][teamIndex] = '';
 			} else {
 				draftStatus.value += 1;
+
 				let playerIndex;
 				players.value.some((player, idx) => {
 					if (player.name === playerName) {
@@ -117,12 +138,14 @@
 
 					return false;
 				});
+
 				if (typeof playerIndex !== 'undefined') {
 					if (teams.value[team].length > 0) {
 						newIndex = teams.value[team].length;
 					} else {
 						newIndex = teamIndex;
 					}
+
 					teams.value[team][newIndex] = players.value[playerIndex];
 					this.updateDraft();
 				}
@@ -132,16 +155,34 @@
 		banPlayer(e) {
 			const playerName = e.target.dataset.player;
 			const team = this.currentTeam.toLowerCase();
-			players.value.some(player => {
-				if (player.name === playerName) {
-					draftStatus.value += 1;
-					player.state = 'banned';
-					const i = dotaCaptains.value[team].bans.length;
-					dotaCaptains.value[team].bans[i] = [playerName];
-					return true;
-				}
-				return false;
-			});
+			const player = players.value.find(player => player.name === playerName);
+			if (!player) {
+				nodecg.log.error(`Tried to ban ${playerName}, but could not find them in the players replicant!`);
+				return;
+			}
+
+			draftStatus.value += 1;
+			player.state = 'banned';
+
+			// TODO: turn this into a .push
+			const i = dotaCaptains.value[team].bans.length;
+			dotaCaptains.value[team].bans[i] = [playerName]; // TODO: should this be an array?
+		}
+
+		_checkReplicantsReady() {
+			if (this._draftReady && this._dotaCaptainsReady) {
+				draftStatus.on('change', this.draftChanged.bind(this));
+			}
+		}
+
+		_generateClassFilter(tf2class) {
+			return function (player) {
+				return player.playerClass === tf2class.name;
+			};
+		}
+
+		_isAvailable(state, captain) {
+			return !(state === 'available' && captain === this.currentTeam);
 		}
 	}
 
