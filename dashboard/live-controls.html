@@ -4,7 +4,9 @@
 	<meta charset="UTF-8">
 	<script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 	<link rel="import" href="elements/dash-donations/dash-donations.html">
+	<link rel="import" href="elements/dash-lowerthird/dash-lowerthird.html">
 	<link rel="import" href="elements/dash-master/dash-master.html">
+	<link rel="import" href="elements/dash-nameplates/dash-nameplates.html">
 	<link rel="import" href="elements/dash-nowplaying/dash-nowplaying.html">
 	<link rel="import" href="elements/dash-schedule/dash-schedule.html">
 	<link rel="import" href="elements/dash-scoreboard/dash-scoreboard.html">
@@ -58,6 +60,10 @@
 			dash-section[label="Now Playing"] {
 				--dash-section-color: #FF0000;
 			}
+
+			dash-nameplates {
+				margin-top: 48px;
+			}
 		</style>
 	</custom-style>
 </head>
@@ -92,7 +98,10 @@
 	</div>
 
 	<div id="rightColumn" class="column">
-
+		<dash-section label="Lowerthirds" icon="maps:person-pin">
+			<dash-lowerthird></dash-lowerthird>
+			<dash-nameplates></dash-nameplates>
+		</dash-section>
 	</div>
 </div>
 </body>

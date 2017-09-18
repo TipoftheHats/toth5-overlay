@@ -119,7 +119,7 @@
 							});
 						}
 
-						if (!logo.showing && currLineWidth >= logoWidth + titleWidth) {
+						if (!logo.showing && currLineWidth >= Math.floor(logoWidth + titleWidth)) {
 							logo.showing = true;
 							TweenLite.to(logo, 0.5, {
 								y: '0%',
@@ -135,7 +135,7 @@
 							});
 						}
 
-						if (!title.showing && currLineWidth >= titleWidth + logoWidth) {
+						if (!title.showing && currLineWidth >= Math.floor(logoWidth + titleWidth)) {
 							title.showing = true;
 							TweenLite.to(title, 0.5, {
 								y: '0%',

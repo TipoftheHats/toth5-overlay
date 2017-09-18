@@ -26,9 +26,15 @@
 	 * @customElement
 	 * @polymer
 	 */
-	class TothNameplateControl extends Polymer.MutableData(Polymer.Element) {
+	class DashNameplates extends Polymer.MutableData(Polymer.Element) {
 		static get is() {
-			return 'toth-nameplate-control';
+			return 'dash-nameplates';
+		}
+
+		static get properties() {
+			return {
+				importPath: String // https://github.com/Polymer/polymer-linter/issues/71
+			};
 		}
 
 		ready() {
@@ -115,5 +121,5 @@
 		}
 	}
 
-	customElements.define(TothNameplateControl.is, TothNameplateControl);
+	customElements.define(DashNameplates.is, DashNameplates);
 })();

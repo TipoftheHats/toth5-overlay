@@ -7,7 +7,7 @@
 <link rel="import" href="../../../bower_components/polymer/lib/mixins/mutable-data.html">
 <link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
 
-<dom-module id="toth-nameplate-control">
+<dom-module id="dash-nameplates">
 	<template>
 		<style include="iron-flex iron-flex-alignment">
 			#showCouch,
@@ -39,6 +39,7 @@
 			}
 
 			vaadin-combo-box {
+				padding-top: 0;
 				--paper-input-suffix: {
 					height: 24px;
 					align-items: center;
@@ -46,45 +47,50 @@
 			}
 		</style>
 
-		<iron-ajax auto url="./elements/toth-nameplate-control/nameplate.json" handle-as="json" last-response="{{talentRoster}}"></iron-ajax>
+		<iron-ajax
+			auto
+			url="[[importPath]]nameplate.json"
+			handle-as="json"
+			last-response="{{talentRoster}}">
+		</iron-ajax>
 
 		<div class="horizontal layout">
 			<div class="flex talent-dropdown">
 				<vaadin-combo-box
-						disabled="[[couchVisible]]"
-						label="Left"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-						item-label-path="name"
-				        data-slot="couch1"
-				></vaadin-combo-box>
+					disabled="[[couchVisible]]"
+					label="Left"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="couch1">
+				</vaadin-combo-box>
 
 				<vaadin-combo-box
-						disabled="[[couchVisible]]"
-						label="Middle"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-						item-label-path="name"
-				        data-slot="couch2"
-				></vaadin-combo-box>
+					disabled="[[couchVisible]]"
+					label="Middle"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="couch2">
+				</vaadin-combo-box>
 
 				<vaadin-combo-box
-						disabled="[[couchVisible]]"
-						label="Right"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-						item-label-path="name"
-				        data-slot="couch3"
-				></vaadin-combo-box>
+					disabled="[[couchVisible]]"
+					label="Right"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="couch3">
+				</vaadin-combo-box>
 
 				<vaadin-combo-box
-						disabled="[[couchVisible]]"
-						label="Host"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-						item-label-path="name"
-						data-slot="host"
-				></vaadin-combo-box>
+					disabled="[[couchVisible]]"
+					label="Host"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="host">
+				</vaadin-combo-box>
 			</div>
 
 			<div class="flex-2 names">
@@ -112,43 +118,43 @@
 			</paper-button>
 		</div>
 
-		<div class="horizontal layout">
+		<div class="horizontal layout" style="margin-top: 12px;">
 			<div class="flex players-dropdown">
 				<vaadin-combo-box
-						disabled="[[playersVisible]]"
-						label="Top Left"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-						item-label-path="name"
-				        data-slot="player3"
-				></vaadin-combo-box>
+					disabled="[[playersVisible]]"
+					label="Top Left"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="player3">
+				</vaadin-combo-box>
 
 				<vaadin-combo-box
-						disabled="[[playersVisible]]"
-						label="Bottom Left"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-	                    item-label-path="name"
-				        data-slot="player1"
-				></vaadin-combo-box>
+					disabled="[[playersVisible]]"
+					label="Bottom Left"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="player1">
+				</vaadin-combo-box>
 
 				<vaadin-combo-box
-						disabled="[[playersVisible]]"
-						label="Top Right"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-	                    item-label-path="name"
-				        data-slot="player4"
-				></vaadin-combo-box>
+					disabled="[[playersVisible]]"
+					label="Top Right"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="player4">
+				</vaadin-combo-box>
 
 				<vaadin-combo-box
-						disabled="[[playersVisible]]"
-						label="Bottom Right"
-						items="[[talentRoster]]"
-						on-selected-item-changed="_handleSelectedItemChanged"
-                        item-label-path="name"
-				        data-slot="player2"
-				></vaadin-combo-box>
+					disabled="[[playersVisible]]"
+					label="Bottom Right"
+					items="[[talentRoster]]"
+					on-selected-item-changed="_handleSelectedItemChanged"
+					item-label-path="name"
+					data-slot="player2">
+				</vaadin-combo-box>
 			</div>
 
 			<div class="flex-2 names">
@@ -180,5 +186,5 @@
 		<nodecg-replicant replicant-name="playerVisible" value="{{playersVisible}}"></nodecg-replicant>
 	</template>
 
-	<script src="toth-nameplate-control.js"></script>
+	<script src="dash-nameplates.js"></script>
 </dom-module>

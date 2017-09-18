@@ -1,32 +1,27 @@
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
 
 <dom-module id="dash-donations-test">
 	<template>
-		<style>
+		<style include="iron-flex iron-flex-alignment">
 			:host {
 				@apply --layout-horizontal;
 				@apply --layout-center;
 			}
 
-			paper-input {
-				--paper-input-container: {
-					padding-top: 0;
+			#type {
+				--paper-input-suffix: {
+					height: 24px;
+					align-items: center;
 				}
-			}
-
-			#left {
-				@apply --layout-vertical;
-			}
-
-			#inputs {
-				display: flex;
 			}
 
 			#amount {
 				width: 4em;
-				margin-right: 0.6em;
+				margin-left: 0.8em;
 			}
 
 			#send {
@@ -42,12 +37,13 @@
 			}
 		</style>
 
-		<div id="left">
-			<vaadin-combo-box id="type" label="Type" items='["Cash", "Item"]' value="Cash"></vaadin-combo-box>
-			<div id="inputs">
+		<div class="layout vertical">
+			<div class="layout horizontal">
+				<vaadin-combo-box id="type" label="Type" items='["Cash", "Item"]' value="Cash"></vaadin-combo-box>
 				<paper-input id="amount" label="Amount" type="number" always-float-label></paper-input>
-				<paper-input id="donor" label="Donor Name" always-float-label></paper-input>
 			</div>
+
+			<paper-input id="donor" label="Donor Name" always-float-label></paper-input>
 		</div>
 
 		<paper-button id="send" raised on-tap="send">Send Test Donation</paper-button>

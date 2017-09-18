@@ -18,6 +18,13 @@
 				flex: 1;
 			}
 
+
+			#load {
+				flex-grow: 0;
+				min-width: 120px;
+				margin-right: 0;
+			}
+
 			#show {
 				margin-left: 0;
 				--paper-button: {
@@ -32,12 +39,6 @@
 					color: white;
 					background-color: #C9513E;
 				};
-			}
-
-			#load {
-				flex-grow: 0;
-				min-width: 120px;
-				margin-right: 0;
 			}
 
 			#seven {
@@ -77,9 +78,9 @@
 		</div>
 
 		<div style="display: flex; margin-top: 8px;">
-			<paper-button id="seven" raised data-duration="7" on-tap="pulse">7s</paper-button>
-			<paper-button id="fifteen" raised data-duration="15" on-tap="pulse">15s</paper-button>
-			<paper-button id="thirty" raised data-duration="30" on-tap="pulse">30s</paper-button>
+			<paper-button id="seven" raised data-duration="7" on-tap="pulse">7 Seconds</paper-button>
+			<paper-button id="fifteen" raised data-duration="15" on-tap="pulse">15 Seconds</paper-button>
+			<paper-button id="thirty" raised data-duration="30" on-tap="pulse">30 Seconds</paper-button>
 		</div>
 	</template>
 

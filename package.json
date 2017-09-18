@@ -76,33 +76,20 @@
         "fullbleed": true
       },
       {
-        "name": "lowerthird",
-        "title": "Lowerthird",
-        "width": 2,
-        "file": "lowerthird.html",
-        "headerColor": "#f47425"
-      },
-      {
         "name": "dota-fortress",
         "title": "Dota Fortress",
         "width": 4,
         "file": "dota-fortress.html",
         "headerColor": "#f47425",
-        "workspace": "Dota Fortress"
+        "workspace": "Misc"
       },
       {
         "name": "countdown",
         "title": "Countdn",
         "width": 1,
         "file": "countdown.html",
-        "headerColor": "#f47425"
-      },
-      {
-        "name": "nameplates",
-        "title": "Nameplates",
-        "width": 4,
-        "file": "nameplate.html",
-        "headerColor": "#f47425"
+        "headerColor": "#f47425",
+        "workspace": "Misc"
       }
     ],
     "soundCues": [
