@@ -10,8 +10,107 @@
 				flex-direction: column;
 				justify-content: space-around;
 				align-items: center;
-				color: #E4E4E4;
+				color: white;
 				opacity: 0;
+			}
+
+			#dimmer {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 1920px;
+				height: 1080px;
+				opacity: 0.3;
+				background: black;
+				z-index: -1;
+			}
+
+			#label {
+				margin-top: 157px;
+			}
+
+			#upNext {
+				opacity: 0;
+				margin-top: 41px;
+			}
+
+			#panel {
+				width: 100%;
+				margin-top: 110px;
+			}
+
+			#panel-head {
+				font-size: 50px;
+				font-weight: 800;
+				background-color: #D3C9C9;
+				color: black;
+				text-transform: uppercase;
+				text-align: center;
+			}
+
+			#panel-body {
+				background: rgba(0,0,0,0.5);
+				padding: 30px 40px;
+				@apply --layout-horizontal;
+				@apply --layout-center-center;
+			}
+
+			#shirts {
+				position: relative;
+				top: -39px;
+			}
+
+			#shirts-bg {
+				position: relative;
+				top: 44px;
+			}
+
+			#shirts-shirt,
+			#shirts-hoodie {
+				filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.56));
+			}
+
+			#shirts-shirt {
+				position: absolute;
+				width: 200px;
+				top: 8px;
+				left: 27px;
+			}
+
+			#shirts-hoodie {
+				position: absolute;
+				width: 194px;
+				top: 16px;
+				left: 183px;
+			}
+
+			#shirts-label {
+				position: absolute;
+				top: 62px;
+				right: -2px;
+				width: 607px;
+				height: 53px;
+				color: white;
+				font-size: 60px;
+				font-weight: 700;
+			}
+
+			#shirts-url {
+				position: absolute;
+				top: 142px;
+				left: 198px;
+				width: 775px;
+				height: 60px;
+				background-color: white;
+				color: black;
+				font-size: 48px;
+				font-weight: 700;
+				@apply --layout-horizontal;
+				@apply --layout-center-center;
+			}
+
+			.textShadow {
+				text-shadow: 0 0 13px #000000;
 			}
 
 			h1 {
@@ -25,7 +124,7 @@
 			}
 
 			h3 {
-				font-size: 60px;
+				font-size: 50px;
 				margin: 0;
 			}
 
@@ -33,47 +132,28 @@
 				width: 600px;
 				height: 250px;
 			}
-
-			.textShadow {
-				text-shadow: 0 0 10px rgba(244,116,37,0.7);
-			}
-
-			#upNext {
-				opacity: 0;
-			}
-
-			#panel-head {
-				padding-left: 24px;
-				font-size: 64px;
-				font-weight: 800;
-				background-color: #D3C9C9;
-				color: black;
-			}
-
-			#panel-body {
-				background: rgba(0,0,0,0.5);
-				padding: 30px 40px;
-			}
 		</style>
 
-        <h1 class="textShadow">Be Right Back!</h1>
+		<div id="dimmer"></div>
 
+        <h1 id="label" class="textShadow">Be Right Back!</h1>
         <h2 id="upNext" class="textShadow">Up Next: <span id="event"></span></h2>
 
         <div id="panel">
-            <div id="panel-head">
-                While you're waiting...
-            </div>
-            <div id="panel-body" class="layout horizontal center">
-                <div class="layout vertical center" style="margin-right: 75px;">
+            <div id="panel-head">While you're waiting...</div>
+            <div id="panel-body">
+                <div class="layout vertical center" style="margin-right: 60px;">
                     <iron-image sizing="contain" preload fade src="[[importPath]]img/cosi.png"></iron-image>
-                    <h3 class="lightTextShadow" style="color: #F47425;">tipofthehats.org/donate</h3>
+                    <h3 class="lightTextShadow" style="color: #F47425; margin-top: -17px;">tipofthehats.org/donate</h3>
                 </div>
 
-                <div class="layout vertical center" style="margin-left: 75px;">
-                    <iron-image sizing="contain" preload fade src="[[importPath]]img/shirt.png"></iron-image>
-                    <h3 class="lightTextShadow">teespring.com/shop/TOTH_2017</h3>
-                </div>
+				<div id="shirts" style="margin-left: 60px;">
+					<img id="shirts-bg" src="[[importPath]]img/shirts-bg.png">
+					<img id="shirts-shirt" src="[[importPath]]img/shirt.png">
+					<img id="shirts-hoodie" src="[[importPath]]img/hoodie.png">
+					<div id="shirts-label">TotH Shirts & Apparel</div>
+					<div id="shirts-url">teespring.com/shop/TOTH_2017</div>
+				</div>
             </div>
         </div>
     </template>

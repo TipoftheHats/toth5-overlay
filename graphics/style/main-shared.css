@@ -21,13 +21,6 @@ body {
 	font-family: "proxima-nova", sans-serif;
 }
 
-#brb {
-	position: absolute;
-	width: 1920px;
-	height: 900px;
-	top: 130px;
-}
-
 #hashtag {
 	position: absolute;
 	top: 18px;
