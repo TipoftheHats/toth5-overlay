@@ -34,6 +34,7 @@
 				},
 				visible: {
 					type: Boolean,
+					value: false,
 					observer: '_visibleChanged'
 				},
 				timeline: {
@@ -46,6 +47,10 @@
 				muted: {
 					type: Boolean,
 					reflectToAttribute: true
+				},
+				_stateShowing: {
+					type: Boolean,
+					value: false
 				}
 			};
 		}
@@ -70,6 +75,12 @@
 		}
 
 		show() {
+			if (this._stateShowing) {
+				return;
+			}
+
+			this._stateShowing = true;
+
 			const bars = Array.from(this.shadowRoot.querySelectorAll('.bar'));
 			const glows = Array.from(this.shadowRoot.querySelectorAll('.glow'));
 			const lines = Array.from(this.shadowRoot.querySelectorAll('.line'));
@@ -106,6 +117,12 @@
 		}
 
 		hide() {
+			if (!this._stateShowing) {
+				return;
+			}
+
+			this._stateShowing = false;
+
 			const bars = Array.from(this.shadowRoot.querySelectorAll('.bar'));
 			const glows = Array.from(this.shadowRoot.querySelectorAll('.glow'));
 			const lines = Array.from(this.shadowRoot.querySelectorAll('.line'));
