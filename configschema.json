@@ -113,6 +113,35 @@
 		},
   		"donationSocketUrl": {
 			"type": "string"
+		},
+		"twitch": {
+			"type": ["object", "null"],
+			"additionalProperties": false,
+			"properties": {
+				"channelId": {
+					"type": "string",
+					"description": "The ID (not name!) of the Twitch channel to operate on."
+				},
+				"oauthToken": {
+					"type": "string",
+					"description": "The OAuth token to use to make API requests."
+				},
+				"titleTemplate": {
+					"type": "string",
+					"description": "The template used to set the title of the stream whenever the current run changes."
+				},
+				"clientId": {
+					"type": "string",
+					"description": "The Client ID of the Twitch API application to use when sending API requests."
+				},
+				"debug": {
+					"type": "boolean",
+					"description": "If true, enables additional debug logging for some Twitch systems.",
+					"default": false
+				}
+			},
+			"required": ["channelId", "oauthToken", "clientId", "debug"],
+			"default": null
 		}
 	}
 }

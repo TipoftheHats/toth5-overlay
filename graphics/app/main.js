@@ -39,12 +39,4 @@
 			});
 		}
 	});
-
-	nodecg.listenFor('donation', data => {
-		const event = new CustomEvent('donation', {detail: data});
-		window.dispatchEvent(event);
-	});
-
-	// Used by the tier1, tier2, and tier3 notifications.
-	window.notificationTl = new TimelineLite({autoRemoveChildren: true});
 })();

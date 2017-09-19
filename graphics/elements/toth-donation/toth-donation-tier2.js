@@ -13,32 +13,28 @@ class TothDonationTier2 extends Polymer.Element {
 		};
 	}
 
-	ready() {
-		super.ready();
-		this.tl = window.notificationTl;
-		window.addEventListener('donation', e => {
-			this.handleDonation(e.detail);
-		});
-	}
-
-	handleDonation({type, name, amount, rawAmount}) {
-		if (rawAmount < 100 || rawAmount >= 500) {
-			return;
-		}
-
-		this.tl.call(() => {
+	/**
+	 * Builds a notification animation.
+	 * @param type {string=cash'|'item'|'subscription'|'cheer')
+	 * @param name {string}
+	 * @param amount {number}
+	 * @returns {TimelineLite}
+	 */
+	handleDonation({type, name, amount}) {
+		const tl = new TimelineLite();
+		tl.call(() => {
 			this.$['name-content-name'].innerHTML = name;
 			this.$['name-content-amount'].innerHTML = `&nbsp;${amount}`;
 		});
 
-		this.tl.add('enter');
+		tl.add('enter');
 
-		this.tl.to(this.$['type-rect'], 0.411, {
+		tl.to(this.$['type-rect'], 0.411, {
 			scaleY: 1,
 			ease: Back.easeOut
 		}, 'enter');
 
-		this.tl.set(this.$.name, {
+		tl.set(this.$.name, {
 			onStart: function () {
 				if (type === 'item') {
 					this.$.giftbox.style.display = 'block';
@@ -51,12 +47,12 @@ class TothDonationTier2 extends Polymer.Element {
 			visibility: 'visible'
 		}, 'enter+=0.08');
 
-		this.tl.to(this.$.name, 0.511, {
+		tl.to(this.$.name, 0.511, {
 			x: '0%',
 			ease: Power2.easeInOut
 		}, 'enter+=0.08');
 
-		this.tl.to(this.$['name-content'], 0.392, {
+		tl.to(this.$['name-content'], 0.392, {
 			y: '0%',
 			ease: Power2.easeInOut,
 			onComplete: function () {
@@ -68,7 +64,7 @@ class TothDonationTier2 extends Polymer.Element {
 			}.bind(this)
 		}, '-=0.08');
 
-		this.tl.call(() => {
+		tl.call(() => {
 			const nameWidth = this.$.name.clientWidth;
 			TweenLite.to(this.$.shimmer, 1.5, {
 				x: -190 - nameWidth - 28,
@@ -77,7 +73,7 @@ class TothDonationTier2 extends Polymer.Element {
 		});
 
 		// Exit
-		this.tl.to(this, 0.811, {
+		tl.to(this, 0.811, {
 			y: 210,
 			ease: Power2.easeIn,
 			onComplete: function () {
@@ -87,7 +83,7 @@ class TothDonationTier2 extends Polymer.Element {
 		}, '+=5');
 
 		// Reset
-		this.tl.set([
+		tl.set([
 			this,
 			this.$['type-rect'],
 			this.$.name,
@@ -98,7 +94,8 @@ class TothDonationTier2 extends Polymer.Element {
 		});
 
 		// Time padding
-		this.tl.to({}, 0.2, {});
+		tl.to({}, 0.2, {});
+		return tl;
 	}
 }
 
