@@ -19,7 +19,7 @@ const pubsub = new TwitchPubSub({
 });
 
 pubsub.on('connected', () => {
-	log.info('Connected to PubSub.');
+	log.info('Connected to PubSub, ready to receive cheers and subscriptions.');
 });
 
 pubsub.on('disconnected', () => {
