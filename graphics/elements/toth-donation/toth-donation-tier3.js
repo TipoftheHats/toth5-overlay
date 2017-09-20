@@ -20,12 +20,14 @@ class TothDonationTier3 extends Polymer.Element {
 	 * @param amount {number}
 	 * @returns {TimelineLite}
 	 */
-	handleDonation({type, name, amount}) {
+	handleDonation(type, name, amount) {
 		const tl = new TimelineLite();
 		const scoreboard = document.getElementById('scoreboard');
 		const sponsors = document.getElementById('sponsors');
 		const rectLeft = this.shadowRoot.querySelector('.type-rect.left');
 		const rectRight = this.shadowRoot.querySelector('.type-rect.right');
+		const cheerLeft = this.shadowRoot.querySelector('.cheer.left');
+		const cheerRight = this.shadowRoot.querySelector('.cheer.right');
 		const moneyLeft = this.shadowRoot.querySelector('.money.left');
 		const moneyRight = this.shadowRoot.querySelector('.money.right');
 		const giftboxLeft = this.shadowRoot.querySelector('.giftbox.left');
@@ -70,8 +72,20 @@ class TothDonationTier3 extends Polymer.Element {
 		}, 'enter+=0.08');
 
 		tl.to(this.$['name-content'], 0.392, {
+			y: '0%',
+			ease: Power2.easeInOut,
+			callbackScope: this,
 			onStart() {
-				if (type === 'item') {
+				if (type === 'cheer') {
+					TweenLite.from([cheerLeft, cheerRight], 0.2, {
+						scale: 0,
+						ease: Circ.easeOut
+					});
+					cheerLeft.style.display = 'block';
+					cheerRight.style.display = 'block';
+					cheerLeft.play();
+					cheerRight.play();
+				} else if (type === 'item') {
 					giftboxLeft.style.display = 'block';
 					giftboxRight.style.display = 'block';
 					giftboxLeft.play();
@@ -82,26 +96,29 @@ class TothDonationTier3 extends Polymer.Element {
 					moneyLeft.play();
 					moneyRight.play();
 				}
-			},
-			y: '0%',
-			ease: Power2.easeInOut
+			}
 		}, '-=0.08');
 
 		// Exit
 		tl.to(this.$.cover, 0.511, {
 			scaleY: 1,
 			ease: Power2.easeIn,
-			onComplete: function () {
+			callbackScope: this,
+			onComplete() {
+				cheerLeft.style.display = 'none';
+				cheerRight.style.display = 'none';
 				giftboxLeft.style.display = 'none';
 				giftboxRight.style.display = 'none';
 				moneyLeft.style.display = 'none';
 				moneyRight.style.display = 'none';
+				cheerLeft.currentTime = 0;
+				cheerRight.currentTime = 0;
 				giftboxLeft.currentTime = 0;
 				giftboxRight.currentTime = 0;
 				moneyLeft.currentTime = 0;
 				moneyRight.currentTime = 0;
 				this.$.cover.style.transformOrigin = 'top center';
-			}.bind(this)
+			}
 		}, '+=5');
 
 		tl.set([

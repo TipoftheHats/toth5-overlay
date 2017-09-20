@@ -23,6 +23,7 @@
 			this.showWars = this.showWars.bind(this);
 			this.showCTA = this.showCTA.bind(this);
 			this.challengeAccepted = this.challengeAccepted.bind(this);
+			this._optionAnim = this._optionAnim.bind(this);
 
 			super.ready();
 			this.tl = new TimelineLite({autoRemoveChildren: true});
@@ -227,6 +228,7 @@
 			this.enter();
 			this.tl.to({}, INTERVAL, {});
 
+			// TODO: this code seems fishy, and also doesn't work when a bid has no options yet
 			wars.value.forEach((war, index) => {
 				if (index > 0) {
 					this.tl.to(this.$.content, 0.4, {
@@ -243,7 +245,7 @@
 					});
 				}
 
-				war.options.slice(1).forEach(this._optionAnim.bind(this));
+				war.options.slice(1).forEach(this._optionAnim);
 
 				this.tl.to({}, INTERVAL, {});
 			});

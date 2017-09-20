@@ -22,7 +22,7 @@ class TothDonationTier1 extends Polymer.Element {
 	 * @param amount {string} - A pre-formatted amount string, which will be displayed verbatim.
 	 * @returns {TimelineLite}
 	 */
-	handleDonation(type, name, amount) {
+	handleDonation(type, name, amount, rawAmount) {
 		const tl = new TimelineLite();
 		tl.call(() => {
 			this.$['name-content-text'].innerHTML = `${name} <b>${amount}</b>`;
@@ -39,8 +39,23 @@ class TothDonationTier1 extends Polymer.Element {
 			visibility: 'visible',
 			callbackScope: this,
 			onStart() {
-				this.type = type;
-				console.log(type, this.$.videos.selectedItem);
+				if (type === 'cheer') {
+					let variant = '100';
+					if (rawAmount >= 5000) {
+						variant = '5k';
+					} else if (rawAmount >= 1000) {
+						variant = '1k';
+					}
+
+					this.type = `cheer${variant}`;
+					TweenLite.from(this.$.videos.selectedItem, 0.2, {
+						scale: 0,
+						ease: Circ.easeOut
+					});
+				} else {
+					this.type = type;
+				}
+
 				this.$.videos.selectedItem.play();
 			}
 		}, 'enter+=0.08');

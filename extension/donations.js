@@ -115,6 +115,7 @@ module.exports = function (nodecg) {
 
 	function formatDonation({name, rawAmount, type}) {
 		// Truncate name to 30 characters
+		name = name || 'Anonymous';
 		name = name.length > 30 ? `${name.substring(0, 29)}…` : name;
 
 		// Format amount

@@ -14,17 +14,23 @@
 				@apply --layout-center;
 			}
 
+			#type {
+				@apply --layout-flex;
+			}
+
 			#subTier,
 			#amount {
-				margin-left: 0.8em;
+				margin-left: 0.6em;
 			}
 
 			#subTier {
-				width: 8em;
+				width: 66px;
+				@apply --layout-flex-none;
 			}
 
 			#amount {
-				width: 4.5em;
+				width: 70px;
+				@apply --layout-flex-none;
 			}
 
 			#send {
@@ -64,13 +70,13 @@
 					</paper-listbox>
 				</paper-dropdown-menu>
 
-				<paper-input id="amount" label="Amount" type="number" always-float-label></paper-input>
+				<paper-input id="amount" label="Amount" type="number" always-float-label value="1"></paper-input>
 			</div>
 
-			<paper-input id="donor" label="Donor Name" always-float-label></paper-input>
+			<paper-input id="donor" label="Donor Name" always-float-label value="Test Donor"></paper-input>
 		</div>
 
-		<paper-button id="send" raised on-tap="send">Send Test Donation</paper-button>
+		<paper-button id="send" raised on-tap="send">Send Test<br/>Donation</paper-button>
 	</template>
 
 	<script src="dash-donations-test.js"></script>

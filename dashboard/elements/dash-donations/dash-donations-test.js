@@ -23,7 +23,7 @@ class DashDonationsTest extends Polymer.Element {
 	send() {
 		nodecg.sendMessage('testDonation', {
 			rawAmount: parseFloat(this.$.amount.value),
-			name: this.$.donor.value,
+			name: this.$.donor.value || 'Test Donor',
 			type: this.$.type.value.toLowerCase(),
 			subTier: this.subTier
 		});

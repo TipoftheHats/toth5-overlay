@@ -1,4 +1,5 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
 
 <dom-module id="toth-donation-tier3">
     <template>
@@ -102,6 +103,18 @@
 				top: -160px;
 			}
 
+			video.cheer {
+				top: -76px;
+			}
+
+			video.cheer.left {
+				left: -50px;
+			}
+
+			video.cheer.right {
+				right: -50px;
+			}
+
 			#cover {
 				position: absolute;
 				width: 100%;
@@ -132,10 +145,12 @@
 
 		<div class="type-rect right"></div>
 
-		<video class="giftbox left" preload src="[[importPath]]img/giftbox.webm"></video>
-		<video class="giftbox right" preload src="[[importPath]]img/giftbox.webm"></video>
-		<video class="money left" preload src="[[importPath]]img/money3.webm"></video>
-		<video class="money right" preload src="[[importPath]]img/money3.webm"></video>
+		<video class="giftbox left" src="[[importPath]]img/giftbox.webm" preload></video>
+		<video class="giftbox right" src="[[importPath]]img/giftbox.webm" preload></video>
+		<video class="money left" src="[[importPath]]img/money3.webm" preload></video>
+		<video class="money right" src="[[importPath]]img/money3.webm" preload></video>
+		<video class="cheer left" src="[[importPath]]img/bits_100k.webm" preload></video>
+		<video class="cheer right" src="[[importPath]]img/bits_100k.webm" preload></video>
 
 		<div id="cover"></div>
     </template>

@@ -16,6 +16,7 @@
 		"Linear": true,
 		"SteppedEase": true,
 		"Back": true,
+		"Circ": true,
 		"Typekit": true
 	}
 }

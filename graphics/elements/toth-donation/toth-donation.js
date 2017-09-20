@@ -76,14 +76,18 @@ class TothDonation extends Polymer.Element {
 	 * version - {string}
 	 */
 	routeCheer(cheer) {
+		if (cheer.bits_used < 100) {
+			return;
+		}
+
 		const name = cheer.display_name || cheer.user_name;
 		const formattedBits = cheer.bits_used.toLocaleString('en-US');
-		if (cheer.bits_used < 1000) {
-			return this.$.tier1.handleDonation('cheer', name, formattedBits);
-		} else if (cheer.bits_used < 5000) {
+		if (cheer.bits_used < 100 * 100) {
+			return this.$.tier1.handleDonation('cheer', name, formattedBits, cheer.bits_used);
+		} else if (cheer.bits_used < 500 * 100) {
 			return this.$.tier2.handleDonation('cheer', name, formattedBits);
-		} else if (cheer.bits_used >= 5000) {
-			return this.$.tier2.handleDonation('cheer', name, formattedBits);
+		} else if (cheer.bits_used >= 500 * 100) {
+			return this.$.tier3.handleDonation('cheer', name, formattedBits);
 		}
 	}
 
