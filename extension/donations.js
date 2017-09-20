@@ -38,7 +38,9 @@ module.exports = function (nodecg) {
 			nodecg.log.error('Donation socket connect_error:', err);
 		});
 		socket.on('donation', data => {
-			nodecg.sendMessage('donation', formatDonation(data));
+			const formattedDonation = formatDonation(data);
+			nodecg.log.debug('Emitting CASH donation:', formattedDonation);
+			nodecg.sendMessage('donation', formattedDonation);
 		});
 		socket.on('disconnect', () => {
 			nodecg.log.error('Disconnected from cash donation socket, can not receive cash donations!');
@@ -101,11 +103,13 @@ module.exports = function (nodecg) {
 
 			if (response.donations) {
 				response.donations.forEach(donation => {
-					nodecg.sendMessage('donation', formatDonation({
+					const formattedDonation = formatDonation({
 						name: donation.user.name,
 						rawAmount: donation.cash_value,
 						type: 'item'
-					}));
+					});
+					nodecg.log.debug('Emitting ITEM donation:', formattedDonation);
+					nodecg.sendMessage('donation', formattedDonation);
 				});
 			}
 		}).catch(err => {
