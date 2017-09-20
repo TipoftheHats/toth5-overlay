@@ -1,90 +1,38 @@
 'use strict';
 
+// Ours
+const nodecgApiContext = require('./util/nodecg-api-context');
+
 module.exports = function (nodecg) {
+	// Store a reference to this nodecg API context in a place where other libs can easily access it.
+	// This must be done before any other files are `require`d.
+	nodecgApiContext.set(nodecg);
+
 	// Initialize replicants.
 	nodecg.Replicant('scores');
 	nodecg.Replicant('showHashtag');
 
-	try {
-		require('./lowerthird')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load lowerthird lib:', e.stack);
-		process.exit(1);
-	}
+	require('./lowerthird')(nodecg);
+	require('./total')(nodecg);
+	require('./donations')(nodecg);
+	require('./bids')(nodecg);
+	require('./completed-challenges')(nodecg);
+	require('./nowplaying')(nodecg);
+	require('./dotafortress')(nodecg);
+	require('./twitter')(nodecg);
+	require('./x32')(nodecg);
+	require('./countdown')(nodecg);
+	require('./nameplates')(nodecg);
+	require('./overwatch-scoreboard')(nodecg);
 
-	try {
-		require('./total')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load total lib:', e.stack);
-		process.exit(1);
-	}
+	if (nodecg.bundleConfig.twitch) {
+		require('./twitch');
 
-	try {
-		require('./donations')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load donations lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./bids')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load bids lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./completed-challenges')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load completed-challenges lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./nowplaying')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load "now playing" lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./dotafortress')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load "dotafortress" lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./twitter')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load "twitter" lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./x32')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load "x32" lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./countdown')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load "countdown" lib:', e.stack);
-		process.exit(1);
-	}
-
-	try {
-		require('./nameplates')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load "nameplates" lib:', e.stack);
-		process.exit(1);
-	}
-	try {
-		require('./overwatch-scoreboard')(nodecg);
-	} catch (e) {
-		nodecg.log.error('Failed to load "overwatch-scoreboard" lib:', e.stack);
-		process.exit(1);
+		// If the appropriate config params are present,
+		// automatically update the Twitch game and title when currentRun changes.
+		if (nodecg.bundleConfig.twitch.titleTemplate) {
+			nodecg.log.info('Automatic Twitch stream title updating enabled.');
+			require('./twitch-title-updater');
+		}
 	}
 };

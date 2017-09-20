@@ -23,12 +23,15 @@
     "osc": "^2.1.0",
     "q": "^1.4.1",
     "request-promise": "^3.0.0",
+    "socket.io-client": "^2.0.3",
     "twemoji": "^2.5.0",
+    "twitchps": "^0.5.5",
     "twitter": "^1.7.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-xo": "^0.18.2",
+    "eslint-plugin-ava": "^4.2.2",
     "eslint-plugin-html": "^3.1.1"
   },
   "nodecg": {

@@ -1,3 +1,31 @@
 <link rel="import" href="toth-donation-tier1.html">
 <link rel="import" href="toth-donation-tier2.html">
 <link rel="import" href="toth-donation-tier3.html">
+
+<dom-module id="toth-donation">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			toth-donation-tier1 {
+				@apply --toth-donation-tier1;
+			}
+
+			toth-donation-tier2 {
+				@apply --toth-donation-tier2;
+			}
+
+			toth-donation-tier3 {
+				@apply --toth-donation-tier3;
+			}
+		</style>
+
+		<toth-donation-tier1 id="tier1"></toth-donation-tier1>
+		<toth-donation-tier2 id="tier2"></toth-donation-tier2>
+		<toth-donation-tier3 id="tier3"></toth-donation-tier3>
+	</template>
+
+	<script src="toth-donation.js"></script>
+</dom-module>

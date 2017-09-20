@@ -1,4 +1,5 @@
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
 
 <dom-module id="toth-donation-tier1">
     <template>
@@ -57,11 +58,15 @@
 			}
 
 			video {
-				display: none;
 				transform: scale(0.46);
 				position: absolute;
 				bottom: -99px;
 				right: -125px;
+			}
+
+			video[data-type*="cheer"] {
+				bottom: -108px;
+				right: -111px;
 			}
 		</style>
 
@@ -74,8 +79,14 @@
 
 		<div id="type-rect"></div>
 
-		<video id="giftbox" preload src="[[importPath]]img/giftbox.webm"></video>
-		<video id="money" preload src="[[importPath]]img/money1.webm"></video>
+		<iron-pages id="videos" selected="[[type]]" attr-for-selected="data-type">
+			<video data-type="item" src="[[importPath]]img/giftbox.webm" preload></video>
+			<video data-type="cash" src="[[importPath]]img/money1.webm" preload></video>
+			<video data-type="subscription" src="[[importPath]]img/twitchsub.webm" preload></video>
+			<video data-type="cheer100" src="[[importPath]]img/bits_100.webm" preload></video>
+			<video data-type="cheer1k" src="[[importPath]]img/bits_1k.webm" preload></video>
+			<video data-type="cheer5k" src="[[importPath]]img/bits_5k.webm" preload></video>
+		</iron-pages>
     </template>
 
 	<script src="toth-donation-tier1.js"></script>

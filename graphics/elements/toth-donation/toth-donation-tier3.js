@@ -13,23 +13,21 @@ class TothDonationTier3 extends Polymer.Element {
 		};
 	}
 
-	ready() {
-		super.ready();
-		this.tl = window.notificationTl;
-		window.addEventListener('donation', e => {
-			this.handleDonation(e.detail);
-		});
-	}
-
-	handleDonation({type, name, amount, rawAmount}) {
-		if (rawAmount < 500) {
-			return;
-		}
-
+	/**
+	 * Builds a notification animation.
+	 * @param type {string=cash'|'item'|'subscription'|'cheer')
+	 * @param name {string}
+	 * @param amount {number}
+	 * @returns {TimelineLite}
+	 */
+	handleDonation(type, name, amount) {
+		const tl = new TimelineLite();
 		const scoreboard = document.getElementById('scoreboard');
 		const sponsors = document.getElementById('sponsors');
 		const rectLeft = this.shadowRoot.querySelector('.type-rect.left');
 		const rectRight = this.shadowRoot.querySelector('.type-rect.right');
+		const cheerLeft = this.shadowRoot.querySelector('.cheer.left');
+		const cheerRight = this.shadowRoot.querySelector('.cheer.right');
 		const moneyLeft = this.shadowRoot.querySelector('.money.left');
 		const moneyRight = this.shadowRoot.querySelector('.money.right');
 		const giftboxLeft = this.shadowRoot.querySelector('.giftbox.left');
@@ -38,12 +36,12 @@ class TothDonationTier3 extends Polymer.Element {
 		const borderRight = this.shadowRoot.querySelector('.border.right');
 
 		// Fade out the sponsor graphic and scoreboard
-		this.tl.to([scoreboard, sponsors], 0.33, {
+		tl.to([scoreboard, sponsors], 0.33, {
 			opacity: 0,
 			ease: Power1.easeInOut
 		});
 
-		this.tl.call(() => {
+		tl.call(() => {
 			this.$['name-content-name'].innerHTML = name;
 			this.$['name-content-amount'].innerHTML = `&nbsp;${amount}`;
 
@@ -61,21 +59,33 @@ class TothDonationTier3 extends Polymer.Element {
 			}, 0);
 		});
 
-		this.tl.add('enter');
+		tl.add('enter');
 
-		this.tl.to([rectLeft, rectRight], 0.411, {
+		tl.to([rectLeft, rectRight], 0.411, {
 			scaleX: 1,
 			ease: Back.easeOut
 		}, 'enter');
 
-		this.tl.to([borderLeft, borderRight], 0.511, {
+		tl.to([borderLeft, borderRight], 0.511, {
 			scaleX: 1,
 			ease: Power2.easeInOut
 		}, 'enter+=0.08');
 
-		this.tl.to(this.$['name-content'], 0.392, {
+		tl.to(this.$['name-content'], 0.392, {
+			y: '0%',
+			ease: Power2.easeInOut,
+			callbackScope: this,
 			onStart() {
-				if (type === 'item') {
+				if (type === 'cheer') {
+					TweenLite.from([cheerLeft, cheerRight], 0.2, {
+						scale: 0,
+						ease: Circ.easeOut
+					});
+					cheerLeft.style.display = 'block';
+					cheerRight.style.display = 'block';
+					cheerLeft.play();
+					cheerRight.play();
+				} else if (type === 'item') {
 					giftboxLeft.style.display = 'block';
 					giftboxRight.style.display = 'block';
 					giftboxLeft.play();
@@ -86,29 +96,32 @@ class TothDonationTier3 extends Polymer.Element {
 					moneyLeft.play();
 					moneyRight.play();
 				}
-			},
-			y: '0%',
-			ease: Power2.easeInOut
+			}
 		}, '-=0.08');
 
 		// Exit
-		this.tl.to(this.$.cover, 0.511, {
+		tl.to(this.$.cover, 0.511, {
 			scaleY: 1,
 			ease: Power2.easeIn,
-			onComplete: function () {
+			callbackScope: this,
+			onComplete() {
+				cheerLeft.style.display = 'none';
+				cheerRight.style.display = 'none';
 				giftboxLeft.style.display = 'none';
 				giftboxRight.style.display = 'none';
 				moneyLeft.style.display = 'none';
 				moneyRight.style.display = 'none';
+				cheerLeft.currentTime = 0;
+				cheerRight.currentTime = 0;
 				giftboxLeft.currentTime = 0;
 				giftboxRight.currentTime = 0;
 				moneyLeft.currentTime = 0;
 				moneyRight.currentTime = 0;
 				this.$.cover.style.transformOrigin = 'top center';
-			}.bind(this)
+			}
 		}, '+=5');
 
-		this.tl.set([
+		tl.set([
 			rectLeft,
 			rectRight,
 			borderLeft,
@@ -118,25 +131,26 @@ class TothDonationTier3 extends Polymer.Element {
 			clearProps: 'all'
 		});
 
-		this.tl.to(this.$.cover, 0.511, {
+		tl.to(this.$.cover, 0.511, {
 			scaleY: 0,
 			ease: Power2.easeOut
 		});
 
-		this.tl.set([
-			this.$.cover
-		], {
-			clearProps: 'all'
-		});
+		tl.set(this.$.cover, {clearProps: 'all'});
 
 		// Fade in the sponsor graphic and scoreboard
-		this.tl.to([scoreboard, sponsors], 0.33, {
+		tl.to([scoreboard, sponsors], 0.33, {
 			opacity: 1,
 			ease: Power1.easeInOut
 		}, '+=0.08');
 
 		// Time padding
-		this.tl.to({}, 0.2, {});
+		tl.to({}, 0.2, {});
+		return tl;
+	}
+
+	_equal(a, b) {
+		return a === b;
 	}
 }
 

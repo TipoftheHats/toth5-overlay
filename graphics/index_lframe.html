@@ -22,7 +22,7 @@
 
 	<style>
 		#container {
-			background: url("img/lframe_mockup.jpg");
+			/*background: url("img/lframe_mockup.jpg");*/
 		}
 
 		#lframe {
@@ -56,19 +56,21 @@
 			right: 53px;
 		}
 
-		toth-donation-tier1 {
-			bottom: 21px;
-		}
+		toth-donation {
+			--toth-donation-tier1: {
+				bottom: 21px;
+			};
 
-		toth-donation-tier2 {
-			bottom: 110px;
-		}
+			--toth-donation-tier2: {
+				bottom: 110px;
+			};
 
-		toth-donation-tier3 {
-			top: 35px;
-			width: 1920px;
-			transform: scale(0.758);
-			transform-origin: top right;
+			--toth-donation-tier3: {
+				top: 35px;
+				width: 1920px;
+				transform: scale(0.758);
+				transform-origin: top right;
+			};
 		}
 	</style>
 </head>
@@ -83,7 +85,7 @@
 			<toth-lowerthird id="lowerthird" lframe></toth-lowerthird>
 			<toth-nowplaying id="nowPlaying"></toth-nowplaying>
 			<toth-tweet id="tweet"></toth-tweet>
-			<toth-donation-tier1></toth-donation-tier1>
+			<toth-donation></toth-donation>
 			<toth-donation-tier2></toth-donation-tier2>
 			<toth-donation-tier3></toth-donation-tier3>
 		</div>

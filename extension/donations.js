@@ -4,8 +4,29 @@
 const request = require('request-promise');
 
 module.exports = function (nodecg) {
-	nodecg.listenFor('testDonation', data => {
-		nodecg.sendMessage('donation', formatDonation(data));
+	nodecg.listenFor('testDonation', ({type, name, rawAmount, subTier} = {}) => {
+		let formattedDonation;
+		if (type === 'cash' || type === 'item') {
+			formattedDonation = formatDonation({type, name, rawAmount});
+			nodecg.sendMessage('donation', formattedDonation);
+		} else if (type === 'subscription') {
+			formattedDonation = {
+				type,
+				display_name: name,
+				months: rawAmount,
+				sub_plan: subTier
+			};
+			nodecg.sendMessage(type, formattedDonation);
+		} else if (type === 'cheer') {
+			formattedDonation = {
+				type,
+				display_name: name,
+				bits_used: rawAmount
+			};
+			nodecg.sendMessage(type, formattedDonation);
+		}
+
+		nodecg.log.info('Emitted test %s:', type, formattedDonation);
 	});
 
 	if (nodecg.bundleConfig && nodecg.bundleConfig.donationSocketUrl) {
@@ -17,7 +38,9 @@ module.exports = function (nodecg) {
 			nodecg.log.error('Donation socket connect_error:', err);
 		});
 		socket.on('donation', data => {
-			nodecg.sendMessage('donation', formatDonation(data));
+			const formattedDonation = formatDonation(data);
+			nodecg.log.debug('Emitting CASH donation:', formattedDonation);
+			nodecg.sendMessage('donation', formattedDonation);
 		});
 		socket.on('disconnect', () => {
 			nodecg.log.error('Disconnected from cash donation socket, can not receive cash donations!');
@@ -80,11 +103,13 @@ module.exports = function (nodecg) {
 
 			if (response.donations) {
 				response.donations.forEach(donation => {
-					nodecg.sendMessage('donation', formatDonation({
+					const formattedDonation = formatDonation({
 						name: donation.user.name,
 						rawAmount: donation.cash_value,
 						type: 'item'
-					}));
+					});
+					nodecg.log.debug('Emitting ITEM donation:', formattedDonation);
+					nodecg.sendMessage('donation', formattedDonation);
 				});
 			}
 		}).catch(err => {
@@ -94,6 +119,7 @@ module.exports = function (nodecg) {
 
 	function formatDonation({name, rawAmount, type}) {
 		// Truncate name to 30 characters
+		name = name || 'Anonymous';
 		name = name.length > 30 ? `${name.substring(0, 29)}…` : name;
 
 		// Format amount
