@@ -9,13 +9,15 @@ class TothDonationTier1 extends Polymer.Element {
 
 	static get properties() {
 		return {
-			importPath: String // https://github.com/Polymer/polymer-linter/issues/71
+			importPath: String, // https://github.com/Polymer/polymer-linter/issues/71
+			selectedVideo: String,
+			type: String
 		};
 	}
 
 	/**
 	 * Builds a notification animation.
-	 * @param type {string=cash'|'item'|'subscription'|'cheer')
+	 * @param type {string='cash'|'item'|'subscription'|'cheer'}
 	 * @param name {string}
 	 * @param amount {string} - A pre-formatted amount string, which will be displayed verbatim.
 	 * @returns {TimelineLite}
@@ -34,16 +36,13 @@ class TothDonationTier1 extends Polymer.Element {
 		}, 'enter');
 
 		tl.set(this.$.name, {
-			onStart: function () {
-				if (type === 'item') {
-					this.$.giftbox.style.display = 'block';
-					this.$.giftbox.play();
-				} else {
-					this.$.money.style.display = 'block';
-					this.$.money.play();
-				}
-			}.bind(this),
-			visibility: 'visible'
+			visibility: 'visible',
+			callbackScope: this,
+			onStart() {
+				this.type = type;
+				console.log(type, this.$.videos.selectedItem);
+				this.$.videos.selectedItem.play();
+			}
 		}, 'enter+=0.08');
 
 		tl.to(this.$.name, 0.511, {
@@ -60,10 +59,10 @@ class TothDonationTier1 extends Polymer.Element {
 		tl.to(this, 0.511, {
 			y: 100,
 			ease: Power2.easeIn,
-			onComplete: function () {
-				this.$.giftbox.style.display = 'none';
-				this.$.money.style.display = 'none';
-			}.bind(this)
+			callbackScope: this,
+			onComplete() {
+				this.type = 'none';
+			}
 		}, '+=5');
 
 		// Reset
@@ -79,6 +78,10 @@ class TothDonationTier1 extends Polymer.Element {
 		// Time padding
 		tl.to({}, 0.2, {});
 		return tl;
+	}
+
+	_equal(a, b) {
+		return a === b;
 	}
 }
 

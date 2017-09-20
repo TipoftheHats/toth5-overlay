@@ -4,8 +4,29 @@
 const request = require('request-promise');
 
 module.exports = function (nodecg) {
-	nodecg.listenFor('testDonation', data => {
-		nodecg.sendMessage('donation', formatDonation(data));
+	nodecg.listenFor('testDonation', ({type, name, rawAmount, subTier} = {}) => {
+		let formattedDonation;
+		if (type === 'cash' || type === 'item') {
+			formattedDonation = formatDonation({type, name, rawAmount});
+			nodecg.sendMessage('donation', formattedDonation);
+		} else if (type === 'subscription') {
+			formattedDonation = {
+				type,
+				display_name: name,
+				months: rawAmount,
+				sub_plan: subTier
+			};
+			nodecg.sendMessage(type, formattedDonation);
+		} else if (type === 'cheer') {
+			formattedDonation = {
+				type,
+				display_name: name,
+				bits_used: rawAmount
+			};
+			nodecg.sendMessage(type, formattedDonation);
+		}
+
+		nodecg.log.info('Emitted test %s:', type, formattedDonation);
 	});
 
 	if (nodecg.bundleConfig && nodecg.bundleConfig.donationSocketUrl) {

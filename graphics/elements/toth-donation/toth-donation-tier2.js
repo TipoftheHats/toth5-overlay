@@ -97,6 +97,10 @@ class TothDonationTier2 extends Polymer.Element {
 		tl.to({}, 0.2, {});
 		return tl;
 	}
+
+	_equal(a, b) {
+		return a === b;
+	}
 }
 
 customElements.define(TothDonationTier2.is, TothDonationTier2);

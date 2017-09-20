@@ -18,11 +18,16 @@
 		}
 
 		ready() {
+			this.showSchedule = this.showSchedule.bind(this);
+			this.showChallenges = this.showChallenges.bind(this);
+			this.showWars = this.showWars.bind(this);
+			this.showCTA = this.showCTA.bind(this);
+			this.challengeAccepted = this.challengeAccepted.bind(this);
+
 			super.ready();
 			this.tl = new TimelineLite({autoRemoveChildren: true});
 			this.$['total-amount'].rawValue = 0;
 			this.tl.set(this.$.content, {y: '100%'});
-			this.challengeAccepted = this.challengeAccepted.bind(this);
 			nodecg.listenFor('challengeAccepted', this.challengeAccepted);
 		}
 
@@ -159,7 +164,9 @@
 				});
 
 				this.$.content.style.width = `${maxWidth}px`;
-				this.customStyle['--toth-ticker-content-color'] = '#12a824';
+				this.updateStyles({
+					'--toth-ticker-content-color': '#12a824'
+				});
 				this.updateStyles();
 				this.$.label.innerText = 'CHALLENGE';
 				this._setChallengeContent(challenges.value[0]);
@@ -210,8 +217,9 @@
 				});
 
 				this.$.content.style.width = `${maxWidth}px`;
-				this.customStyle['--toth-ticker-content-color'] = '#7c149e';
-				this.updateStyles();
+				this.updateStyles({
+					'--toth-ticker-content-color': '#7c149e'
+				});
 				this.$.label.innerText = 'DONATION WAR';
 				this._setWarContent(wars.value[0]);
 				this._setWarOption(wars.value[0].options[0], 0);

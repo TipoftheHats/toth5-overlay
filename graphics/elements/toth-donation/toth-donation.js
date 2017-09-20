@@ -23,15 +23,24 @@ class TothDonation extends Polymer.Element {
 		super.ready();
 
 		nodecg.listenFor('donation', donation => {
-			this.routeDonation(donation);
+			const tl = this.routeDonation(donation);
+			if (tl) {
+				this.tl.add(tl);
+			}
 		});
 
 		nodecg.listenFor('cheer', cheer => {
-			this.routeCheer(cheer);
+			const tl = this.routeCheer(cheer);
+			if (tl) {
+				this.tl.add(tl);
+			}
 		});
 
 		nodecg.listenFor('subscription', subscription => {
-			this.routeSubscription(subscription);
+			const tl = this.routeSubscription(subscription);
+			if (tl) {
+				this.tl.add(tl);
+			}
 		});
 	}
 
@@ -42,11 +51,11 @@ class TothDonation extends Polymer.Element {
 	 */
 	routeDonation(donation) {
 		if (donation.rawAmount < 100) {
-			this.$.tier1.handleDonation(donation.type, donation.name, donation.amount);
+			return this.$.tier1.handleDonation(donation.type, donation.name, donation.amount);
 		} else if (donation.rawAmount < 500) {
-			this.$.tier2.handleDonation(donation.type, donation.name, donation.amount);
+			return this.$.tier2.handleDonation(donation.type, donation.name, donation.amount);
 		} else if (donation.rawAmount >= 500) {
-			this.$.tier3.handleDonation(donation.type, donation.name, donation.amount);
+			return this.$.tier3.handleDonation(donation.type, donation.name, donation.amount);
 		}
 	}
 
@@ -67,12 +76,14 @@ class TothDonation extends Polymer.Element {
 	 * version - {string}
 	 */
 	routeCheer(cheer) {
+		const name = cheer.display_name || cheer.user_name;
+		const formattedBits = cheer.bits_used.toLocaleString('en-US');
 		if (cheer.bits_used < 1000) {
-			this.$.tier1.handleDonation('cheer', cheer.display_name || cheer.user_name, cheer.bits_used);
+			return this.$.tier1.handleDonation('cheer', name, formattedBits);
 		} else if (cheer.bits_used < 5000) {
-			this.$.tier2.handleDonation('cheer', cheer.display_name || cheer.user_name, cheer.bits_used);
+			return this.$.tier2.handleDonation('cheer', name, formattedBits);
 		} else if (cheer.bits_used >= 5000) {
-			this.$.tier2.handleDonation('cheer', cheer.display_name || cheer.user_name, cheer.bits_used);
+			return this.$.tier2.handleDonation('cheer', name, formattedBits);
 		}
 	}
 
@@ -94,7 +105,25 @@ class TothDonation extends Polymer.Element {
 	 * sub_message.emotes - {array}
 	 */
 	routeSubscription(subscription) {
-		this.$.tier1.handleDonation('subscription', subscription.display_name || subscription.user_name, subscription.months);
+		let amount;
+		switch (subscription.sub_plan) {
+			case 'Prime':
+				amount = 'Prime Sub';
+				break;
+			case '1000':
+				amount = '$5 Sub';
+				break;
+			case '2000':
+				amount = '$10 Sub';
+				break;
+			case '3000':
+				amount = '$25 Sub';
+				break;
+			default:
+				amount = `${amount} Months`;
+		}
+
+		return this.$.tier1.handleDonation('subscription', subscription.display_name || subscription.user_name, amount);
 	}
 }
 
