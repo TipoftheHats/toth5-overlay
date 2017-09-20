@@ -26,8 +26,7 @@ module.exports = function (nodecg) {
 	require('./overwatch-scoreboard')(nodecg);
 
 	if (nodecg.bundleConfig.twitch) {
-		require('./twitch-ads');
-		require('./twitch-bits');
+		require('./twitch');
 
 		// If the appropriate config params are present,
 		// automatically update the Twitch game and title when currentRun changes.
