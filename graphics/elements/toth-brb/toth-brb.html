@@ -55,58 +55,21 @@
 				@apply --layout-center-center;
 			}
 
-			#shirts {
+			#merch {
 				position: relative;
 				top: -39px;
 			}
 
-			#shirts-bg {
-				position: relative;
-				top: 44px;
+			#merch-store,
+			#merch-shirts {
+				will-change: opacity;
 			}
 
-			#shirts-shirt,
-			#shirts-hoodie {
-				filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.56));
-			}
-
-			#shirts-shirt {
+			#merch-store {
 				position: absolute;
-				width: 200px;
-				top: 8px;
-				left: 27px;
-			}
-
-			#shirts-hoodie {
-				position: absolute;
-				width: 194px;
-				top: 16px;
-				left: 183px;
-			}
-
-			#shirts-label {
-				position: absolute;
-				top: 62px;
-				right: -2px;
-				width: 607px;
-				height: 53px;
-				color: white;
-				font-size: 60px;
-				font-weight: 700;
-			}
-
-			#shirts-url {
-				position: absolute;
-				top: 142px;
-				left: 198px;
-				width: 775px;
-				height: 60px;
-				background-color: white;
-				color: black;
-				font-size: 48px;
-				font-weight: 700;
-				@apply --layout-horizontal;
-				@apply --layout-center-center;
+				top: -7px;
+				left: -63px;
+				opacity: 0;
 			}
 
 			.textShadow {
@@ -147,12 +110,9 @@
                     <h3 class="lightTextShadow" style="color: #F47425; margin-top: -17px;">tipofthehats.org/donate</h3>
                 </div>
 
-				<div id="shirts" style="margin-left: 60px;">
-					<img id="shirts-bg" src="[[importPath]]img/shirts-bg.png">
-					<img id="shirts-shirt" src="[[importPath]]img/shirt.png">
-					<img id="shirts-hoodie" src="[[importPath]]img/hoodie.png">
-					<div id="shirts-label">TotH Shirts & Apparel</div>
-					<div id="shirts-url">teespring.com/shop/TOTH_2017</div>
+				<div id="merch" style="margin-left: 60px;">
+					<img id="merch-shirts" src="[[importPath]]img/merch-shirts.png">
+					<img id="merch-store" src="[[importPath]]img/merch-store.png">
 				</div>
             </div>
         </div>

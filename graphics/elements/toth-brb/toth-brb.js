@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 
+	const MERCH_HOLD_TIME = 12;
 	const brbShowing = nodecg.Replicant('brbShowing');
 	const upNext = nodecg.Replicant('upNext');
 
@@ -46,6 +47,28 @@
 					}
 				});
 			});
+
+			const tl = new TimelineMax({repeat: -1});
+
+			tl.add('swap1', `+=${MERCH_HOLD_TIME}`);
+			tl.to(this.$['merch-shirts'], 0.238, {
+				opacity: 0,
+				ease: Linear.easeNone
+			}, 'swap1');
+			tl.to(this.$['merch-store'], 0.238, {
+				opacity: 1,
+				ease: Linear.easeNone
+			}, 'swap1');
+
+			tl.add('swap2', `+=${MERCH_HOLD_TIME}`);
+			tl.to(this.$['merch-store'], 0.238, {
+				opacity: 0,
+				ease: Linear.easeNone
+			}, 'swap2');
+			tl.to(this.$['merch-shirts'], 0.238, {
+				opacity: 1,
+				ease: Linear.easeNone
+			}, 'swap2');
 		}
 	}
 
