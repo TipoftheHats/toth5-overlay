@@ -25,6 +25,7 @@
     "request-promise": "^3.0.0",
     "socket.io-client": "^2.0.3",
     "twemoji": "^2.5.0",
+    "twitchps": "^0.5.5",
     "twitter": "^1.7.1"
   },
   "devDependencies": {
