@@ -222,13 +222,13 @@
 					'--toth-ticker-content-color': '#7c149e'
 				});
 				this.$.label.innerText = 'DONATION WAR';
+
 				this._setWarContent(wars.value[0]);
 				this._setWarOption(wars.value[0].options[0], 0);
 			});
 			this.enter();
 			this.tl.to({}, INTERVAL, {});
 
-			// TODO: this code seems fishy, and also doesn't work when a bid has no options yet
 			wars.value.forEach((war, index) => {
 				if (index > 0) {
 					this.tl.to(this.$.content, 0.4, {
@@ -237,7 +237,14 @@
 					});
 
 					this.tl.call(this._setWarContent, [war], this);
-					this.tl.call(this._setWarOption, [war.options[0], 0], this);
+					if (war.options.length > 0) {
+						this.tl.call(this._setWarOption, [war.options[0], 0], this);
+					} else {
+						this.tl.call(() => {
+							this.$.content.querySelector('b').innerText = `Be the first to bid!`;
+							this.fitContent();
+						});
+					}
 
 					this.tl.to(this.$.content, 0.66, {
 						y: '0%',
