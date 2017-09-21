@@ -1,90 +1,94 @@
 [
-  {
-	"name": "Lange",
-	"info": "@VanCamp"
-  },
-  {
-	"name": "Tagg",
-	"info": "@thatguytagg"
-  },
-  {
-	"name": "truktruk",
-	"info": "@KurtisRuss"
-  },
-  {
-	"name": "Whisker",
-	"info": "@rbjaxter"
-  },
-  {
-	"name": "Seanbud",
-	"info": "@seanbud"
-  },
-  {
-	"name": "Admirable",
-	"info": "@AdmirablePlayer"
-  },
-  {
-	"name": "Dashner",
-	"info": "@dashnerrr"
-  },
-  {
-	"name": "erynn",
-	"info": "@erynntf2"
-  },
-  {
-	"name": "Krunkidile",
-	"info": "@krunkidile"
-  },
-  {
-	"name": "Uberchain",
-	"info": "@uberchain"
-  },
-  {
-	"name": "Airon",
-	"info": "@AironT"
-  },
-  {
-	"name": "mala",
-	"info": "@mala_cookies"
-  },
-  {
-	"name": "ma3la",
-	"info": "@wyattriver_"
-  },
-  {
-	"name": "cbear",
-	"info": "@cbeartf2"
-  },
-  {
-	"name": "Getawhale",
-	"info": "@Getawhale"
-  },
-  {
-	"name": "Sideshow",
-	"info": "@SideshowGaming"
-  },
-  {
-	"name": "Geel",
-	"info": "Founder, MarketplaceTF"
-  },
-  {
-	"name": "slin",
-	"info": "@misterslin"
-  },
-  {
-	"name": "Auzzie",
-	"info": "@AuzzieTF2"
-  },
-  {
-	"name": "Bloodsire",
-	"info": "@Thebloodsire"
-  },
-  {
-	"name": "raysfire",
-	"info": "@raysfire"
-  },
-  {
-	"name": "Jerma",
-	"info": "@Jerma985"
-  }
+	{
+		"name": "Lange",
+		"info": "@VanCamp"
+	},
+	{
+		"name": "Tagg",
+		"info": "@thatguytagg"
+	},
+	{
+		"name": "truktruk",
+		"info": "@KurtisRuss"
+	},
+	{
+		"name": "Whisker",
+		"info": "@rbjaxter"
+	},
+	{
+		"name": "Seanbud",
+		"info": "@seanbud"
+	},
+	{
+		"name": "Dashner",
+		"info": "@dashnerrr"
+	},
+	{
+		"name": "erynn",
+		"info": "@erynntf2"
+	},
+	{
+		"name": "Krunkidile",
+		"info": "@krunkidile"
+	},
+	{
+		"name": "Uberchain",
+		"info": "@uberchain"
+	},
+	{
+		"name": "mala",
+		"info": "@mala_cookies"
+	},
+	{
+		"name": "ma3la",
+		"info": "@wyattriver_"
+	},
+	{
+		"name": "Getawhale",
+		"info": "@Getawhale"
+	},
+	{
+		"name": "Sideshow",
+		"info": "@SideshowGaming"
+	},
+	{
+		"name": "Geel",
+		"info": "Founder, MarketplaceTF"
+	},
+	{
+		"name": "Auzzie",
+		"info": "@AuzzieTF2"
+	},
+	{
+		"name": "samiface",
+		"info": "@samiface"
+	},
+	{
+		"name": "loris",
+		"info": "@lor_is"
+	},
+	{
+		"name": "Uncle Dane",
+		"info": "@danekevincook"
+	},
+	{
+		"name": "harsha",
+		"info": "@ggharsha"
+	},
+	{
+		"name": "Mark Schwartzkopf",
+		"info": "@M_Schwartzkopf"
+	},
+	{
+		"name": "Jasbutts",
+		"info": "@Miss_Jasbutts"
+	},
+	{
+		"name": "ScottJAw",
+		"info": "@ScottJAw"
+	},
+	{
+		"name": "mathsad",
+		"info": ""
+	}
 ]
