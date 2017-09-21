@@ -76,11 +76,13 @@ module.exports = function (nodecg) {
 			});
 
 			// Parse hashtags
-			tw.entities.hashtags.forEach(hashtag => {
-				if (hashtag.text.toLowerCase() === 'toth2016') {
+			tw.entities.hashtags.sort((a, b) => {
+				return b.text.length - a.text.length;
+			}).forEach(hashtag => {
+				if (hashtag.text.toLowerCase() === 'toth2017') {
 					msg = msg.split(`#${hashtag.text}`).join(`<span class="link orange">#${hashtag.text}</span>`);
 				} else {
-					msg = msg.split(`#{hashtag.text}`).join(`<span class="link">#${hashtag.text}</span>`);
+					msg = msg.split(`#${hashtag.text}`).join(`<span class="link">#${hashtag.text}</span>`);
 				}
 			});
 
