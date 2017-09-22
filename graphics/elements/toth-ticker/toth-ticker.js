@@ -368,8 +368,8 @@
 			this.$.content.innerHTML = `${description}&nbsp;&nbsp;&nbsp;&nbsp;<b style="display: inline-block"></b>`;
 		}
 
-		_setWarOption({description, total}, index) {
-			this.$.content.querySelector('b').innerText = `${index + 1}. ${description} - ${total}`;
+		_setWarOption({description, name, total}, index) {
+			this.$.content.querySelector('b').innerText = `${index + 1}. ${description || name} - ${total}`;
 			this.fitContent();
 		}
 	}
