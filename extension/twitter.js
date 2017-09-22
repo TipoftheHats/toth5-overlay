@@ -58,8 +58,8 @@ module.exports = function (nodecg) {
 				const end = mention.indices[1];
 				/* eslint-disable prefer-template */
 				msg = msg.substring(0, start) +
-					`<span class="link">${msg.substring(start, end)}</span>` +
-					msg.substring(end);
+					`<span class="link">${msg.substring(start, end + 1)}</span>` +
+					msg.substring(end + 1);
 				/* eslint-enable prefer-template */
 			});
 
