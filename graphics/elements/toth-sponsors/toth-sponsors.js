@@ -17,8 +17,7 @@
 					type: Array,
 					value: [
 						'url("img/sponsors/marketplacetf.png")',
-						'url("img/sponsors/twitch.png")',
-						'url("img/sponsors/ibp.png")'
+						'url("img/sponsors/twitch.png")'
 					]
 				},
 				duration: {
