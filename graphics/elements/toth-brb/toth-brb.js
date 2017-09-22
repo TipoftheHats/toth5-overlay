@@ -4,6 +4,7 @@
 	const MERCH_HOLD_TIME = 12;
 	const brbShowing = nodecg.Replicant('brbShowing');
 	const upNext = nodecg.Replicant('upNext');
+	const nowPlayingEl = document.getElementById('nowPlaying');
 
 	/**
 	 * @customElement
@@ -28,6 +29,17 @@
 					opacity: newVal ? 1 : 0,
 					ease: Power1.easeInOut
 				});
+
+				if (newVal) {
+					TweenLite.set(nowPlayingEl, {
+						top: 200
+					});
+				} else {
+					TweenLite.set(nowPlayingEl, {
+						clearProps: 'top',
+						delay: 0.5
+					});
+				}
 			});
 
 			upNext.on('change', newVal => {
