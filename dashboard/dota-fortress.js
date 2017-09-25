@@ -9,6 +9,12 @@
 	const pickedSelects = Array.from(document.querySelectorAll('[data-set="picked"]'));
 	const dotaCaptains = nodecg.Replicant('dotaCaptains');
 	const players = nodecg.Replicant('df_players');
+	const draftType = nodecg.Replicant('draftType');;
+
+	draftType.on('change', newVal => {
+		document.querySelector('#draft-type').innerHTML = newVal;
+
+	})
 	players.on('change', newVal => {
 		// Remove all options from all <select> elements
 		selects.forEach(element => {
@@ -133,7 +139,11 @@
 		teams.value.red = [];
 		teams.value.blu = [];
 		// Reset pick/ban ui
-		draftStatus.value = 0;
+		if (draftType === 'noBan') {
+			draftStatus.value = 5;
+		} else {
+			draftStatus.value = 0;
+		}
 		dotaCaptains.value = {
 			red: {
 				bans: []
@@ -142,8 +152,40 @@
 				bans: []
 			}
 		};
+
+	});
+	document.querySelector('[command="noban-draft"]').addEventListener('click', () => {
+		draftType.value = 'noban';
+		draftStatus.value = 4;
+		removeCurrentDraft();
+	});
+	document.querySelector('[command="default-draft"]').addEventListener('click', () => {
+		draftType.value = 'default';
+		draftStatus.value = 0;
+		removeCurrentDraft();
 	});
 
+	function removeCurrentDraft() {
+		console.log('the draft has been killed');
+		players.value.forEach(player => {
+			if (player.state === 'banned') {
+				player.state = 'available';
+			} else if (player.state === 'drafted') {
+				player.state = 'available';
+			}
+		});
+		// Clear out the teams
+		teams.value.red = [];
+		teams.value.blu = [];
+		dotaCaptains.value = {
+			red: {
+				bans: []
+			},
+			blu: {
+				bans: []
+			}
+		};
+	}
 	function multiSelectHandler(el, state) {
 		if (!el.selectedOptions || el.selectedOptions.length <= 0) {
 			return;

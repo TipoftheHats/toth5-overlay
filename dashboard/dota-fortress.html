@@ -81,6 +81,14 @@
 </head>
 <body>
 	<h3>Draft Players</h3>
+	<div id="draft-ui-info">
+		<div>Draft Type: <span id="draft-type"> </span> </div>
+	</div>
+	<div style="display: flex; justify-content: center; margin-top: 8px;">
+		<paper-button id="default-draft" command="default-draft" raised>Default Draft</paper-button>
+		<paper-button id="noban-draft" command="noban-draft" raised>No Ban Draft</paper-button>
+
+	</div>
 	<div style="display: flex;">
 		<div class="column">
 			<div class="label color-blu">BLU</div>
@@ -101,7 +109,6 @@
 			<select data-set="draftable" data-team="red" data-index="5" class="draft-picker form-control"></select>
 		</div>
 	</div>
-
 	<div style="display: flex; justify-content: center; margin-top: 8px;">
 		<paper-button id="lock" command="lock" raised>Lock-in Draft</paper-button>
 	</div>
