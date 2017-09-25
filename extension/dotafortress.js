@@ -20,7 +20,7 @@ const _PLAYERS = [
 	{name: 'Silentes', playerClass: 'soldier', index: 3, state: 'available'},
 	{name: 'deathy', playerClass: 'soldier', index: 4, state: 'available'},
 	{name: 'sideshow', playerClass: 'soldier', index: 5, state: 'available'},
-	{name: 'dd5f', playerClass: 'soldier', index: 6, state: 'available'},
+	{name: 'duwatna', playerClass: 'soldier', index: 6, state: 'available'},
 	{name: 'tri', playerClass: 'soldier', index: 7, state: 'available'},
 	{name: 'Thaigrr', playerClass: 'soldier', index: 8, state: 'available'},
 
