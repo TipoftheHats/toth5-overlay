@@ -47,7 +47,7 @@ const _PLAYERS = [
 	// Medic
 	{name: 'TheFragile', playerClass: 'medic', index: 0, state: 'available'},
 	{name: 'nursey', playerClass: 'medic', index: 1, state: 'available'},
-	{name: 'Raymon', playerClass: 'medic', index: 2, state: 'available'},
+	{name: 'Mangachu', playerClass: 'medic', index: 2, state: 'available'},
 	{name: 'Skye', playerClass: 'medic', index: 3, state: 'available'},
 	{name: 'Admirable', playerClass: 'medic', index: 4, state: 'available'},
 	{name: 'CX', playerClass: 'medic', index: 5, state: 'available'},
