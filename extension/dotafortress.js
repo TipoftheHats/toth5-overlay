@@ -31,7 +31,7 @@ const _PLAYERS = [
 	// Demomen
 	{name: 'Rikachu', playerClass: 'demoman', index: 0, state: 'available'},
 	{name: 'Jarrett', playerClass: 'demoman', index: 1, state: 'available'},
-	{name: 'Kadius', playerClass: 'demoman', index: 2, state: 'available'},
+	{name: 'Kaidus', playerClass: 'demoman', index: 2, state: 'available'},
 	{name: 'Dummy', playerClass: 'demoman', index: 3, state: 'available'},
 	{name: 'smaka', playerClass: 'demoman', index: 4, state: 'available'},
 	{name: 'alle', playerClass: 'demoman', index: 5, state: 'available'},
