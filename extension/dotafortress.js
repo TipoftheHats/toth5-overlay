@@ -3,54 +3,54 @@
 
 const _PLAYERS = [
 	// Scouts
-	{name: 'sezco', playerClass: 'scout', index: 0, state: 'available'},
+	{name: 'ggglygy', playerClass: 'scout', index: 0, state: 'available'},
 	{name: 'shrugger', playerClass: 'scout', index: 1, state: 'available'},
 	{name: 'evilmrmuffinz', playerClass: 'scout', index: 2, state: 'available'},
-	{name: 'vand', playerClass: 'scout', index: 3, state: 'available'},
-	{name: 'corsa', playerClass: 'scout', index: 4, state: 'available'},
-	{name: 'thalash', playerClass: 'scout', index: 5, state: 'available'},
-	{name: 'auzzie', playerClass: 'scout', index: 6, state: 'available'},
-	{name: 'clockwork', playerClass: 'scout', index: 7, state: 'available'},
-	{name: 'herr_p', playerClass: 'scout', index: 8, state: 'available'},
+	{name: 'auzzie', playerClass: 'scout', index: 3, state: 'available'},
+	{name: 'clockwork', playerClass: 'scout', index: 4, state: 'available'},
+	{name: 'enigma', playerClass: 'scout', index: 5, state: 'available'},
+	{name: 'alfa', playerClass: 'scout', index: 6, state: 'available'},
+	{name: 'TviQ', playerClass: 'scout', index: 7, state: 'available'},
+	{name: 'elmo', playerClass: 'scout', index: 8, state: 'available'},
 
 	// Soldiers
 	{name: 'tagg', playerClass: 'soldier', index: 0, state: 'available'},
 	{name: 'ma3la', playerClass: 'soldier', index: 1, state: 'available'},
 	{name: 'paddie', playerClass: 'soldier', index: 2, state: 'available'},
-	{name: 'dave_ac', playerClass: 'soldier', index: 3, state: 'available'},
+	{name: 'Silentes', playerClass: 'soldier', index: 3, state: 'available'},
 	{name: 'deathy', playerClass: 'soldier', index: 4, state: 'available'},
-	{name: 'blaze', playerClass: 'soldier', index: 5, state: 'available'},
-	{name: 'smaka', playerClass: 'soldier', index: 6, state: 'available'},
-	{name: 'silentes', playerClass: 'soldier', index: 7, state: 'available'},
-	{name: 'sideshow', playerClass: 'soldier', index: 8, state: 'available'},
+	{name: 'sideshow', playerClass: 'soldier', index: 5, state: 'available'},
+	{name: 'dd5f', playerClass: 'soldier', index: 6, state: 'available'},
+	{name: 'tri', playerClass: 'soldier', index: 7, state: 'available'},
+	{name: 'Thaigrr', playerClass: 'soldier', index: 8, state: 'available'},
 
 	// Pyros
-	{name: 'the melon lord', playerClass: 'pyro', index: 0, state: 'available'},
-	{name: 'billysaurus', playerClass: 'pyro', index: 1, state: 'available'},
+	{name: 'TMP', playerClass: 'pyro', index: 0, state: 'available'},
+	{name: 'Huey Lewis', playerClass: 'pyro', index: 1, state: 'available'},
 
 	// Demomen
 	{name: 'Rikachu', playerClass: 'demoman', index: 0, state: 'available'},
-	{name: 'b4nny', playerClass: 'demoman', index: 1, state: 'available'},
-	{name: 'Bdonski', playerClass: 'demoman', index: 2, state: 'available'},
-	{name: 'habib', playerClass: 'demoman', index: 3, state: 'available'},
-	{name: 'pharaoh', playerClass: 'demoman', index: 4, state: 'available'},
-	{name: 'Smirre', playerClass: 'demoman', index: 5, state: 'available'},
+	{name: 'Jarrett', playerClass: 'demoman', index: 1, state: 'available'},
+	{name: 'Kadius', playerClass: 'demoman', index: 2, state: 'available'},
+	{name: 'Dummy', playerClass: 'demoman', index: 3, state: 'available'},
+	{name: 'smaka', playerClass: 'demoman', index: 4, state: 'available'},
+	{name: 'alle', playerClass: 'demoman', index: 5, state: 'available'},
 
 	// Heavy
-	{name: 'brick', playerClass: 'heavy', index: 0, state: 'available'},
-	{name: 'Karl', playerClass: 'heavy', index: 1, state: 'available'},
+	{name: 'Kresnik', playerClass: 'heavy', index: 0, state: 'available'},
+	{name: 'Getawhale', playerClass: 'heavy', index: 1, state: 'available'},
 
 	// Engineer
 	{name: 'Sigafoo', playerClass: 'engineer', index: 0, state: 'available'},
-	{name: 'Ender', playerClass: 'engineer', index: 1, state: 'available'},
+	{name: 'Uncle Dane', playerClass: 'engineer', index: 1, state: 'available'},
 
 	// Medic
-	{name: 'slin', playerClass: 'medic', index: 0, state: 'available'},
-	{name: 'ninjanick', playerClass: 'medic', index: 1, state: 'available'},
-	{name: 'nursey', playerClass: 'medic', index: 2, state: 'available'},
+	{name: 'TheFragile', playerClass: 'medic', index: 0, state: 'available'},
+	{name: 'nursey', playerClass: 'medic', index: 1, state: 'available'},
+	{name: 'Raymon', playerClass: 'medic', index: 2, state: 'available'},
 	{name: 'Skye', playerClass: 'medic', index: 3, state: 'available'},
 	{name: 'Admirable', playerClass: 'medic', index: 4, state: 'available'},
-	{name: 'cookiejake', playerClass: 'medic', index: 5, state: 'available'},
+	{name: 'CX', playerClass: 'medic', index: 5, state: 'available'},
 
 	// Sniper
 	{name: 'boar', playerClass: 'sniper', index: 0, state: 'available'},
@@ -58,7 +58,7 @@ const _PLAYERS = [
 
 	// Spy
 	{name: 'stabby', playerClass: 'spy', index: 0, state: 'available'},
-	{name: 'Scruff McGruff', playerClass: 'spy', index: 1, state: 'available'}
+	{name: 'buttnose', playerClass: 'spy', index: 1, state: 'available'}
 ];
 
 module.exports = function (nodecg) {
@@ -78,4 +78,5 @@ module.exports = function (nodecg) {
 	// These two get everything they need from their schemas.
 	nodecg.Replicant('draftState');
 	nodecg.Replicant('dotaCaptains');
+	nodecg.Replicant('draftType', {defaultValue: 'default', persistent: false	});
 };
