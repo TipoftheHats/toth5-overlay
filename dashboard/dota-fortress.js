@@ -9,12 +9,11 @@
 	const pickedSelects = Array.from(document.querySelectorAll('[data-set="picked"]'));
 	const dotaCaptains = nodecg.Replicant('dotaCaptains');
 	const players = nodecg.Replicant('df_players');
-	const draftType = nodecg.Replicant('draftType');;
+	const draftType = nodecg.Replicant('draftType');
 
 	draftType.on('change', newVal => {
 		document.querySelector('#draft-type').innerHTML = newVal;
-
-	})
+	});
 	players.on('change', newVal => {
 		// Remove all options from all <select> elements
 		selects.forEach(element => {
@@ -152,7 +151,6 @@
 				bans: []
 			}
 		};
-
 	});
 	document.querySelector('[command="noban-draft"]').addEventListener('click', () => {
 		draftType.value = 'noban';

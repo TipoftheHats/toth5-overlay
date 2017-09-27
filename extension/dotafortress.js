@@ -74,9 +74,8 @@ module.exports = function (nodecg) {
 	// To change the draft order, edit the `default` property in `schemas/draft.json`.
 	// Because we set `persistent: false`, the default value from the schema will be applied on every start.
 	nodecg.Replicant('draft', {persistent: false});
-
 	// These two get everything they need from their schemas.
 	nodecg.Replicant('draftState');
 	nodecg.Replicant('dotaCaptains');
-	nodecg.Replicant('draftType', {defaultValue: 'default', persistent: false	});
+	nodecg.Replicant('draftType', {defaultValue: 'default', persistent: false});
 };
