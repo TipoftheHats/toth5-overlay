@@ -3,7 +3,7 @@
 
 module.exports = function (nodecg) {
 	if (!nodecg.bundleConfig || typeof nodecg.bundleConfig.twitter === 'undefined') {
-		nodecg.log.error('"twitter" is not defined in cfg/toth3-overlay.json! ' +
+		nodecg.log.error(`"twitter" is not defined in cfg/${nodecg.bundleName}.json! ` +
 			'This object contains other properties that are required for the Twitter graphic to function.');
 		return;
 	}
